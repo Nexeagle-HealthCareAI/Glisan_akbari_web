@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MapPin, Calendar, Mail, MessageCircle, ShieldCheck, ArrowRight, HeartPulse } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, MEDICAL_DISCLAIMER } from '../data/config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, MEDICAL_DISCLAIMER, BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from './PlaceholderSlot';
 
@@ -39,13 +39,13 @@ export const Footer: React.FC<FooterProps> = () => {
               <Phone className="h-4 w-4 text-teal-400" />
               <span>Call {HOSPITAL_PROFILE.phone}</span>
             </a>
-            <Link
-              to="/book-appointment"
+            <a
+              href={BOOKING_URL}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-500 px-6 py-3.5 text-sm font-bold text-[#0B1B3D] hover:bg-teal-400 transition-colors w-full sm:w-auto shadow-[0_0_15px_rgba(13,148,136,0.3)]"
             >
               <Calendar className="h-4 w-4" />
               <span>Book Appointment</span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>

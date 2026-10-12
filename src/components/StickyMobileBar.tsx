@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MessageCircle, Calendar } from 'lucide-react';
-import { HOSPITAL_PROFILE } from '../data/config';
+import { HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 
 interface StickyMobileBarProps {
   onOpenBooking?: () => void;
@@ -41,9 +41,9 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
           <span className="text-[11px] font-semibold whitespace-nowrap">WhatsApp</span>
         </button>
 
-        {/* Primary Conversion: Book Appointment (Real link to /book-appointment) */}
-        <Link
-          to="/book-appointment"
+        {/* Primary Conversion: Book Appointment (Redirect to external booking portal) */}
+        <a
+          href={BOOKING_URL}
           className="flex flex-[1.6] items-center justify-center gap-1.5 rounded-xl bg-teal-800 py-2.5 px-2 text-white shadow-xs transition-colors active:bg-teal-900 min-h-[44px]"
           aria-label="Book an appointment"
         >
@@ -52,7 +52,7 @@ export const StickyMobileBar: React.FC<StickyMobileBarProps> = ({
             <span className="inline min-[360px]:hidden">Book</span>
             <span className="hidden min-[360px]:inline">Book Appointment</span>
           </span>
-        </Link>
+        </a>
       </div>
     </nav>
   );

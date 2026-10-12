@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Phone, AlertTriangle, ChevronRight, Activity, Stethoscope, Clock } from 'lucide-react';
-import { PATIENT_CONDITIONS, DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { PATIENT_CONDITIONS, DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
@@ -127,9 +127,9 @@ export const ConditionsPage: React.FC<ConditionsPageProps> = ({
                  <p className="text-slate-300 text-sm leading-relaxed mb-6">
                    Every individual case requires careful diagnostic review. Schedule an appointment at {HOSPITAL_NAME} for comprehensive care.
                  </p>
-                 <Link to="/book-appointment" className="w-full inline-block rounded-xl bg-teal-500 py-3.5 text-sm font-bold text-[#0B1B3D] hover:bg-teal-400 transition-colors shadow-md">
+                 <a href={BOOKING_URL} className="w-full inline-block rounded-xl bg-teal-500 py-3.5 text-sm font-bold text-[#0B1B3D] hover:bg-teal-400 transition-colors shadow-md text-center">
                    Book Consultation
-                 </Link>
+                 </a>
               </div>
             </motion.div>
 
@@ -208,9 +208,9 @@ export const ConditionsPage: React.FC<ConditionsPageProps> = ({
                        <p className="text-xs font-semibold text-slate-500 flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> OPD consultations at {HOSPITAL_PROFILE.name}</p>
                      </div>
                      <div className="flex items-center gap-3 w-full sm:w-auto">
-                       <Link to="/book-appointment" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-6 py-3 text-xs font-bold text-white hover:bg-slate-800 transition-colors shadow-md">
+                       <a href={BOOKING_URL} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-6 py-3 text-xs font-bold text-white hover:bg-slate-800 transition-colors shadow-md">
                          <Calendar className="h-4 w-4" /> Book Appointment
-                       </Link>
+                       </a>
                        <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="hidden sm:inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-3 text-xs font-bold text-slate-700 hover:bg-slate-50 transition-colors">
                          <Phone className="h-4 w-4 text-teal-600" /> Call Desk
                        </a>

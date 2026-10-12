@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Phone, Calendar, Menu, X, ChevronRight, Activity, MapPin } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 
 interface HeaderProps {
@@ -105,13 +105,13 @@ export const Header: React.FC<HeaderProps> = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 ml-auto">
-            <Link
-              to="/book-appointment"
+            <a
+              href={BOOKING_URL}
               className="hidden sm:inline-flex items-center gap-1.5 sm:gap-2 rounded-xl bg-[#0B1B3D] px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-white shadow-lg shadow-slate-900/10 hover:bg-teal-600 hover:-translate-y-0.5 transition-all duration-300 shrink-0 whitespace-nowrap"
             >
               <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-teal-400 shrink-0" />
               <span>Book Appointment</span>
-            </Link>
+            </a>
 
             <button
               type="button"
@@ -132,9 +132,9 @@ export const Header: React.FC<HeaderProps> = () => {
                  <span className="text-sm font-bold block">{HOSPITAL_NAME}</span>
                  <p className="text-xs text-slate-300">{HOSPITAL_SHORT_ADDRESS}, Bihar</p>
                  <div className="flex gap-2 pt-2">
-                    <Link to="/book-appointment" onClick={() => setMobileMenuOpen(false)} className="flex-1 rounded-xl bg-teal-500 py-2.5 px-3 text-xs font-bold text-[#0B1B3D] text-center shadow-md">
+                    <a href={BOOKING_URL} onClick={() => setMobileMenuOpen(false)} className="flex-1 rounded-xl bg-teal-500 py-2.5 px-3 text-xs font-bold text-[#0B1B3D] text-center shadow-md">
                       Book Visit
-                    </Link>
+                    </a>
                     <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="flex-1 rounded-xl border border-white/20 bg-white/10 py-2.5 px-3 text-xs font-bold text-center">
                       Call Desk
                     </a>

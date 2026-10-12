@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Calendar, Phone, ShieldCheck, Building2, Clock, Award, Globe, FileText, MapPin } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { Calendar, Phone, ShieldCheck, Building2, Clock, Award, Globe, FileText, MapPin, Star, CheckCircle2 } from 'lucide-react';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL, DR_NOORI_BOOKING_URL } from '../data/config';
 import { DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 import { MediaPlaceholder } from '../components/MediaPlaceholder';
@@ -41,13 +41,37 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
               <span className="text-white">{DOCTOR_NAME}</span>
             </motion.div>
             
-            <motion.h1 variants={fadeIn} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-heading">
-              {DOCTOR_PROFILE.name}
-            </motion.h1>
-            
-            <motion.div variants={fadeIn} className="text-lg text-teal-400 font-medium pt-2">
-              <PlaceholderSlot text={DOCTOR_PROFILE.primaryProfessionalIdentity} variant="inline" />
+            <motion.div variants={fadeIn} className="flex flex-wrap items-center justify-center sm:justify-start gap-3">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-heading">
+                {DOCTOR_PROFILE.name}
+              </h1>
+              {DOCTOR_PROFILE.isVerified && (
+                <span className="inline-flex items-center gap-1.5 bg-teal-500/20 border border-teal-500/40 text-teal-300 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                  <CheckCircle2 className="w-4 h-4 text-teal-400" />
+                  Verified Profile
+                </span>
+              )}
             </motion.div>
+            
+            <motion.div variants={fadeIn} className="text-lg text-teal-400 font-medium pt-1">
+              {DOCTOR_PROFILE.primaryProfessionalIdentity}
+            </motion.div>
+
+            <motion.p variants={fadeIn} className="text-sm text-slate-300 font-medium">
+              {DOCTOR_PROFILE.qualifications} · {DOCTOR_PROFILE.yearsOfExperience}
+            </motion.p>
+
+            {DOCTOR_PROFILE.rating && (
+              <motion.div variants={fadeIn} className="flex items-center justify-center sm:justify-start gap-2 pt-2">
+                <div className="flex items-center gap-1 text-amber-400">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span className="text-sm font-bold text-white">{DOCTOR_PROFILE.rating}</span>
+                <span className="text-xs text-slate-300">({DOCTOR_PROFILE.reviewCount} verified patient reviews)</span>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>
@@ -73,13 +97,15 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
                   <div className="flex items-center gap-2 text-slate-500 font-bold"><Building2 className="w-4 h-4 text-teal-600" /> Hospital</div>
                   <span className="font-bold text-[#0B1B3D] text-right">{HOSPITAL_PROFILE.name}</span>
                 </div>
-                <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-                  <div className="flex items-center gap-2 text-slate-500 font-bold"><MapPin className="w-4 h-4 text-teal-600" /> Location</div>
-                  <span className="font-bold text-[#0B1B3D] text-right">{HOSPITAL_SHORT_ADDRESS}, Bihar</span>
+                <div className="flex items-start justify-between pb-3 border-b border-slate-200 gap-2">
+                  <div className="flex items-center gap-2 text-slate-500 font-bold shrink-0"><MapPin className="w-4 h-4 text-teal-600" /> Practices At</div>
+                  <span className="font-bold text-[#0B1B3D] text-right text-xs leading-relaxed">
+                    {DOCTOR_PROFILE.practicesAtAddress || `${HOSPITAL_PROFILE.address.line2}, ${HOSPITAL_SHORT_ADDRESS}`}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-slate-500 font-bold">Relationship</span>
-                  <div className="text-right text-[#0B1B3D] font-semibold"><PlaceholderSlot text={DOCTOR_PROFILE.hospitalRelationship} variant="inline" /></div>
+                  <span className="text-slate-500 font-bold">Specialty</span>
+                  <div className="text-right text-[#0B1B3D] font-semibold">{DOCTOR_PROFILE.specialtyLabel}</div>
                 </div>
               </div>
             </motion.div>
@@ -89,27 +115,44 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
               
               <motion.div variants={fadeIn} className="space-y-4">
                 <h2 className="text-2xl sm:text-3xl font-bold text-[#0B1B3D] font-heading flex items-center gap-3">
-                  <span className="w-8 h-1 bg-teal-500 rounded-full inline-block"></span> Clinical Focus & Introduction
+                  <span className="w-8 h-1 bg-teal-500 rounded-full inline-block"></span> About Dr. Md Taquedis Noori
                 </h2>
                 <div className="space-y-4 text-base text-slate-600 leading-relaxed font-medium">
-                  <p>
-                    {DOCTOR_NAME} is dedicated to providing thorough, patient-first urology consultation and medical management in {HOSPITAL_CITY}, Bihar. His clinical approach emphasizes accurate diagnostic evaluation, transparent patient counselling, and individualized care plans.
+                  <p className="bg-teal-50/60 border border-teal-100 rounded-2xl p-5 text-slate-800 leading-relaxed">
+                    {DOCTOR_PROFILE.biography}
                   </p>
-                  <PlaceholderSlot text={DOCTOR_PROFILE.doctorIntroduction} variant="block" />
-                  <PlaceholderSlot text={DOCTOR_PROFILE.biography} variant="block" />
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeIn} className="space-y-6 pt-8 border-t border-slate-100">
+              {/* Focus Areas Section */}
+              {DOCTOR_PROFILE.focusAreas && DOCTOR_PROFILE.focusAreas.length > 0 && (
+                <motion.div variants={fadeIn} className="space-y-3 pt-4">
+                  <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                    Clinical Focus Areas
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {DOCTOR_PROFILE.focusAreas.map((area, idx) => (
+                      <span
+                        key={idx}
+                        className="bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold px-3.5 py-1.5 rounded-xl shadow-xs"
+                      >
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              <motion.div variants={fadeIn} className="space-y-6 pt-6 border-t border-slate-100">
                 <h3 className="text-sm font-bold uppercase tracking-wider text-teal-600 bg-teal-50 px-4 py-2 inline-block rounded-full">
                   Verified Clinical Credentials
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                   {[
                     { icon: ShieldCheck, label: "Qualifications", val: DOCTOR_PROFILE.qualifications, color: "text-teal-600", bg: "bg-teal-50" },
-                    { icon: FileText, label: "Medical Registration", val: DOCTOR_PROFILE.medicalRegistration, color: "text-blue-600", bg: "bg-blue-50" },
+                    { icon: FileText, label: "Medical Verification", val: DOCTOR_PROFILE.medicalRegistration, color: "text-blue-600", bg: "bg-blue-50" },
                     { icon: Clock, label: "Clinical Experience", val: DOCTOR_PROFILE.yearsOfExperience, color: "text-amber-600", bg: "bg-amber-50" },
-                    { icon: Award, label: "Memberships & Fellowships", val: DOCTOR_PROFILE.memberships, color: "text-indigo-600", bg: "bg-indigo-50" }
+                    { icon: Award, label: "Focus Disciplines", val: DOCTOR_PROFILE.memberships, color: "text-indigo-600", bg: "bg-indigo-50" }
                   ].map((item, idx) => (
                     <div key={idx} className="rounded-2xl border border-slate-100 bg-slate-50 p-5 flex items-start gap-4 hover:bg-white hover:shadow-lg transition-all group">
                       <div className={`${item.bg} p-2 rounded-xl group-hover:scale-110 transition-transform`}>
@@ -117,7 +160,7 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
                       </div>
                       <div>
                         <span className="font-bold text-slate-900 block mb-1">{item.label}</span>
-                        <div className="text-slate-500 text-sm"><PlaceholderSlot text={item.val} variant="inline" /></div>
+                        <div className="text-slate-600 text-sm font-medium">{item.val}</div>
                       </div>
                     </div>
                   ))}
@@ -128,7 +171,13 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
                     </div>
                     <div>
                       <span className="font-bold text-slate-900 block mb-1">Consultation Languages</span>
-                      <div className="text-slate-500 text-sm"><PlaceholderSlot text={DOCTOR_PROFILE.languages} variant="inline" /></div>
+                      <div className="flex flex-wrap gap-2 mt-1">
+                        {DOCTOR_PROFILE.languages.split(',').map((lang, idx) => (
+                          <span key={idx} className="bg-white border border-slate-200 text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-lg">
+                            {lang.trim()}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -141,14 +190,14 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
                      <Clock className="h-4 w-4" />
                      <span>OPD Consultation Schedule</span>
                    </div>
-                   <div className="font-semibold text-white"><PlaceholderSlot text={HOSPITAL_PROFILE.consultationTimings} variant="inline" /></div>
+                   <div className="font-semibold text-white">{HOSPITAL_PROFILE.consultationTimings}</div>
                  </div>
                  
                  <div className="flex flex-col gap-3 w-full sm:w-auto relative z-10">
-                   <Link to="/book-appointment" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 px-6 py-3.5 text-sm font-bold text-[#0B1B3D] transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)] hover:scale-105">
+                   <a href={DR_NOORI_BOOKING_URL} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 px-6 py-3.5 text-sm font-bold text-[#0B1B3D] transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)] hover:scale-105">
                      <Calendar className="h-4 w-4" />
-                     Request Consultation
-                   </Link>
+                     Book on DoctorDekho
+                   </a>
                    <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md px-6 py-3.5 text-sm font-semibold hover:bg-white/10 transition-all text-white">
                      <Phone className="h-4 w-4 text-teal-400" />
                      {HOSPITAL_PROFILE.phone}
@@ -163,3 +212,4 @@ export const DoctorProfilePage: React.FC<DoctorProfilePageProps> = () => {
     </div>
   );
 };
+

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, Search, Calendar, Phone } from 'lucide-react';
-import { FAQS, HOSPITAL_PROFILE } from '../data/config';
+import { FAQS, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
@@ -155,10 +155,10 @@ export const FaqPage: React.FC = () => {
                 <Phone className="h-5 w-5 text-teal-400" />
                 <span>Call {HOSPITAL_PROFILE.phone}</span>
               </a>
-              <Link to="/book-appointment" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 hover:bg-teal-400 px-6 py-4 text-sm font-bold text-[#0B1B3D] transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)]">
+              <a href={BOOKING_URL} className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 hover:bg-teal-400 px-6 py-4 text-sm font-bold text-[#0B1B3D] transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)]">
                 <Calendar className="h-5 w-5" />
                 <span>Book Visit</span>
-              </Link>
+              </a>
             </div>
           </motion.div>
         </div>

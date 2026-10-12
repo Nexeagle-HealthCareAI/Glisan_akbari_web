@@ -1,134 +1,103 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Calendar, Phone, MessageCircle, MapPin, Clock, Building2, FileCheck } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { Calendar, Phone, MessageCircle, Building2, ExternalLink, ArrowRight, Loader2 } from 'lucide-react';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { HOSPITAL_SHORT_ADDRESS } from '../data/identity';
-import { AppointmentForm } from '../components/AppointmentForm';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
-interface BookAppointmentPageProps {
-  onNavigate?: (page: string) => void;
-}
-
-export const BookAppointmentPage: React.FC<BookAppointmentPageProps> = () => {
-  const fadeIn = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  } as any;
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
-  } as any;
+export const BookAppointmentPage: React.FC = () => {
+  useEffect(() => {
+    // Automatically redirect to the dedicated Doctor Dekho booking system
+    if (typeof window !== 'undefined') {
+      window.location.href = BOOKING_URL;
+    }
+  }, []);
 
   return (
     <div className="bg-slate-50 min-h-screen text-left font-sans">
-      
-      {/* Premium Header */}
-      <section className="relative py-16 sm:py-24 bg-[#0B1B3D] text-white overflow-hidden">
+      {/* Header Banner */}
+      <section className="relative py-14 sm:py-20 bg-[#0B1B3D] text-white overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute bottom-[-20%] left-[-10%] w-[40%] h-[100%] bg-teal-400 blur-[150px] opacity-20 rounded-full" />
         </div>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div initial="hidden" animate="visible" variants={staggerContainer} className="space-y-4 max-w-3xl">
-            <motion.div variants={fadeIn} className="flex items-center gap-2 text-sm text-teal-300 font-semibold tracking-wider uppercase">
+          <div className="space-y-3 max-w-3xl">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-teal-300 font-semibold tracking-wider uppercase">
               <Link to="/" className="hover:text-white transition-colors">Home</Link>
               <span>/</span>
               <span className="text-white">Book an Appointment</span>
-            </motion.div>
+            </div>
             
-            <motion.h1 variants={fadeIn} className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight font-heading">
-              Request a <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">Consultation</span>
-            </motion.h1>
+            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight font-heading">
+              Redirecting to <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-300">Appointment Portal</span>
+            </h1>
             
-            <motion.p variants={fadeIn} className="text-lg text-slate-300 leading-relaxed font-light pt-2">
-              Schedule your consultation with <strong className="text-white font-medium">{DOCTOR_PROFILE.name}</strong> at {HOSPITAL_PROFILE.name}, {HOSPITAL_SHORT_ADDRESS}.
-            </motion.p>
-          </motion.div>
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+              Appointment scheduling for <strong className="text-white font-medium">{DOCTOR_PROFILE.name}</strong> is managed online via Doctor Dekho.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="py-12 sm:py-24 relative">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-            
-            {/* Left Column: Form */}
-            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="lg:col-span-7">
-              <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-10 shadow-xl relative overflow-hidden">
-                <AppointmentForm />
-              </div>
-            </motion.div>
+      {/* Main Redirection Box */}
+      <section className="py-12 sm:py-16 relative">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 shadow-xl text-center space-y-6"
+          >
+            <div className="mx-auto w-16 h-16 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center border border-teal-100 shadow-inner">
+              <Loader2 className="w-8 h-8 animate-spin" />
+            </div>
 
-            {/* Right Column: Contact & Checklist */}
-            <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="lg:col-span-5 space-y-6">
-              
-              <div className="rounded-3xl border border-teal-100 bg-teal-50/50 p-6 sm:p-8 shadow-sm space-y-6">
-                <div className="flex items-center gap-3 text-[#0B1B3D]">
-                  <Phone className="h-6 w-6 text-teal-600" />
-                  <h3 className="text-xl font-bold font-heading">Direct Telephone Booking</h3>
-                </div>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  If you prefer to book immediately over the telephone or have an urgent query, you can reach the reception directly:
-                </p>
+            <div className="space-y-2 max-w-md mx-auto">
+              <h2 className="text-2xl font-bold text-[#0B1B3D] font-heading">
+                Opening Appointment Booking
+              </h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
+                You are being redirected to our official booking portal at{' '}
+                <span className="font-semibold text-teal-700">doctordekho.nexeagle.com</span>.
+              </p>
+            </div>
 
-                <div className="space-y-3">
-                  <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="flex items-center justify-between rounded-2xl bg-white border border-teal-100 p-4 hover:border-teal-300 hover:shadow-md transition-all group">
-                    <span className="font-semibold text-slate-600 group-hover:text-teal-700">Hospital Desk</span>
-                    <span className="font-bold text-teal-700">{HOSPITAL_PROFILE.phone}</span>
-                  </a>
-                  <div className="flex items-center justify-between rounded-2xl bg-white border border-slate-100 p-4">
-                    <span className="font-semibold text-slate-600 flex items-center gap-2"><Calendar className="w-4 h-4 text-blue-500" /> Appt Line</span>
-                    <span className="text-sm text-slate-800 font-medium"><PlaceholderSlot text={HOSPITAL_PROFILE.officialAppointmentPhone} variant="inline" /></span>
-                  </div>
-                  <div className="flex items-center justify-between rounded-2xl bg-white border border-slate-100 p-4">
-                    <span className="font-semibold text-slate-600 flex items-center gap-2"><MessageCircle className="w-4 h-4 text-emerald-500" /> WhatsApp</span>
-                    <span className="text-sm text-slate-800 font-medium"><PlaceholderSlot text={HOSPITAL_PROFILE.whatsappNumber} variant="inline" /></span>
-                  </div>
-                </div>
-              </div>
+            <div className="pt-2">
+              <a
+                href={BOOKING_URL}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 hover:bg-teal-400 px-8 py-4 text-base font-bold text-[#0B1B3D] transition-all shadow-[0_0_20px_rgba(13,148,136,0.3)] hover:scale-105"
+              >
+                <span>Continue to Booking Portal</span>
+                <ExternalLink className="w-5 h-5" />
+              </a>
+            </div>
 
-              <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8 shadow-sm space-y-5">
-                <div className="flex items-center gap-3 font-bold text-[#0B1B3D] text-lg">
-                  <Building2 className="h-5 w-5 text-teal-600" />
-                  <span>Consultation Location</span>
-                </div>
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                  <p className="font-bold text-slate-900">{HOSPITAL_PROFILE.name}</p>
-                  <address className="not-italic text-slate-600 text-sm mt-1">
-                    {HOSPITAL_PROFILE.address.line2}<br />
-                    {HOSPITAL_PROFILE.address.area}<br />
-                    {HOSPITAL_PROFILE.address.city}, {HOSPITAL_PROFILE.address.stateAndPin}
-                  </address>
-                </div>
-                
-                <div className="flex items-start gap-3 pt-2">
-                  <Clock className="w-5 h-5 text-amber-500 shrink-0" />
-                  <div>
-                    <p className="font-semibold text-slate-900 text-sm">OPD Timings</p>
-                    <p className="text-xs text-slate-600 mt-1"><PlaceholderSlot text={HOSPITAL_PROFILE.consultationTimings} variant="inline" /></p>
-                  </div>
-                </div>
+            <div className="pt-8 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+              <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">
+                  Need Immediate Help?
+                </span>
+                <a
+                  href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`}
+                  className="inline-flex items-center gap-2 font-bold text-teal-700 hover:text-teal-800 text-sm"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>Call {HOSPITAL_PROFILE.phone}</span>
+                </a>
               </div>
 
-              <div className="rounded-3xl border border-slate-100 bg-white p-6 sm:p-8 shadow-sm space-y-4">
-                <div className="flex items-center gap-3 font-bold text-[#0B1B3D] text-lg">
-                  <FileCheck className="h-5 w-5 text-teal-600" />
-                  <span>What to Bring</span>
+              <div className="rounded-2xl bg-slate-50 border border-slate-100 p-4">
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-500 block mb-1">
+                  Location
+                </span>
+                <div className="text-xs font-medium text-slate-700 flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                  <span>{HOSPITAL_PROFILE.name}, {HOSPITAL_SHORT_ADDRESS}</span>
                 </div>
-                <ul className="space-y-3">
-                  {["Previous imaging reports (Ultrasound, CT, X-ray)", "Recent urine & blood test reports", "List of current medications", "Valid government ID"].map((item, idx) => (
-                     <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                       <div className="mt-1 w-1.5 h-1.5 rounded-full bg-teal-500 shrink-0"></div>
-                       {item}
-                     </li>
-                  ))}
-                </ul>
               </div>
-
-            </motion.div>
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

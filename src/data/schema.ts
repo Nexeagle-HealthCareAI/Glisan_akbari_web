@@ -1,5 +1,5 @@
 import { SITE_URL, getFullUrl } from './seo';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, FAQS } from './config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, FAQS, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from './config';
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 
 /**
@@ -145,7 +145,49 @@ export function generatePageSchema(path: string) {
     }
   }
 
-  // 4. BreadcrumbList for every page except home ('/')
+  // 4. Dedicated MedicalProcedure & FAQPage for individual service pages (/services/:slug)
+  let procedureEntity: any = undefined;
+  const currentService = normalizedPath.startsWith('/services/')
+    ? UROLOGY_SERVICES.find((s) => `/services/${s.slug}` === normalizedPath)
+    : undefined;
+
+  if (currentService) {
+    procedureEntity = cleanSchemaValue({
+      '@type': 'MedicalProcedure',
+      '@id': `${SITE_URL}${normalizedPath}#procedure`,
+      name: currentService.title,
+      procedureType: 'SurgicalProcedure',
+      description: currentService.description,
+      bodyLocation: 'Urinary System',
+      howPerformed: currentService.procedures?.map((p) => p.name).join(', '),
+      performer: {
+        '@type': 'Physician',
+        '@id': physicianId,
+        name: DOCTOR_PROFILE.name,
+      },
+      offers: {
+        '@type': 'Offer',
+        url: DR_NOORI_BOOKING_URL,
+        availability: 'https://schema.org/InStock',
+      },
+    });
+
+    if (currentService.faqs && currentService.faqs.length > 0) {
+      faqEntity = cleanSchemaValue({
+        '@type': 'FAQPage',
+        mainEntity: currentService.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.answer,
+          },
+        })),
+      });
+    }
+  }
+
+  // 5. BreadcrumbList for every page except home ('/')
   let breadcrumbEntity: any = undefined;
   if (normalizedPath !== '/') {
     if (normalizedPath === '/doctors/dr-md-taquedis-noori') {
@@ -169,6 +211,30 @@ export function generatePageSchema(path: string) {
             position: 3,
             name: DOCTOR_NAME,
             item: `${SITE_URL}/doctors/dr-md-taquedis-noori`,
+          },
+        ],
+      });
+    } else if (currentService) {
+      breadcrumbEntity = cleanSchemaValue({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: SITE_URL,
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Urology Services',
+            item: `${SITE_URL}/services`,
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: currentService.title,
+            item: getFullUrl(normalizedPath),
           },
         ],
       });
@@ -197,6 +263,7 @@ export function generatePageSchema(path: string) {
   const graph = [
     physicianEntity,
     hospitalEntity,
+    ...(procedureEntity ? [procedureEntity] : []),
     ...(faqEntity ? [faqEntity] : []),
     ...(breadcrumbEntity ? [breadcrumbEntity] : []),
   ].filter(Boolean);

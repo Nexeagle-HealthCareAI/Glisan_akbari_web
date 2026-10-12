@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Building2, MapPin, Phone, Clock, Calendar, MessageCircle, Mail, CheckCircle2 } from 'lucide-react';
-import { HOSPITAL_PROFILE, DOCTOR_PROFILE } from '../data/config';
+import { HOSPITAL_PROFILE, DOCTOR_PROFILE, BOOKING_URL, DR_NOORI_BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 import { MediaPlaceholder } from '../components/MediaPlaceholder';
@@ -152,10 +152,10 @@ export const HospitalPage: React.FC<HospitalPageProps> = () => {
                   <div className="text-slate-200 text-sm"><PlaceholderSlot text={HOSPITAL_PROFILE.consultationTimings} variant="inline" /></div>
                 </div>
 
-                <Link to="/book-appointment" className="w-full flex items-center justify-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 py-4 text-sm font-bold text-[#0B1B3D] transition-colors">
+                <a href={DOCTOR_PROFILE.bookingUrl || DR_NOORI_BOOKING_URL || BOOKING_URL} className="w-full flex items-center justify-center gap-2 rounded-xl bg-teal-500 hover:bg-teal-400 py-4 text-sm font-bold text-[#0B1B3D] transition-colors">
                   <Calendar className="h-5 w-5" />
                   <span>Book Appointment with {DOCTOR_NAME}</span>
-                </Link>
+                </a>
               </div>
             </motion.div>
           </div>

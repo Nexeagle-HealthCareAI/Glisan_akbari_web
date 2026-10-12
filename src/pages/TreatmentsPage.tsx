@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Calendar, Phone, Activity, ShieldCheck, ArrowRight, Stethoscope } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES } from '../data/config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from '../data/config';
 import { HOSPITAL_NAME, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
@@ -59,9 +59,6 @@ export const TreatmentsPage: React.FC<TreatmentsPageProps> = () => {
               <p className="text-sm sm:text-base leading-relaxed text-slate-700 max-w-4xl">
                 No surgical or interventional procedure is recommended without personal clinical examination and verified diagnostic confirmation (ultrasound, blood work, or imaging). All treatments are discussed transparently with patients and families.
               </p>
-              <div className="inline-block mt-2 text-xs font-semibold bg-white px-3 py-1.5 rounded-lg border border-teal-100">
-                <PlaceholderSlot text="[PLACEHOLDER: INSERT VERIFIED PROCEDURES AND TREATMENT PROTOCOLS]" variant="inline" />
-              </div>
             </div>
           </motion.div>
 
@@ -80,11 +77,13 @@ export const TreatmentsPage: React.FC<TreatmentsPageProps> = () => {
                   
                   <div className="space-y-3">
                     <h3 className="text-xl font-bold text-[#0B1B3D] font-heading group-hover:text-teal-700 transition-colors">
-                      <PlaceholderSlot text={srv.title} variant="inline" />
+                      <Link to={`/services/${srv.slug}`}>
+                        {srv.title}
+                      </Link>
                     </h3>
-                    <div className="text-sm text-slate-500 leading-relaxed font-medium">
-                      <PlaceholderSlot text={srv.description} variant="inline" />
-                    </div>
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">
+                      {srv.description}
+                    </p>
                   </div>
 
                   <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 text-sm text-slate-600 space-y-1">
@@ -96,12 +95,12 @@ export const TreatmentsPage: React.FC<TreatmentsPageProps> = () => {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-slate-50 flex items-center justify-between relative z-10">
-                  <Link to="/book-appointment" className="inline-flex items-center gap-2 rounded-xl bg-teal-50 px-4 py-2 text-xs font-bold text-teal-700 hover:bg-teal-500 hover:text-white transition-colors">
-                    Consult for This <ArrowRight className="w-3.5 h-3.5" />
+                  <Link to={`/services/${srv.slug}`} className="inline-flex items-center gap-1.5 rounded-xl bg-teal-50 px-4 py-2 text-xs font-bold text-teal-700 hover:bg-teal-600 hover:text-white transition-colors">
+                    Explore Procedure <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
-                  <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-[#0B1B3D] transition-colors">
-                    <Phone className="h-3.5 w-3.5" />
-                    Call Desk
+                  <a href={DR_NOORI_BOOKING_URL} className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-teal-700 transition-colors">
+                    <Calendar className="h-3.5 w-3.5" />
+                    Book Doctor
                   </a>
                 </div>
               </motion.div>

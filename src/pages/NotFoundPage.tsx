@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home, Calendar, Phone, ArrowLeft, ShieldAlert } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { DOCTOR_NAME } from '../data/identity';
 
 export const NotFoundPage: React.FC = () => {
@@ -36,13 +36,13 @@ export const NotFoundPage: React.FC = () => {
             <span>Return to Home</span>
           </Link>
 
-          <Link
-            to="/book-appointment"
+          <a
+            href={BOOKING_URL}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-teal-800 bg-white px-5 py-3 text-sm font-semibold text-teal-900 hover:bg-teal-50 active:scale-98 transition-all"
           >
             <Calendar className="h-4 w-4" />
             <span>Book Appointment</span>
-          </Link>
+          </a>
         </div>
 
         {/* Additional helpful links */}

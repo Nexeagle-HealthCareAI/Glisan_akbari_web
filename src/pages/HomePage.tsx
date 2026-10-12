@@ -12,7 +12,7 @@ import {
   DOCTORS, UROLOGY_SERVICES, WHY_CHOOSE_REASONS,
   APPOINTMENT_STEPS, APPOINTMENT_PROCESS_PLACEHOLDER,
   TESTIMONIALS, GOOGLE_REVIEWS_URL_PLACEHOLDER,
-  FAQS
+  FAQS, BOOKING_URL, DR_NOORI_BOOKING_URL
 } from '../data/config';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { TrustStrip } from '../components/TrustStrip';
@@ -88,10 +88,10 @@ export const HomePage: React.FC<HomePageProps> = ({
               </motion.div>
 
               <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Link to="/book-appointment" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal-500 to-teal-400 text-[#0B1B3D] px-8 py-4 text-sm sm:text-base font-bold shadow-[0_0_20px_rgba(13,148,136,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(13,148,136,0.5)]">
+                <a href={BOOKING_URL} className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-teal-500 to-teal-400 text-[#0B1B3D] px-8 py-4 text-sm sm:text-base font-bold shadow-[0_0_20px_rgba(13,148,136,0.3)] transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(13,148,136,0.5)]">
                   <Calendar className="h-5 w-5" />
                   <span>Book Appointment</span>
-                </Link>
+                </a>
                 <a href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`} className="inline-flex items-center justify-center gap-2 rounded-2xl border border-white/20 bg-white/5 backdrop-blur-md px-8 py-4 text-sm sm:text-base font-semibold text-white hover:bg-white/10 transition-all hover:scale-105">
                   <Phone className="h-5 w-5 text-teal-400" />
                   <span>{HOSPITAL_PROFILE.phone}</span>
@@ -176,12 +176,13 @@ export const HomePage: React.FC<HomePageProps> = ({
               className="lg:col-span-7 space-y-6"
             >
               <div className="space-y-4">
-                <motion.div variants={fadeIn} className="flex items-center gap-2">
-                  <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700 tracking-wide uppercase border border-teal-100">
-                    Lead Consultant
+                <motion.div variants={fadeIn} className="flex flex-wrap items-center gap-2">
+                  <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold text-teal-700 tracking-wide uppercase border border-teal-100 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-600" />
+                    Verified Profile
                   </span>
                   <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                    Urology
+                    Urology & Kidney Transplant
                   </span>
                 </motion.div>
                 
@@ -192,16 +193,40 @@ export const HomePage: React.FC<HomePageProps> = ({
                 <motion.div variants={fadeIn} className="text-lg font-medium text-teal-700">
                   <PlaceholderSlot text={DOCTOR_PROFILE.primaryProfessionalIdentity} variant="inline" />
                 </motion.div>
+
+                {DOCTOR_PROFILE.rating && (
+                  <motion.div variants={fadeIn} className="flex items-center gap-2 pt-1">
+                    <div className="flex items-center gap-1 text-amber-500">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                    <span className="text-sm font-bold text-slate-900">{DOCTOR_PROFILE.rating}</span>
+                    <span className="text-xs text-slate-500">({DOCTOR_PROFILE.reviewCount} verified patient reviews on DoctorDekho)</span>
+                  </motion.div>
+                )}
               </div>
 
               <motion.div variants={fadeIn} className="space-y-4 text-slate-600 text-base leading-relaxed">
-                <p>
-                  {DOCTOR_NAME} provides comprehensive urological consultations at {HOSPITAL_NAME}, Dharamshala Road, {HOSPITAL_SHORT_ADDRESS}. Dedicated to clinical accuracy, modern diagnostic workup, and evidence-based patient management.
+                <p className="bg-teal-50/50 border border-teal-100/80 rounded-2xl p-4 text-slate-700 leading-relaxed">
+                  {DOCTOR_PROFILE.biography}
                 </p>
-                <PlaceholderSlot text={DOCTOR_PROFILE.doctorIntroduction} variant="block" />
               </motion.div>
 
-              <motion.div variants={fadeIn} className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
+              {DOCTOR_PROFILE.focusAreas && DOCTOR_PROFILE.focusAreas.length > 0 && (
+                <motion.div variants={fadeIn} className="space-y-2">
+                  <p className="text-xs font-bold uppercase tracking-wider text-slate-400">Clinical Focus Areas</p>
+                  <div className="flex flex-wrap gap-2">
+                    {DOCTOR_PROFILE.focusAreas.map((area, idx) => (
+                      <span key={idx} className="bg-teal-50 border border-teal-200 text-teal-800 text-xs font-bold px-3 py-1 rounded-full">
+                        {area}
+                      </span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              <motion.div variants={fadeIn} className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                 {[
                   { label: "Qualifications", val: DOCTOR_PROFILE.qualifications, icon: Award },
                   { label: "Experience", val: DOCTOR_PROFILE.yearsOfExperience, icon: Activity },
@@ -221,9 +246,16 @@ export const HomePage: React.FC<HomePageProps> = ({
               </motion.div>
 
               <motion.div variants={fadeIn} className="pt-6 flex flex-col sm:flex-row gap-4">
-                <Link to="/doctors/dr-md-taquedis-noori" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-[#0B1B3D] px-8 py-3.5 text-sm font-bold text-white hover:bg-slate-800 transition-all hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                <a 
+                  href={DR_NOORI_BOOKING_URL} 
+                  className="inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-600 px-8 py-3.5 text-sm font-bold text-white hover:bg-teal-700 transition-all hover:-translate-y-1 shadow-lg hover:shadow-xl"
+                >
+                  <Calendar className="h-4 w-4" />
+                  <span>Book on DoctorDekho</span>
+                </a>
+                <Link to="/doctors/dr-md-taquedis-noori" className="inline-flex items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-white px-8 py-3.5 text-sm font-bold text-[#0B1B3D] hover:bg-slate-50 transition-all hover:-translate-y-1 shadow-sm">
                   <span>View Full Profile</span>
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-4 w-4 text-slate-400" />
                 </Link>
               </motion.div>
             </motion.div>
@@ -262,20 +294,22 @@ export const HomePage: React.FC<HomePageProps> = ({
                   
                   <div className="space-y-3">
                     <div className="text-xs font-bold uppercase tracking-wider text-teal-600 group-hover:text-teal-400 transition-colors">
-                      <PlaceholderSlot text={service.category} variant="inline" />
+                      {service.category}
                     </div>
                     <h3 className="text-xl font-bold text-slate-900 group-hover:text-white transition-colors">
-                      <PlaceholderSlot text={service.title} variant="inline" />
+                      <Link to={`/services/${service.slug}`}>
+                        {service.title}
+                      </Link>
                     </h3>
                     <div className="text-sm text-slate-500 group-hover:text-slate-300 leading-relaxed transition-colors">
-                      <PlaceholderSlot text={service.description} variant="inline" />
+                      {service.description}
                     </div>
                   </div>
                 </div>
 
                 <div className="relative z-10 mt-8 pt-6 border-t border-slate-100 group-hover:border-white/10 flex items-center justify-between transition-colors">
-                  <Link to="/services" className="inline-flex items-center gap-2 text-sm font-bold text-teal-600 group-hover:text-teal-300 transition-colors">
-                    <span>Learn More</span>
+                  <Link to={`/services/${service.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-teal-600 group-hover:text-teal-300 transition-colors">
+                    <span>Explore Procedure</span>
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </div>
@@ -332,9 +366,9 @@ export const HomePage: React.FC<HomePageProps> = ({
                              <MapPin className="w-3.5 h-3.5" /> {HOSPITAL_CITY}, Bihar
                            </p>
                         </div>
-                        <Link to="/book-appointment" className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-teal-500 text-[#0B1B3D] flex items-center justify-center hover:bg-teal-400 transition-all hover:scale-110 shadow-lg">
+                        <a href={BOOKING_URL} aria-label="Book Appointment" className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-teal-500 text-[#0B1B3D] flex items-center justify-center hover:bg-teal-400 transition-all hover:scale-110 shadow-lg">
                            <ArrowRight className="w-6 h-6" />
-                        </Link>
+                        </a>
                      </div>
                    </div>
                 </div>

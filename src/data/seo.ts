@@ -1,11 +1,7 @@
-import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from './identity';
+import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
+import { UROLOGY_SERVICES } from './config';
 
-/**
- * SITE DOMAIN (one place only)
- * Temporary value; replace this when deploying to the production custom domain.
- * Note: Never include a trailing slash or hash.
- */
-export const SITE_URL = 'https://example-domain.com';
+export { SITE_URL };
 
 /**
  * Set to true only at launch, after all placeholders are replaced.
@@ -143,14 +139,29 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
 };
 
+// Dynamically generate SEO metadata for each dedicated urological procedure page
+UROLOGY_SERVICES.forEach((srv) => {
+  const servicePath = `/services/${srv.slug}`;
+  ROUTES_SEO[servicePath] = {
+    path: servicePath,
+    title: srv.seoTitle || `${srv.title} in ${HOSPITAL_CITY} | ${DOCTOR_NAME}`,
+    description:
+      srv.seoDescription ||
+      `${srv.title} by senior urologist ${DOCTOR_NAME} at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}. High clearance rates and fast recovery.`,
+    canonical: getFullUrl(servicePath),
+    url: getFullUrl(servicePath),
+  };
+});
+
 /**
- * Exactly the 12 public pages for sitemap.xml (excluding /404 and parameters)
+ * Public pages for sitemap.xml (including all dedicated procedure pages, excluding /404)
  */
 export const SITEMAP_ROUTES = [
   '/',
   '/doctors',
   '/doctors/dr-md-taquedis-noori',
   '/services',
+  ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
   '/conditions',
   '/treatments',
   '/hospital',

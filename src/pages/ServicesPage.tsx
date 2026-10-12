@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { Calendar, Phone, Info, Activity, ArrowRight, Stethoscope } from 'lucide-react';
-import { UROLOGY_SERVICES, DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { Calendar, Phone, Info, Activity, ArrowRight, Stethoscope, ShieldCheck } from 'lucide-react';
+import { UROLOGY_SERVICES, DOCTOR_PROFILE, HOSPITAL_PROFILE, DR_NOORI_BOOKING_URL } from '../data/config';
 import { HOSPITAL_SHORT_ADDRESS } from '../data/identity';
-import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
 interface ServicesPageProps {
   onOpenBooking?: () => void;
@@ -56,16 +55,15 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
       <section className="py-12 sm:py-20 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
           
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl border border-teal-100 bg-teal-50/50 p-5 sm:p-6 text-sm text-slate-700 flex items-start gap-4 shadow-sm backdrop-blur-sm">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="rounded-2xl border border-teal-100 bg-teal-50/60 p-5 sm:p-6 text-sm text-slate-700 flex items-start gap-4 shadow-sm backdrop-blur-sm">
             <div className="bg-teal-100 p-2 rounded-full text-teal-700 mt-0.5">
-               <Info className="h-5 w-5 shrink-0" />
+               <ShieldCheck className="h-5 w-5 shrink-0" />
             </div>
-            <div className="space-y-2">
-              <span className="font-bold text-[#0B1B3D] text-base block">Verified Service Taxonomy</span>
-              <p className="leading-relaxed">In strict accordance with medical accuracy guidelines, only confirmed clinical services approved by {DOCTOR_PROFILE.name} are represented below.</p>
-              <div className="inline-block mt-1 bg-white px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-medium">
-                <PlaceholderSlot text="[PLACEHOLDER: INSERT VERIFIED SERVICE CATEGORY]" variant="inline" />
-              </div>
+            <div className="space-y-1.5">
+              <span className="font-bold text-[#0B1B3D] text-base block">Verified Clinical Urology Services</span>
+              <p className="leading-relaxed">
+                Comprehensive range of 13 modern urological, endourological, and reconstructive procedures performed by senior urologist {DOCTOR_PROFILE.name} at {HOSPITAL_PROFILE.name}. Select any service to explore detailed surgical techniques, indications, and patient guidance.
+              </p>
             </div>
           </motion.div>
 
@@ -87,46 +85,58 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
                     <div className="w-12 h-12 rounded-2xl bg-teal-50 shadow-sm flex items-center justify-center text-teal-600 group-hover:scale-110 group-hover:bg-teal-100 transition-all duration-500">
                       <Stethoscope className="w-6 h-6" />
                     </div>
-                    <span className="text-slate-300 font-mono text-[10px] sm:text-[11px] bg-slate-50 px-2 py-1 rounded-md font-bold">
+                    <span className="text-slate-400 font-mono text-[10px] sm:text-[11px] bg-slate-50 px-2 py-1 rounded-md font-bold">
                       SRV {String(idx + 1).padStart(2, '0')}
                     </span>
                   </div>
                   
                   <div className="space-y-3">
                     <div className="text-xs font-bold uppercase tracking-wider text-teal-600">
-                      <PlaceholderSlot text={srv.category} variant="inline" />
+                      {srv.category}
                     </div>
-                    <h2 className="text-xl font-bold text-[#0B1B3D]">
-                      <PlaceholderSlot text={srv.title} variant="inline" />
+                    <h2 className="text-xl font-bold text-[#0B1B3D] group-hover:text-teal-700 transition-colors">
+                      <Link to={`/services/${srv.slug}`}>
+                        {srv.title}
+                      </Link>
                     </h2>
-                    <div className="text-sm text-slate-500 leading-relaxed">
-                      <PlaceholderSlot text={srv.description} variant="inline" />
-                    </div>
+                    <p className="text-sm text-slate-500 leading-relaxed">
+                      {srv.description}
+                    </p>
                   </div>
 
                   <div className="rounded-xl bg-slate-50 p-4 text-xs text-slate-600 space-y-1.5 border border-slate-100">
                     <p className="font-bold text-[#0B1B3D] flex items-center gap-1.5">
                       <Activity className="w-3.5 h-3.5 text-teal-500" /> Patient Guidance
                     </p>
-                    <p className="leading-relaxed"><PlaceholderSlot text={srv.patientNotes} variant="inline" /></p>
+                    <p className="leading-relaxed">{srv.patientNotes}</p>
                   </div>
                 </div>
 
-                <div className="relative z-10 mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
-                  <Link
-                    to="/book-appointment"
-                    className="inline-flex items-center gap-2 rounded-xl bg-teal-50 px-4 py-2 text-xs font-bold text-teal-700 hover:bg-teal-500 hover:text-white transition-colors"
-                  >
-                    <Calendar className="h-4 w-4" />
-                    <span>Book for this</span>
-                  </Link>
+                <div className="relative z-10 mt-8 pt-6 border-t border-slate-100 flex flex-col gap-3">
+                  <div className="flex items-center justify-between">
+                    <Link
+                      to={`/services/${srv.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-800 transition-colors group/link"
+                    >
+                      <span>Explore Procedure</span>
+                      <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 transition-transform" />
+                    </Link>
+
+                    <a
+                      href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-[#0B1B3D] transition-colors"
+                    >
+                      <Phone className="h-3.5 w-3.5" />
+                      <span>Reception</span>
+                    </a>
+                  </div>
 
                   <a
-                    href={`tel:${HOSPITAL_PROFILE.phone.replace(/\s+/g, '')}`}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-[#0B1B3D] transition-colors"
+                    href={DR_NOORI_BOOKING_URL}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-teal-50 hover:bg-teal-600 hover:text-white px-4 py-2.5 text-xs font-bold text-teal-700 transition-all text-center"
                   >
-                    <Phone className="h-4 w-4" />
-                    <span>Reception</span>
+                    <Calendar className="h-4 w-4" />
+                    <span>Book Consultation with Dr. Noori</span>
                   </a>
                 </div>
               </motion.div>
@@ -137,3 +147,4 @@ export const ServicesPage: React.FC<ServicesPageProps> = ({
     </div>
   );
 };
+

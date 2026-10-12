@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { Star, ShieldCheck, Calendar, Quote } from 'lucide-react';
-import { TRUST_STRIP_DATA, TESTIMONIALS, GOOGLE_REVIEWS_URL_PLACEHOLDER, DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
+import { TRUST_STRIP_DATA, TESTIMONIALS, GOOGLE_REVIEWS_URL_PLACEHOLDER, DOCTOR_PROFILE, HOSPITAL_PROFILE, BOOKING_URL } from '../data/config';
 import { HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from '../components/PlaceholderSlot';
 
@@ -121,10 +121,10 @@ export const ReviewsPage: React.FC = () => {
               <h3 className="text-2xl font-bold text-white font-heading mb-2">Schedule Your Urology Consultation</h3>
               <p className="text-sm text-teal-300 font-medium">Consult with {DOCTOR_PROFILE.name} at {HOSPITAL_PROFILE.name}, {HOSPITAL_SHORT_ADDRESS}.</p>
             </div>
-            <Link to="/book-appointment" className="relative z-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 px-8 py-4 text-sm font-bold text-[#0B1B3D] hover:bg-teal-400 transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)] hover:scale-105">
+            <a href={BOOKING_URL} className="relative z-10 inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 px-8 py-4 text-sm font-bold text-[#0B1B3D] hover:bg-teal-400 transition-all shadow-[0_0_15px_rgba(13,148,136,0.3)] hover:scale-105">
               <Calendar className="h-5 w-5" />
               <span>Book Appointment</span>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </section>
