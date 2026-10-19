@@ -80,8 +80,13 @@ export const PageMeta: React.FC = () => {
     schemaScript.text = JSON.stringify(generatePageSchema(location.pathname));
 
     // Scroll to top on page change
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [location.pathname]);
+    const frame = requestAnimationFrame(() => {
+      const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      if (target) target.scrollIntoView({ behavior: 'instant' });
+      else window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [location.pathname, location.hash]);
 
   return null;
 };

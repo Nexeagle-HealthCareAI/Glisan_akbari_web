@@ -11,8 +11,8 @@ interface TermsPageProps {
 
 export const TermsPage: React.FC<TermsPageProps> = () => {
   return (
-    <div className="py-8 sm:py-16 bg-slate-50 min-h-screen text-left">
-      <div className="mx-auto max-w-4xl px-3 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
+    <div className="site-legal mm-wrap">
+      <div className="site-legal-inner space-y-6 sm:space-y-8">
         {/* Breadcrumb & Header */}
         <div className="space-y-2 sm:space-y-3 min-w-0">
           <div className="flex items-center gap-2 text-xs text-slate-500">
@@ -34,7 +34,7 @@ export const TermsPage: React.FC<TermsPageProps> = () => {
           </p>
         </div>
 
-        <div className="rounded-3xl border border-slate-200 bg-white p-4 sm:p-8 lg:p-10 shadow-sm space-y-6 text-sm text-slate-700 leading-relaxed min-w-0">
+        <div className="site-legal-paper space-y-6">
           <div className="rounded-xl border border-amber-200 bg-amber-50/80 p-4 text-xs text-amber-900">
             <p className="font-semibold mb-1">Legal Review Notice:</p>
             <p>

@@ -1,0 +1,2 @@
+# Existing prerendered pages take priority; unknown routes receive the 404 page.
+/* /404.html 404
