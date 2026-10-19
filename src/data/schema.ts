@@ -1,5 +1,6 @@
+import { PATIENT_FAQS } from './patientFaqs';
 import { SITE_URL, getFullUrl } from './seo';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, FAQS, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from './config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from './config';
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 
 /**
@@ -126,7 +127,7 @@ export function generatePageSchema(path: string) {
   // 3. Optional FAQPage on /faqs (built only from non-placeholder FAQ items)
   let faqEntity: any = undefined;
   if (normalizedPath === '/faqs') {
-    const validFaqs = FAQS.filter(
+    const validFaqs = PATIENT_FAQS.filter(
       (f) => !containsPlaceholder(f.question) && !containsPlaceholder(f.answer)
     ).map((f) => ({
       '@type': 'Question',
