@@ -29,7 +29,7 @@ npm run build
 npm run preview -- --host 127.0.0.1 --port 4173
 ```
 
-Open `http://127.0.0.1:4173`. The complete source is on `design/full-site-refresh`, based on upstream main `061da8e1c172fb763053668a7730b74722e80725`.
+Open `http://127.0.0.1:4173`. This redesign is prepared for `Nexeagle-HealthCareAI/Glisan_akbari_web` on `main`, based on its existing revision `061da8e1c172fb763053668a7730b74722e80725`.
 
 For a single-file preview, run `npm run preview:package` after the production build. Open `website-preview.html` in a browser. This embeds the artwork, logo and font; internal navigation and refreshing a selected page are supported. The standalone file is approximately 9.15 MB and is intended for review. The normal deployed build serves separate cached assets.
 
