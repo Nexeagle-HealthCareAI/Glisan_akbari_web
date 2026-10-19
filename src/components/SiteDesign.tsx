@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import {
   ArrowUpRight,
@@ -82,6 +82,7 @@ export function Brand() {
 }
 export function Header() {
   const [menu, setMenu] = useState(false);
+  const header = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
   const { paused, toggle } = useSiteMotion();
   useEffect(() => {
@@ -95,8 +96,15 @@ export function Header() {
         document.getElementById("site-menu-button")?.focus();
       }
     };
+    const closeOutside = (event: PointerEvent) => {
+      if (!header.current?.contains(event.target as Node)) setMenu(false);
+    };
     document.addEventListener("keydown", close);
-    return () => document.removeEventListener("keydown", close);
+    document.addEventListener("pointerdown", closeOutside);
+    return () => {
+      document.removeEventListener("keydown", close);
+      document.removeEventListener("pointerdown", closeOutside);
+    };
   }, [menu]);
   return (
     <>
@@ -112,7 +120,9 @@ export function Header() {
           <Phone size={12} /> {HOSPITAL_PROFILE.phone}
         </a>
       </div>
-      <header className="mm-header mm-wrap site-header">
+      <header ref={header} className="mm-header mm-wrap site-header" onBlur={(event) => {
+        if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget as Node)) setMenu(false);
+      }}>
         <Brand />
         <nav className="site-nav" aria-label="Main navigation">
           <NavLink to="/services">Explore care</NavLink>
@@ -148,7 +158,7 @@ export function Header() {
           <nav id="site-menu" className="site-menu" aria-label="All pages">
             <p className="mm-kicker">FIND YOUR WAY</p>
             {siteLinks.map(([to, label]) => (
-              <NavLink key={to} to={to} end={to === "/"}>
+              <NavLink key={to} to={to} end={to === "/"} onClick={() => setMenu(false)}>
                 {label}
                 <ArrowUpRight size={16} />
               </NavLink>

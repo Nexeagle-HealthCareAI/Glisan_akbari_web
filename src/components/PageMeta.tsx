@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSeoForPath, SITE_URL, ALLOW_INDEXING } from '../data/seo';
 import { generatePageSchema } from '../data/schema';
 
 export const PageMeta: React.FC = () => {
   const location = useLocation();
+  const previousPath = useRef(location.pathname);
 
   useEffect(() => {
     const seo = getSeoForPath(location.pathname);
@@ -80,10 +81,16 @@ export const PageMeta: React.FC = () => {
     schemaScript.text = JSON.stringify(generatePageSchema(location.pathname));
 
     // Scroll to top on page change
+    const pageChanged = previousPath.current !== location.pathname;
+    previousPath.current = location.pathname;
     const frame = requestAnimationFrame(() => {
-      const target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      let target: HTMLElement | null = null;
+      try {
+        target = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      } catch { /* Ignore malformed anchors without breaking the page. */ }
       if (target) target.scrollIntoView({ behavior: 'instant' });
       else window.scrollTo({ top: 0, behavior: 'instant' });
+      if (pageChanged) document.getElementById('main-content')?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
   }, [location.pathname, location.hash]);

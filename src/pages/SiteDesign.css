@@ -2251,3 +2251,73 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* Reading pages share the same cream-and-green system as the patient journey. */
+.site-legal-header { max-width: 780px; padding: 12px 0 42px; }
+.site-legal-header > .site-icon { margin-bottom: 25px; }
+.site-legal-header .mm-kicker { font-size: 10px; margin-bottom: 18px; }
+.site-legal-header .site-lead { max-width: 650px; font-size: 16px; }
+.site-legal-date { margin-top: 20px; font-size: 12px; color: var(--muted); }
+.site-legal-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 40px; align-items: start; }
+.site-legal-nav { position: sticky; top: 24px; }
+.site-legal-nav nav { padding: 24px; background: var(--mint); border: 1px solid var(--line); border-radius: 16px; }
+.site-legal-nav .mm-kicker { font-size: 10px; margin-bottom: 17px; }
+.site-legal-nav nav a { display: flex; align-items: center; gap: 11px; min-height: 54px; padding: 10px 0; border-top: 1px solid #cfddcf; font-size: 13px; line-height: 1.6; }
+.site-legal-nav nav a > span { font-size: 10px; color: var(--muted); }
+.site-legal-nav nav a > svg { flex-shrink: 0; margin-left: auto; }
+.site-legal-help { padding: 26px 10px; }
+.site-legal-help h2 { font-size: 23px; line-height: 1.25; }
+.site-legal-help p { margin: 16px 0; font-size: 14px; line-height: 1.8; color: var(--muted); }
+.site-legal-help .mm-text-link { font-size: 14px !important; }
+.site-legal-paper { padding: 36px; min-width: 0; font-size: 15px; }
+.site-legal-paper section { scroll-margin-top: 24px; padding-bottom: 28px; margin-bottom: 28px; border-bottom: 1px solid var(--line); }
+.site-legal-paper section > .site-small-label { display: block; margin-bottom: 10px; }
+.site-legal-paper h2 { font-size: 26px; }
+.site-legal-paper p + p { margin-top: 16px; }
+.site-legal-paper a:not(.mm-text-link) { text-decoration: underline; text-underline-offset: 3px; }
+.site-legal-paper .mm-text-link { margin-top: 18px; font-size: 14px !important; }
+.site-legal-related { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; font-size: 13px; }
+.site-legal-related a { display: inline-flex; gap: 12px; align-items: center; }
+
+/* Keep practical patient information readable, especially on small screens. */
+.site-lead, .site-care-card p, .site-reading p, .site-bullets li,
+.site-contact-info p, .site-contact-info address, .site-accordion details > div,
+.site-doctor-card p, .site-booking-steps small, .site-treatment-options p { font-size: 15px; }
+.site-search input { font-size: 16px !important; }
+.site-nav { font-size: 13px; }
+.site-breadcrumb, .site-result-count, .site-caption { font-size: 12px; }
+.site-chips button { min-height: 44px; font-size: 12px; }
+.site-menu-button, .site-header .site-menu-button { min-width: 44px; min-height: 44px; }
+.site-care-card { min-height: 285px; }
+.site-app .mm-topic-list button { font-size: 14px; }
+.site-app .mm-topic-list button small { font-size: 11px; }
+.site-app .mm-topic-details p, .site-app .mm-step-buttons small,
+.site-app .mm-faq-item p, .site-app .mm-visit-copy > p,
+.site-app .mm-hero-copy > p { font-size: 14px; }
+.site-app .mm-step-buttons strong { font-size: 16px; }
+
+@media (max-width: 900px) {
+  .site-legal-layout { grid-template-columns: 220px minmax(0, 1fr); gap: 25px; }
+  .site-legal-nav nav { padding: 20px; }
+  .site-legal-paper { padding: 26px; }
+}
+@media (max-width: 600px) {
+  .site-legal-header .mm-kicker { font-size: 9px; line-height: 1.7; }
+  .site-legal-header .site-lead { font-size: 15px; }
+  .site-legal-layout { grid-template-columns: 1fr; gap: 25px; }
+  .site-legal-nav { position: static; }
+  .site-legal-help { display: none; }
+  .site-legal-nav nav { padding: 20px; }
+  .site-legal-nav nav a { min-height: 48px; }
+  .site-legal-paper { padding: 24px 22px; }
+  .site-legal-paper :is(p, li) { font-size: 15px; }
+  .site-legal-paper h2 { font-size: 24px !important; }
+  .site-chips button { font-size: 12px; }
+  .site-booking-doctors p, .site-contact-info p, .site-contact-info address,
+  .site-accordion details > div, .site-reading p, .site-care-card p { font-size: 14px; }
+  .site-app .mm-hero-ctas { flex-wrap: wrap; }
+  .site-app .mm-hero-ctas > .mm-text-link { font-size: 12px !important; }
+  .site-app .mm-topic-list button { min-height: 84px; }
+  .site-app .mm-topic-list button small { max-width: none; }
+  .site-app .mm-visit-actions { flex-wrap: wrap; }
+}
