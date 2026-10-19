@@ -83,9 +83,9 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/reviews': {
     path: '/reviews',
-    title: `Patient Reviews & Testimonials | ${DOCTOR_NAME}`,
+    title: `Patient Feedback | ${HOSPITAL_NAME}`,
     description:
-      `Read verified feedback and clinical experiences from patients treated by ${DOCTOR_NAME} in ${HOSPITAL_CITY}, Bihar.`,
+      `Contact ${HOSPITAL_NAME} to share feedback about your visit or explore our doctor profiles before booking.`,
     canonical: getFullUrl('/reviews'),
     url: getFullUrl('/reviews'),
   },
@@ -93,7 +93,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
     path: '/faqs',
     title: `Frequently Asked Questions | Urology Consultation ${HOSPITAL_CITY}`,
     description:
-      'Answers to common questions about urology consultation, appointment scheduling, hospital admission, and insurance.',
+      'Answers to common questions about booking on Doctor Dekho, preparing reports for a consultation, and finding the hospital.',
     canonical: getFullUrl('/faqs'),
     url: getFullUrl('/faqs'),
   },
@@ -147,7 +147,7 @@ UROLOGY_SERVICES.forEach((srv) => {
     title: srv.seoTitle || `${srv.title} in ${HOSPITAL_CITY} | ${DOCTOR_NAME}`,
     description:
       srv.seoDescription ||
-      `${srv.title} by senior urologist ${DOCTOR_NAME} at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}. High clearance rates and fast recovery.`,
+      `Explore ${srv.title.toLowerCase()} with ${DOCTOR_NAME} at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}. Discuss your options in a consultation.`,
     canonical: getFullUrl(servicePath),
     url: getFullUrl(servicePath),
   };

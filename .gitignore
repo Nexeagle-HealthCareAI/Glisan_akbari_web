@@ -3,3 +3,6 @@ dist
 dist-ssr
 .env
 .DS_Store
+
+site-preview-bundle.js
+website-preview.html

@@ -1,112 +1,34 @@
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import sharp from 'sharp';
-import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../src/data/identity';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const rootDir = path.resolve(__dirname, '..');
-const publicDir = path.resolve(rootDir, 'public');
-
-if (!fs.existsSync(publicDir)) {
-  fs.mkdirSync(publicDir, { recursive: true });
-}
-
-// 1. Favicon SVG - teal square matching header emblem (#115e59) with "Dr" in white
-const faviconSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
-  <rect width="180" height="180" rx="36" fill="#115e59"/>
-  <text x="90" y="118" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="84" font-weight="800" fill="#ffffff" text-anchor="middle" letter-spacing="-2">Dr</text>
-</svg>`;
-
-// 2. OpenGraph Image SVG (1200 x 630) - clean and simple, teal and white
-const ogImageSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#042f2e" />
-      <stop offset="60%" stop-color="#115e59" />
-      <stop offset="100%" stop-color="#0f766e" />
-    </linearGradient>
-    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12" />
-      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04" />
-    </linearGradient>
-  </defs>
-
-  <!-- Background -->
-  <rect width="1200" height="630" fill="url(#bg)"/>
-
-  <!-- Decorative subtle grid circles -->
-  <circle cx="1120" cy="80" r="280" fill="#14b8a6" fill-opacity="0.12" filter="blur(40px)"/>
-  <circle cx="80" cy="560" r="240" fill="#0d9488" fill-opacity="0.16" filter="blur(40px)"/>
-
-  <!-- Inner content border container -->
-  <rect x="48" y="48" width="1104" height="534" rx="28" fill="url(#cardGrad)" stroke="#5eead4" stroke-opacity="0.25" stroke-width="2"/>
-
-  <!-- Header Logo Emblem -->
-  <g transform="translate(96, 96)">
-    <rect width="84" height="84" rx="20" fill="#ffffff"/>
-    <text x="42" y="58" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="44" font-weight="900" fill="#115e59" text-anchor="middle" letter-spacing="-1">Dr</text>
-  </g>
-
-  <!-- Hospital Subtitle Tag -->
-  <g transform="translate(200, 114)">
-    <rect width="360" height="38" rx="10" fill="#134e4a" fill-opacity="0.8"/>
-    <text x="180" y="24" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="700" fill="#5eead4" text-anchor="middle" letter-spacing="1">UROLOGY CARE · ${HOSPITAL_CITY.toUpperCase()}</text>
-  </g>
-
-  <!-- Doctor Name Heading -->
-  <text x="96" y="280" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="64" font-weight="800" fill="#ffffff" letter-spacing="-1.5">${DOCTOR_NAME}</text>
-
-  <!-- Specialty Line -->
-  <text x="96" y="348" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="700" fill="#5eead4">Urologist in ${HOSPITAL_CITY}</text>
-
-  <!-- Subtle divider line -->
-  <line x1="96" y1="390" x2="1104" y2="390" stroke="#5eead4" stroke-opacity="0.25" stroke-width="2" />
-
-  <!-- Hospital Name & Location -->
-  <text x="96" y="450" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="30" font-weight="700" fill="#ffffff">${HOSPITAL_NAME}</text>
-  <text x="96" y="495" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="500" fill="#ccfbf1">Dharamshala Road, Ashiyana Colony, ${HOSPITAL_SHORT_ADDRESS}, Bihar</text>
-
-  <!-- Call / Consultation badge on right -->
-  <g transform="translate(840, 432)">
-    <rect width="216" height="54" rx="16" fill="#ffffff"/>
-    <text x="108" y="34" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="18" font-weight="800" fill="#115e59" text-anchor="middle">Book Consultation</text>
-  </g>
-</svg>`;
-
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import sharp from "sharp";
+import { HOSPITAL_NAME } from "../src/data/identity";
+const publicDir = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "../public",
+);
 async function main() {
-  console.log('[Assets] Generating favicons and social share images in public/...');
-
-  // 1. Write favicon.svg
-  fs.writeFileSync(path.join(publicDir, 'favicon.svg'), faviconSvg, 'utf-8');
-
-  // 2. Generate apple-touch-icon.png (180x180)
-  await sharp(Buffer.from(faviconSvg))
+  const logo = fs.readFileSync(path.join(publicDir, "media/hospital-logo.png"));
+  const data = "data:image/png;base64," + logo.toString("base64");
+  const favicon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"><rect width="180" height="180" rx="36" fill="#fffcf7"/><image href="${data}" x="-22" y="-22" width="224" height="224"/></svg>`;
+  fs.writeFileSync(path.join(publicDir, "favicon.svg"), favicon);
+  await sharp(Buffer.from(favicon))
     .resize(180, 180)
-    .png({ quality: 100 })
-    .toFile(path.join(publicDir, 'apple-touch-icon.png'));
-
-  // 3. Generate favicon.png (32x32)
-  await sharp(Buffer.from(faviconSvg))
+    .png()
+    .toFile(path.join(publicDir, "apple-touch-icon.png"));
+  await sharp(Buffer.from(favicon))
     .resize(32, 32)
-    .png({ quality: 100 })
-    .toFile(path.join(publicDir, 'favicon.png'));
-
-  // 4. Generate og-image.png (1200x630)
-  await sharp(Buffer.from(ogImageSvg))
-    .resize(1200, 630)
-    .png({ quality: 95 })
-    .toFile(path.join(publicDir, 'og-image.png'));
-
-  console.log('[Assets] Created:');
-  console.log(' - public/favicon.svg');
-  console.log(' - public/apple-touch-icon.png (180x180)');
-  console.log(' - public/favicon.png (32x32)');
-  console.log(' - public/og-image.png (1200x630)');
+    .png()
+    .toFile(path.join(publicDir, "favicon.png"));
+  const share = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#fffcf7"/><rect x="820" width="380" height="630" fill="#e6efdf"/><circle cx="1070" cy="420" r="215" fill="#d4e1c8"/><image href="${data}" x="850" y="185" width="320" height="320"/><text x="65" y="100" font-family="sans-serif" font-size="20" fill="#68766f">GLISAN AKBARI · PURNIA</text><text x="65" y="246" font-family="sans-serif" font-size="72" fill="#173e35">Less worry.</text><text x="65" y="334" font-family="sans-serif" font-size="72" fill="#3d785e">More clarity.</text><path d="M67 355 Q300 339 503 352" stroke="#f3a278" stroke-width="13" fill="none" stroke-linecap="round"/><text x="65" y="445" font-family="sans-serif" font-size="29" fill="#173e35">Care that connects.</text><text x="65" y="547" font-family="sans-serif" font-size="21" fill="#68766f">${HOSPITAL_NAME}</text></svg>`;
+  await sharp(Buffer.from(share))
+    .png()
+    .toFile(path.join(publicDir, "og-image.png"));
+  console.log(
+    "[Assets] Supplied hospital logo applied to favicon, touch icon and social image.",
+  );
 }
-
-main().catch((err) => {
-  console.error('[Assets] Error generating assets:', err);
+main().catch((error) => {
+  console.error(error);
   process.exit(1);
 });
