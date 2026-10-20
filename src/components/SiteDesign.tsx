@@ -54,9 +54,7 @@ export function SiteMotionProvider({
   );
 }
 export const hospitalPhone = "tel:" + HOSPITAL_PROFILE.phone.replace(/\s/g, "");
-export const hospitalMap =
-  "https://www.google.com/maps/search/?api=1&query=" +
-  encodeURIComponent(HOSPITAL_PROFILE.address.fullFormatted);
+export const hospitalMap = HOSPITAL_PROFILE.googleMapsUrl;
 export const siteLinks = [
   ["/", "Home"],
   ["/doctors", "Our doctors"],

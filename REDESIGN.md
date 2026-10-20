@@ -51,6 +51,13 @@ For a single-file preview, run `npm run preview:package` after the production bu
 
 ## Content still needed before launch
 
-The homepage intentionally retains the real-doctor video placeholder. Approved doctor/facility photography, patient stories and the hospital’s public review URL have not been supplied. Privacy and terms now have complete draft layouts and plain-language copy describing this website; the hospital must review them against its actual operational practices. Clinical service descriptions and doctor credentials are carried over from the repository and require the hospital’s final content review.
+The homepage intentionally retains the real-doctor video placeholder. Facility photography and patient stories have not been supplied. Privacy and terms now have complete draft layouts and plain-language copy describing this website; the hospital must review them against its actual operational practices. Clinical service descriptions and doctor credentials are carried over from the repository and require the hospital’s final content review.
+
+## Doctor portrait and directions update — 20 October 2026
+
+- Applied the supplied Dr. Noori portrait to the homepage doctor panel, doctor directory, profile and booking card.
+- Centralized the address from the supplied Google profile screenshot. Displayed its 4.8/5 rating and 343 reviews as a dated 19 October 2026 snapshot of Dr. Noori’s profile, not a live hospital rating. The current public Maps view returned a different review count, so the snapshot date remains explicit.
+- Linked location actions to the Google Maps place destination, and added an embedded map with a pulsing directions control on Contact. The homepage location marker also opens directions. The Google Maps listing was checked against the supplied address.
+- TypeScript, production build, 27 prerendered routes, standalone preview packaging and whitespace checks passed. Fresh mobile visual checks remain unverified: the preview server was denied permission to bind locally, and the browser connection closed during the preview attempt.
 
 The production domain is still `example-domain.com` and `ALLOW_INDEXING` remains false. This change is a review draft, not a production release.

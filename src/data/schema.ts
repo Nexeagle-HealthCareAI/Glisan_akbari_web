@@ -100,6 +100,7 @@ export function generatePageSchema(path: string) {
     name: HOSPITAL_PROFILE.name || HOSPITAL_NAME,
     url: `${SITE_URL}/hospital`,
     telephone: cleanPhone,
+    hasMap: HOSPITAL_PROFILE.googleMapsUrl,
     address: sharedAddress,
   });
 
@@ -110,6 +111,8 @@ export function generatePageSchema(path: string) {
     name: DOCTOR_PROFILE.name,
     url: `${SITE_URL}/doctors/dr-md-taquedis-noori`,
     medicalSpecialty: 'Urology',
+    image: DOCTOR_PROFILE.profileImage ? `${SITE_URL}${DOCTOR_PROFILE.profileImage}` : undefined,
+    sameAs: HOSPITAL_PROFILE.googleBusinessProfileUrl,
     telephone: cleanPhone,
     worksFor: {
       '@type': 'Hospital',

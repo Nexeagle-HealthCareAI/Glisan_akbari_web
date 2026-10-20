@@ -24,6 +24,8 @@ import {
   hospitalMap,
 } from "../components/SiteDesign";
 
+import { DoctorGoogleRating } from "../components/DoctorGoogleRating";
+
 export function DoctorsPage() {
   return (
     <>
@@ -46,12 +48,15 @@ export function DoctorsPage() {
             <article className={"site-doctor-card site-doctor-" + i} key={d.id}>
               <div className="site-doctor-card-top">
                 <span className="site-small-label">{d.department}</span>
-                <span className="site-avatar" aria-hidden="true">
-                  {d.initials}
-                </span>
+                {d.profileImage ? (
+                  <img className="site-avatar site-doctor-photo" src={d.profileImage} alt={d.name} width="1122" height="1402" loading="lazy" />
+                ) : (
+                  <span className="site-avatar" aria-hidden="true">{d.initials}</span>
+                )}
               </div>
               <h2>{d.name}</h2>
               <p className="site-doctor-qual">{d.qualifications}</p>
+              {d.id === "doc-1" && <DoctorGoogleRating />}
               <p>
                 {d.specialty} · {d.yearsOfExperience}
               </p>
@@ -103,12 +108,11 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
       <section className="site-section mm-wrap">
         <div className="site-profile-grid">
           <aside className="site-profile-card">
-            <span className="site-profile-emblem">
-              <Stethoscope size={62} strokeWidth={1} />
-            </span>
+            <img className="site-profile-emblem site-profile-photo" src={DOCTOR_PROFILE.profileImage} alt={DOCTOR_PROFILE.name} width="1122" height="1402" loading="lazy" />
             <p className="mm-kicker">YOUR CONSULTATION</p>
             <h2>{DOCTOR_PROFILE.name}</h2>
             <p>{DOCTOR_PROFILE.qualifications}</p>
+            <DoctorGoogleRating />
             <div className="site-profile-meta">
               <p>
                 <Globe size={17} />
@@ -116,7 +120,7 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
               </p>
               <p>
                 <MapPin size={17} />
-                Line Bazar, Purnia
+                <a href={hospitalMap} target="_blank" rel="noreferrer">{HOSPITAL_PROFILE.address.fullFormatted}</a>
               </p>
             </div>
             <BookLink href={DR_NOORI_BOOKING_URL} label="Book consultation" />

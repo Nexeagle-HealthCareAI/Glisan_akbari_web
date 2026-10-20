@@ -25,6 +25,9 @@ import {
   hospitalMap,
 } from "../components/SiteDesign";
 
+import { DoctorGoogleRating } from "../components/DoctorGoogleRating";
+import { HospitalLocationMap } from "../components/HospitalLocationMap";
+
 export function BookAppointmentPage() {
   const [step, setStep] = useState(0);
   const steps = [
@@ -96,13 +99,16 @@ export function BookAppointmentPage() {
         <div className="site-booking-doctors">
           {DOCTORS.map((d) => (
             <article key={d.id}>
-              <span className="site-icon">
-                <Stethoscope size={24} />
-              </span>
+              {d.profileImage ? (
+                <img className="site-booking-photo" src={d.profileImage} alt={d.name} width="1122" height="1402" loading="lazy" />
+              ) : (
+                <span className="site-icon"><Stethoscope size={24} /></span>
+              )}
               <div>
                 <span className="site-small-label">{d.department}</span>
                 <h2>{d.name}</h2>
                 <p>{d.qualifications}</p>
+                {d.id === "doc-1" && <DoctorGoogleRating />}
               </div>
               <BookLink href={d.bookingUrl} label="Choose doctor" />
             </article>
@@ -182,28 +188,13 @@ export function ContactPage() {
             </article>
           </div>
           <div className="site-location-card">
-            <div
-              className="site-map-illustration"
-              aria-label="Illustration of the hospital location, not a street map"
-            >
-              <div className="site-map-road road-one" />
-              <div className="site-map-road road-two" />
-              <div className="site-map-park" />
-              <div className="site-map-hospital">
-                <MapPin size={39} />
-                <strong>Glisan Akbari</strong>
-                <span>Line Bazar · Purnia</span>
-              </div>
-              <span className="site-map-label">
-                ILLUSTRATIVE LOCATION GUIDE
-              </span>
-            </div>
+            <HospitalLocationMap />
             <div className="site-location-card-bottom">
               <h2>See you in Purnia.</h2>
               <p>
-                Opposite Shiv Mandir, Dharamshala Road.
+                {HOSPITAL_PROFILE.address.line2}, {HOSPITAL_PROFILE.address.area}, {HOSPITAL_PROFILE.address.city}.
                 <br />
-                Use Google Maps for the actual route.
+                Tap the map or use the button for directions.
               </p>
               <a
                 href={hospitalMap}
@@ -335,13 +326,12 @@ export function ReviewsPage() {
           <p className="mm-kicker">PATIENT EXPERIENCES</p>
           <h2>A space for real stories.</h2>
           <p>
-            Patient stories are not published on this page yet. You can view the
-            doctor’s booking profile or contact the hospital team to share
-            feedback about your visit.
+            See public feedback on Dr. Md Taquedis Noori’s Google profile, or contact our team to share your experience.
           </p>
+          <DoctorGoogleRating />
           <div className="site-hero-actions">
             {hasReviews ? (
-              <a className="mm-button" href={profileUrl}>
+              <a className="mm-button" href={profileUrl} target="_blank" rel="noreferrer">
                 Read public reviews <ArrowUpRight size={17} />
               </a>
             ) : (

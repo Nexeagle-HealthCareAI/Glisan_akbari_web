@@ -3,6 +3,7 @@ const assetFiles = [
   "media/mimo-original.png",
   "media/mimo-poses.png",
   "media/hospital-logo.png",
+  "media/dr-md-taquedis-noori.png",
   "fonts/Inter.ttf",
 ];
 const data = new Map(
