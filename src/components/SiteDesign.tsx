@@ -235,7 +235,7 @@ export function Footer() {
           </div>
         </div>
         <p className="site-disclaimer">
-          Dr. Memo is an illustrated digital guide. Information here is
+          Mimo is an illustrated digital guide. Information here is
           educational; your qualified doctor provides medical advice.
         </p>
       </div>
@@ -259,7 +259,7 @@ export function GuideScene({
   action = "care",
   message,
   cue = 0,
-  label = "DR. MEMO, YOUR DIGITAL GUIDE",
+  label = "MIMO, YOUR DIGITAL GUIDE",
 }: {
   action?: MimoAction;
   message: string;
