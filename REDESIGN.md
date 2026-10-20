@@ -2,7 +2,7 @@
 
 The previous homepage design now carries through all 27 existing routes: home, doctors, Dr. Noori’s profile, services, 13 service detail pages, conditions, treatments, hospital, patient feedback, FAQs, appointment planning, contact, privacy, terms and 404.
 
-The supplied `Logo.png` is used unchanged as `public/media/hospital-logo.png`. It appears in the shared header and footer; browser icons and the social sharing image are generated from it. Cream, deep green, peach, Inter typography and the existing Dr. Memo artwork connect the pages.
+The supplied `Logo.png` is used unchanged as `public/media/hospital-logo.png`. It appears in the shared header and footer; browser icons and the social sharing image are generated from it. Cream, deep green, peach, Inter typography and the existing Mimo artwork connect the pages.
 
 ## Main changes
 
@@ -10,7 +10,7 @@ The supplied `Logo.png` is used unchanged as `public/media/hospital-logo.png`. I
 - Search and category filters for services and FAQs, interactive condition topics, readable service details and a three-step appointment guide.
 - Retained the four existing doctor-specific Doctor Dekho booking URLs. Website booking buttons now lead to the planning page; choosing a doctor opens the external booking portal.
 - Existing backend and clinical configuration files are retained. The unused booking modal is no longer mounted by the active application.
-- Dr. Memo has distinct welcome, explanation, doctor, booking, listening and farewell gestures. Motion can be paused site-wide; the preference persists. Reduced-motion and offscreen/hidden-tab animation controls remain supported.
+- Mimo has distinct welcome, explanation, doctor, booking, listening and farewell gestures. Motion can be paused site-wide; the preference persists. Reduced-motion and offscreen/hidden-tab animation controls remain supported.
 - Incomplete condition placeholders are replaced in the visible interface by existing service topics. Patient feedback has an honest empty state rather than placeholder testimonials or unsupported live review counts. FAQ structured data shares the same source as the visible questions.
 - Inner-page static previews serve their own prerendered HTML instead of falling back to homepage HTML. Unknown Netlify routes use the generated 404 page.
 
