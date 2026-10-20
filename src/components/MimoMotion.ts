@@ -12,7 +12,7 @@ export const REST_POSE: MimoPose = {
 
 /** Deliberate gestures separated by holds; each section has its own performance. */
 export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> = {
-  welcome: { label: 'Dr. Memo greets you with a double wave', beats: [
+  welcome: { label: 'Mimo greets you with a double wave', beats: [
     { at: 0, pose: {} }, { at: .65, pose: { y: -2, tilt: -3, turn: -8, arm: -12, headTilt: 2 } },
     { at: 1.05, pose: { y: -2, tilt: -3, turn: -8, arm: 15, headTilt: 2 } },
     { at: 1.45, pose: { y: -2, tilt: -3, turn: -8, arm: -12, headTilt: 2 } },
@@ -20,7 +20,7 @@ export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> 
     { at: 2.25, pose: { y: -1, tilt: -2, turn: -5, arm: -8 } },
     { at: 3.1, pose: {} }, { at: 8.6, pose: {} },
   ] },
-  care: { label: 'Dr. Memo leans toward the care graphic and presents it', beats: [
+  care: { label: 'Mimo leans toward the care graphic and presents it', beats: [
     { at: 0, pose: {} }, { at: .8, pose: { x: 3, tilt: 4, turn: 12, headTilt: -3, clipboard: -7, clipboardLift: 18 } },
     { at: 1.7, pose: { x: 3, tilt: 4, turn: 12, headTilt: -3, clipboard: -7, clipboardLift: 18, arm: 10 } },
     { at: 2.1, pose: { x: 3, tilt: 4, turn: 12, headTilt: -3, clipboard: -7, clipboardLift: 18, arm: 10 } },
@@ -28,7 +28,7 @@ export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> 
     { at: 3.7, pose: { x: 1, tilt: 1.5, turn: 5, arm: 4, headY: 8 } },
     { at: 4.5, pose: {} }, { at: 10.2, pose: {} },
   ] },
-  doctor: { label: 'Dr. Memo gives a reassuring thumbs-up and nods', beats: [
+  doctor: { label: 'Mimo gives a reassuring thumbs-up and nods', beats: [
     { at: 0, pose: {} }, { at: .85, pose: { x: -2, turn: -12, tilt: -2, headTilt: -3, arm: -4 } },
     { at: 1.3, pose: { x: -2, turn: -12, tilt: -2, headTilt: -3, headY: 17, clipboard: 3 } },
     { at: 1.8, pose: { x: -2, turn: -12, tilt: -2, headTilt: -3, headY: -5 } },
@@ -37,7 +37,7 @@ export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> 
     { at: 3.8, pose: { x: -1, turn: -6, tilt: -1, arm: 3 } },
     { at: 5, pose: {} }, { at: 11.5, pose: {} },
   ] },
-  booking: { label: 'Dr. Memo points out the booking steps', beats: [
+  booking: { label: 'Mimo points out the booking steps', beats: [
     { at: 0, pose: {} }, { at: .75, pose: { x: 2, turn: 10, tilt: 2, clipboard: -7, clipboardLift: 18, headTilt: 3 } },
     { at: 1.35, pose: { x: 2, turn: 10, tilt: 2, clipboard: -7, clipboardLift: 18, headY: 11, arm: 12 } },
     { at: 1.8, pose: { x: 2, turn: 10, tilt: 2, clipboard: -7, clipboardLift: 18, arm: 2 } },
@@ -47,7 +47,7 @@ export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> 
     { at: 4.3, pose: { y: -2, tilt: -2, arm: 8, clipboard: -4, clipboardLift: 12 } },
     { at: 5.1, pose: {} }, { at: 10.8, pose: {} },
   ] },
-  faq: { label: 'Dr. Memo rests a hand by his chin and listens thoughtfully', beats: [
+  faq: { label: 'Mimo rests a hand by his chin and listens thoughtfully', beats: [
     { at: 0, pose: {} }, { at: .9, pose: { tilt: -2.5, turn: -7, headTilt: -5, arm: -7, clipboard: 4 } },
     { at: 2, pose: { tilt: -2.5, turn: -7, headTilt: -5, arm: -7, clipboard: 4 } },
     { at: 2.85, pose: { x: 1, tilt: 2.5, turn: 8, headTilt: 4, clipboard: -3 } },
@@ -55,7 +55,7 @@ export const MIMO_ACTIONS: Record<MimoAction, { label: string; beats: Beat[] }> 
     { at: 4.1, pose: { x: 1, tilt: 2.5, turn: 8, arm: 13, clipboard: -3 } },
     { at: 5, pose: {} }, { at: 12.1, pose: {} },
   ] },
-  visit: { label: 'Dr. Memo takes two little steps, then waves goodbye', beats: [
+  visit: { label: 'Mimo takes two little steps, then waves goodbye', beats: [
     { at: 0, pose: {} },
     { at: .55, pose: { x: 1.5, y: -1, tilt: -3, turn: -10, leftFoot: 22, rightFoot: -6, arm: -5 } },
     { at: 1.05, pose: { x: 3, tilt: 3, turn: -10, rightFoot: 22, leftFoot: -6, arm: 4 } },
