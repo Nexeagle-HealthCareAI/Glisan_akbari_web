@@ -1,6 +1,6 @@
 import { PATIENT_FAQS } from './patientFaqs';
 import { SITE_URL, getFullUrl } from './seo';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from './config';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL, DR_NOORI_GOOGLE_PROFILE } from './config';
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 
 /**
@@ -61,13 +61,9 @@ export function cleanSchemaValue<T>(obj: T): T | undefined {
 const BREADCRUMB_LABELS: Record<string, string> = {
   '/doctors': 'Our Doctors',
   '/doctors/dr-md-taquedis-noori': DOCTOR_NAME,
-  '/services': 'Services',
-  '/conditions': 'Conditions',
-  '/treatments': 'Treatments',
-  '/hospital': 'Hospital',
+  '/services': 'Explore care',
   '/reviews': 'Reviews',
   '/faqs': 'FAQs',
-  '/book-appointment': 'Book Appointment',
   '/contact': 'Contact',
   '/privacy-policy': 'Privacy Policy',
   '/terms': 'Terms',
@@ -98,8 +94,9 @@ export function generatePageSchema(path: string) {
     '@type': 'Hospital',
     '@id': hospitalId,
     name: HOSPITAL_PROFILE.name || HOSPITAL_NAME,
-    url: `${SITE_URL}/hospital`,
+    url: `${SITE_URL}/`,
     telephone: cleanPhone,
+    hasMap: HOSPITAL_PROFILE.googleMapsUrl,
     address: sharedAddress,
   });
 
@@ -110,6 +107,8 @@ export function generatePageSchema(path: string) {
     name: DOCTOR_PROFILE.name,
     url: `${SITE_URL}/doctors/dr-md-taquedis-noori`,
     medicalSpecialty: 'Urology',
+    image: DOCTOR_PROFILE.profileImage ? `${SITE_URL}${DOCTOR_PROFILE.profileImage}` : undefined,
+    sameAs: DR_NOORI_GOOGLE_PROFILE.url,
     telephone: cleanPhone,
     worksFor: {
       '@type': 'Hospital',

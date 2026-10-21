@@ -1,1 +1,0 @@
-export { HospitalPage } from './PeoplePages';

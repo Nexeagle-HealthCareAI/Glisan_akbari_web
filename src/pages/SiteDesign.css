@@ -2321,3 +2321,172 @@
   .site-app .mm-topic-list button small { max-width: none; }
   .site-app .mm-visit-actions { flex-wrap: wrap; }
 }
+
+
+/* Supplied doctor portrait and dated Google profile snapshot. */
+.site-google-rating { display: inline-flex; flex-direction: column; gap: 6px; margin: 12px 0 20px; max-width: 100%; color: var(--ink); text-align: left; }
+.site-google-rating > span { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12px; line-height: 1.5; }
+.site-google-rating strong { font-weight: 600; }
+.site-google-rating svg:first-child { color: #946321; fill: #edb852; }
+.site-google-rating small { font-size: 10px; line-height: 1.6; color: var(--muted); }
+.site-doctor-photo { width: 96px; height: 112px; object-fit: contain; object-position: center bottom; }
+.site-profile-photo { height: auto; aspect-ratio: 4 / 5; object-fit: contain; object-position: center bottom; padding: 0; }
+.site-booking-photo { width: 72px; height: 88px; object-fit: contain; object-position: center bottom; border: 1px solid var(--line); border-radius: 14px; background: #e6eddd; }
+.mm-doctor-portrait { display: block; width: 100%; height: 155px; object-fit: contain; object-position: center bottom; border-radius: 10px; background: #e6eddd; margin-bottom: 12px; }
+.mm-doctor-id:has(.mm-doctor-portrait) { padding: 12px; top: 145px; width: 195px; }
+.mm-doctor-id:has(.mm-doctor-portrait) strong { font-size: 14px; margin: 7px 0 0; max-width: 100%; }
+.mm-map-pin { min-height: 48px; padding: 7px; border-radius: 9px; }
+.mm-map-pin:hover { background: #ffffff12; }
+.site-hospital-map { position: relative; height: 360px; background: #e5eddc; border-bottom: 1px solid #d1dbc9; }
+.site-hospital-map iframe { display: block; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.site-map-directions { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; padding: 22px; }
+.site-map-open { display: inline-flex; align-items: center; gap: 12px; padding: 13px 18px; border-radius: 12px; background: #fffdf7; border: 1px solid #b6c7aa; box-shadow: 0 5px 20px #173e3526; font-size: 13px; color: #173e35; }
+.site-location-pulse { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #e7edde; animation: site-location-pulse 2.8s ease-out infinite; }
+@keyframes site-location-pulse { 0% { box-shadow: 0 0 0 0 #47755655; } 80%, 100% { box-shadow: 0 0 0 13px #47755600; } }
+@media (max-width: 900px) {
+  .mm-doctor-id:has(.mm-doctor-portrait) { width: 156px; top: 136px; }
+  .mm-doctor-portrait { height: 130px; }
+}
+@media (max-width: 600px) {
+  .site-hospital-map { height: 320px; }
+  .mm-doctor-id:has(.mm-doctor-portrait) { width: 151px; top: 120px; }
+  .mm-doctor-portrait { height: 130px; }
+  .site-google-rating > span { font-size: 11px; }
+  .site-booking-photo { width: 60px; height: 76px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-location-pulse { animation: none; }
+}
+
+/* October 21 patient navigation and homepage refinements. */
+.site-app .mm-topline {
+  gap: 22px;
+  font-size: 11px;
+  line-height: 1.65;
+}
+.site-header-address { flex: 1; min-width: 0; }
+.site-header-address > svg { flex-shrink: 0; }
+.site-header-address > span { display: inline; }
+.site-app .mm-topline > a:last-child { flex-shrink: 0; white-space: nowrap; }
+.site-app .mm-hero { align-items: start; }
+.site-app .mm-hero-copy > p { margin-top: 18px; }
+.mm-hero-doctor {
+  margin-top: 22px;
+  padding-left: 17px;
+  border-left: 3px solid #d48b65;
+}
+.mm-hero-doctor .mm-kicker { font-size: 9px; margin-bottom: 7px; }
+.site-app .mm-hero-doctor h2 { font-size: clamp(20px, 2vw, 25px); letter-spacing: -.035em; line-height: 1.25; }
+.mm-hero-doctor p { font-size: 13px; line-height: 1.65; margin-top: 5px; }
+.mm-hero-doctor .mm-hero-credentials { color: #53655b; font-size: 12px; }
+.mm-hero-doctor .mm-hero-languages { font-size: 11px; color: #53655b; }
+.mm-hero-doctor-links { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 10px; }
+.site-app .mm-hero-ctas { margin-top: 20px; }
+.site-hospital-feedback {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 17px;
+  margin-top: 22px;
+  border: 1px solid #b7cfb9;
+  border-radius: 14px;
+  background: #e8f0df;
+  color: #173e35;
+  max-width: 490px;
+  transition: background .2s;
+}
+.site-hospital-feedback:hover { background: #dce8d1; }
+.site-feedback-mark { display: grid; place-items: center; width: 43px; height: 43px; flex-shrink: 0; border-radius: 50%; background: #173e35; color: #fffdf7; }
+.site-hospital-feedback strong { display: block; font-size: 18px; font-weight: 750; line-height: 1.3; }
+.site-hospital-feedback small { display: block; font-size: 11px; margin-top: 3px; }
+.site-feedback-label { display: block; font-size: 12px; font-weight: 600; margin-top: 5px; text-decoration: underline; text-underline-offset: 3px; }
+.site-hospital-feedback > svg { margin-left: auto; flex-shrink: 0; }
+
+/* Light service-specific vector artwork sits behind each card's content. */
+.site-care-card, .site-app .mm-topic-list button { position: relative; isolation: isolate; overflow: hidden; }
+.site-care-card > :not(.care-artwork), .mm-topic-list button > :not(.care-artwork) { position: relative; z-index: 1; }
+.care-artwork { position: absolute; pointer-events: none; z-index: 0; width: 190px; right: -22px; top: 2px; color: #4c8664; opacity: .28; }
+.care-artwork > svg { display: block; width: 100%; height: auto; overflow: visible; }
+.care-art-halo { fill: #dce8cb; }
+.care-art-subject { stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; fill: #b4d0ae; transform-origin: 100px 80px; animation: care-art-breathe 7s ease-in-out infinite; }
+.care-art-line { fill: none; }
+.care-art-accent { fill: #de9469; stroke: #be704c; }
+.care-art-ring { fill: none; stroke: #72a27b; stroke-dasharray: 5 8; stroke-width: 1.7; transform-origin: 100px 80px; animation: care-art-orbit 35s linear infinite; }
+.care-art-pulse { transform-box: fill-box; transform-origin: center; animation: care-art-pulse 4s ease-in-out infinite; }
+.care-art-drift { animation: care-art-drift 5s ease-in-out infinite; }
+.care-art-dot { fill: #b5805f; }
+.care-artwork * { animation-play-state: paused; }
+.care-artwork[data-visible="true"] * { animation-play-state: running; }
+.site-care-card h2, .site-care-card p { z-index: 1; }
+.site-care-card .site-card-top { min-height: 72px; align-items: start; padding-right: 40px; }
+.site-care-card .site-small-label { max-width: 180px; }
+.site-care-card h2 { max-width: 97%; }
+.site-app .mm-topic-list button { border: 1px solid #d6dfcf; background: #f4f6ee; min-height: 88px; }
+.site-app .mm-topic-list button.is-active { border-color: #c68e6d; background: #fff0e5; }
+.site-app .mm-topic-list button:hover { background: #eaf0e1; }
+.mm-topic-list .care-artwork { width: 112px; right: 5px; top: auto; bottom: -9px; opacity: .25; }
+.mm-topic-list button > span:not(.mm-topic-icon):not(.care-artwork) { max-width: calc(100% - 75px); }
+@keyframes care-art-breathe { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2deg); } }
+@keyframes care-art-orbit { to { transform: rotate(360deg); } }
+@keyframes care-art-pulse { 0%, 100% { transform: scale(.9); opacity: .75; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes care-art-drift { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
+@media (min-width: 1001px) {
+  .site-app .mm-doctor-video-slot { margin-top: 6px; height: 100%; min-height: 560px; }
+}
+@media (max-width: 1000px) {
+  .site-app .site-header { flex-wrap: nowrap; height: 92px; min-height: 0; padding-block: 0; gap: 16px; }
+  .site-app .site-nav { display: none; }
+  .site-app .site-menu { z-index: 50; top: 100%; max-height: 60dvh; }
+  .site-app .mm-topline { padding-inline: 24px; }
+}
+@media (max-width: 600px) {
+  .site-app .mm-topline { flex-wrap: wrap; gap: 8px; padding: 11px 20px; font-size: 11px; }
+  .site-header-address { flex-basis: 100%; align-items: start !important; }
+  .site-header-address > svg { margin-top: 3px; }
+  .site-app .site-header { height: 84px; min-height: 0; }
+  .site-app .mm-hero { padding-top: 23px; }
+  .site-app .mm-hero-doctor h2 { font-size: 22px; }
+  .site-hospital-feedback { gap: 10px; padding: 14px 12px; }
+  .site-hospital-feedback strong { font-size: 17px; }
+  .site-hospital-feedback small { font-size: 10px; }
+  .site-feedback-mark { width: 36px; height: 36px; }
+  .site-feedback-mark svg { width: 21px; }
+  .site-app .mm-topic-list { grid-template-columns: 1fr; }
+  .site-app .mm-topic-list button { min-height: 87px; padding: 15px; gap: 14px; }
+  .site-app .mm-topic-icon { width: 38px; height: 40px; flex-shrink: 0; }
+  .site-app .mm-topic-list button > svg { display: block; }
+  .mm-topic-list .care-artwork { width: 120px; right: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-app .care-artwork * { animation: none !important; }
+}
+
+/* Hospital review snapshot: business listing attribution confirmed by the client. */
+.site-hospital-review-title { display: block; font-size: 14px; font-weight: 700; }
+.site-hospital-review-score { display: flex; align-items: baseline; flex-wrap: wrap; gap: 5px 12px; margin: 3px 0 6px; }
+.site-hospital-review-score > strong { font-size: 32px; font-weight: 800; letter-spacing: -.045em; }
+.site-hospital-review-score > span { font-size: 15px; font-weight: 750; }
+.site-hospital-feedback .site-feedback-mark svg { fill: #edb852; color: #edb852; }
+.site-feedback-card > .site-hospital-feedback { margin-inline: auto; }
+@media (max-width: 600px) {
+  .site-hospital-review-score { gap: 3px 8px; }
+  .site-hospital-review-score > strong { font-size: 29px; }
+  .site-hospital-review-score > span { font-size: 14px; }
+}
+
+/* Mimo's selected topic card shares the exact illustration used by its topic button. */
+.mm-organ-card > .care-artwork-card {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  max-width: 180px;
+  height: 155px;
+  flex-shrink: 1;
+  opacity: 1;
+  display: grid;
+  place-items: center;
+}
+.mm-organ-card > .care-artwork-card > svg { width: 100%; height: 100%; }
+@media (max-width: 600px) {
+  .mm-organ-card > .care-artwork-card { height: 126px; }
+}

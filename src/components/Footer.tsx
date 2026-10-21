@@ -88,10 +88,7 @@ export const Footer: React.FC<FooterProps> = () => {
               {[
                 { name: 'Home', path: '/' },
                 { name: 'Our Doctors', path: '/doctors' },
-                { name: 'Urology Services', path: '/services' },
-                { name: 'Conditions We Treat', path: '/conditions' },
-                { name: 'Treatments & Procedures', path: '/treatments' },
-                { name: HOSPITAL_NAME, path: '/hospital' },
+                { name: 'Explore care', path: '/services' },
                 { name: 'Patient Reviews', path: '/reviews' },
                 { name: 'FAQ', path: '/faqs' },
                 { name: 'Contact & Location', path: '/contact' }

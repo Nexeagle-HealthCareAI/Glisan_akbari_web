@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import {
   Header,
   Footer,
@@ -14,24 +14,21 @@ import { PageMeta } from "./components/PageMeta";
 import { HomePage } from "./pages/HomePage";
 import { DoctorsPage } from "./pages/DoctorsPage";
 import { DoctorProfilePage } from "./pages/DoctorProfilePage";
-import { ServicesPage } from "./pages/ServicesPage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { ConditionsPage } from "./pages/ConditionsPage";
-import { TreatmentsPage } from "./pages/TreatmentsPage";
-import { HospitalPage } from "./pages/HospitalPage";
 import { ReviewsPage } from "./pages/ReviewsPage";
 import { FaqPage } from "./pages/FaqPage";
-import { BookAppointmentPage } from "./pages/BookAppointmentPage";
 import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { ROUTE_REDIRECTS } from "./data/seo";
 
 export default function App() {
   const navigate = useNavigate();
 
   const handleOpenBooking = () => {
-    navigate("/book-appointment");
+    navigate("/doctors");
   };
 
   // Backward compatibility: seamlessly redirect legacy hash links (#about -> /doctors)
@@ -39,17 +36,19 @@ export default function App() {
     if (typeof window !== "undefined" && window.location.hash) {
       const hash = window.location.hash.replace("#", "");
       if (hash === "book" || hash === "book-appointment") {
-        navigate("/book-appointment", { replace: true });
+        navigate("/doctors", { replace: true });
         return;
       }
       const hashMap: Record<string, string> = {
         home: "/",
         about: "/doctors",
+        doctor: "/doctors",
         doctors: "/doctors",
+        how: "/doctors",
         services: "/services",
-        conditions: "/conditions",
-        treatments: "/treatments",
-        hospital: "/hospital",
+        conditions: "/services",
+        treatments: "/services",
+        hospital: "/contact",
         reviews: "/reviews",
         faqs: "/faqs",
         contact: "/contact",
@@ -85,27 +84,17 @@ export default function App() {
           />
           <Route
             path="/services"
-            element={<ServicesPage onOpenBooking={handleOpenBooking} />}
+            element={<ConditionsPage onOpenBooking={handleOpenBooking} />}
           />
           <Route
             path="/services/:slug"
             element={<ServiceDetailPage onOpenBooking={handleOpenBooking} />}
           />
-          <Route
-            path="/conditions"
-            element={<ConditionsPage onOpenBooking={handleOpenBooking} />}
-          />
-          <Route
-            path="/treatments"
-            element={<TreatmentsPage onOpenBooking={handleOpenBooking} />}
-          />
-          <Route
-            path="/hospital"
-            element={<HospitalPage onOpenBooking={handleOpenBooking} />}
-          />
           <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/faqs" element={<FaqPage />} />
-          <Route path="/book-appointment" element={<BookAppointmentPage />} />
+          {Object.entries(ROUTE_REDIRECTS).map(([from, to]) => (
+            <Route key={from} path={from} element={<Navigate to={to} replace />} />
+          ))}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsPage />} />

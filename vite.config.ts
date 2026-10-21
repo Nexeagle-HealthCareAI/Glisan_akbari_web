@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { defineConfig } from 'vite';
 import { DOCTOR_NAME, HOSPITAL_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from './src/data/identity';
-import { PRERENDER_ROUTES } from './src/data/seo';
+import { PRERENDER_ROUTES, ROUTE_REDIRECTS } from './src/data/seo';
 
 export default defineConfig(() => {
   return {
@@ -15,9 +15,14 @@ export default defineConfig(() => {
         configurePreviewServer(server) {
           // Vite's SPA fallback otherwise serves homepage HTML for /services,
           // causing a hydration mismatch before React renders the correct page.
-          server.middlewares.use((request, _response, next) => {
+          server.middlewares.use((request, response, next) => {
             const url = new URL(request.url || '/', 'http://localhost');
             const route = url.pathname.replace(/\/+$/, '') || '/';
+            if (ROUTE_REDIRECTS[route]) {
+              response.writeHead(301, { Location: ROUTE_REDIRECTS[route] + url.search });
+              response.end();
+              return;
+            }
             if (route !== '/' && PRERENDER_ROUTES.includes(route)) {
               request.url = (route === '/404' ? '/404.html' : route + '/index.html') + url.search;
             } else if (route !== '/' && !route.split('/').pop()?.includes('.')) {

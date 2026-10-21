@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SITE_URL, ALLOW_INDEXING, ROUTES_SEO, SITEMAP_ROUTES, PRERENDER_ROUTES, getFullUrl } from '../src/data/seo';
+import { SITE_URL, ALLOW_INDEXING, ROUTES_SEO, SITEMAP_ROUTES, PRERENDER_ROUTES, ROUTE_REDIRECTS, getFullUrl } from '../src/data/seo';
 import { generatePageSchema } from '../src/data/schema';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../src/data/identity';
 
@@ -158,6 +158,16 @@ async function prerender() {
 
     fs.writeFileSync(targetFilePath, pageHtml, 'utf-8');
     console.log(`[SSG] Generated: ${path.relative(rootDir, targetFilePath)} (route: ${route})`);
+  }
+
+  // Portable fallback for static hosts without Netlify redirect support.
+  // Retired URLs redirect instead of serving duplicate or removed pages.
+  for (const [from, to] of Object.entries(ROUTE_REDIRECTS)) {
+    const routeDir = path.join(distDir, from.replace(/^\//, ''));
+    fs.mkdirSync(routeDir, { recursive: true });
+    const title = ROUTES_SEO[to]?.title || 'Continue';
+    const label = to === '/services' ? 'Explore care' : to === '/contact' ? 'Contact and location' : 'Our doctors';
+    fs.writeFileSync(path.join(routeDir, 'index.html'), `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url=${escapeHtml(to)}"><link rel="canonical" href="${escapeHtml(getFullUrl(to))}"><title>${escapeHtml(title)}</title></head><body><p>Continue to <a href="${escapeHtml(to)}">${escapeHtml(label)}</a>.</p></body></html>`);
   }
 
   // 10. Task 8: Launch Guard Check

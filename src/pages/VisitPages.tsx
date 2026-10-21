@@ -9,9 +9,8 @@ import {
   MessageCircle,
   FileText,
   Stethoscope,
-  ExternalLink,
 } from "lucide-react";
-import { HOSPITAL_PROFILE, DOCTORS, BOOKING_URL } from "../data/config";
+import { HOSPITAL_PROFILE } from "../data/config";
 import { PATIENT_FAQS } from "../data/patientFaqs";
 import {
   PageHero,
@@ -19,106 +18,13 @@ import {
   VisitCTA,
   Accordion,
   BulletList,
-  BookLink,
-  GuideScene,
   hospitalPhone,
   hospitalMap,
 } from "../components/SiteDesign";
 
-export function BookAppointmentPage() {
-  const [step, setStep] = useState(0);
-  const steps = [
-    {
-      title: "Choose your doctor",
-      text: "Explore the doctor profiles below and open their Doctor Dekho booking page.",
-      message: "Pehle, apne doctor ko chunein.",
-    },
-    {
-      title: "Confirm your visit",
-      text: "Check your appointment details and doctor availability before you travel.",
-      message: "Apni appointment confirm kar lein.",
-    },
-    {
-      title: "Bring your reports",
-      text: "Keep previous reports, prescriptions and your questions ready for the consultation.",
-      message: "Reports aur sawaal saath laayein.",
-    },
-  ];
-  return (
-    <>
-      <PageHero
-        label="Book appointment"
-        title="Three small steps."
-        accent="A simpler visit."
-        description="Choose a doctor and continue to Doctor Dekho to arrange your appointment. Our hospital team can help by phone."
-        action="booking"
-        message="Let’s plan your next step together."
-      >
-        <BookLink label="Open Doctor Dekho" />
-        <a className="mm-text-link" href={hospitalPhone}>
-          <Phone size={16} />
-          Call for help
-        </a>
-      </PageHero>
-      <section className="site-section mm-wrap">
-        <SectionHeading number="01" title="Your visit, visualised." />
-        <div className="site-booking-guide">
-          <GuideScene action="booking" message={steps[step].message} cue={step} />
-          <div
-            className="site-booking-steps"
-            role="group"
-            aria-label="Appointment guide"
-          >
-            {steps.map((s, i) => (
-              <button
-                key={s.title}
-                aria-pressed={i === step}
-                className={i === step ? "is-active" : ""}
-                onClick={() => setStep(i)}
-              >
-                <span className="site-number">0{i + 1}</span>
-                <span>
-                  <strong>{s.title}</strong>
-                  <small>{s.text}</small>
-                </span>
-                <ArrowUpRight size={20} />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="site-section site-book-doctors mm-wrap">
-        <SectionHeading
-          number="02"
-          title="Who would you like to see?"
-          note="Booking continues on Doctor Dekho."
-        />
-        <div className="site-booking-doctors">
-          {DOCTORS.map((d) => (
-            <article key={d.id}>
-              <span className="site-icon">
-                <Stethoscope size={24} />
-              </span>
-              <div>
-                <span className="site-small-label">{d.department}</span>
-                <h2>{d.name}</h2>
-                <p>{d.qualifications}</p>
-              </div>
-              <BookLink href={d.bookingUrl} label="Choose doctor" />
-            </article>
-          ))}
-        </div>
-        <div className="site-note">
-          <ExternalLink size={21} />
-          <p>
-            You’ll leave this website to book on Doctor Dekho. Review the
-            appointment details there before confirming.
-          </p>
-        </div>
-      </section>
-    </>
-  );
-}
+import { HospitalLocationMap } from "../components/HospitalLocationMap";
+import { HospitalFeedback } from "../components/HospitalFeedback";
+
 export function ContactPage() {
   return (
     <>
@@ -176,34 +82,19 @@ export function ContactPage() {
               <h2>Plan before you travel</h2>
               <p>{HOSPITAL_PROFILE.consultationTimings}</p>
               <p>Please confirm your appointment before visiting.</p>
-              <Link className="mm-text-link" to="/book-appointment">
+              <Link className="mm-text-link" to="/doctors">
                 Plan your appointment <ArrowUpRight size={17} />
               </Link>
             </article>
           </div>
           <div className="site-location-card">
-            <div
-              className="site-map-illustration"
-              aria-label="Illustration of the hospital location, not a street map"
-            >
-              <div className="site-map-road road-one" />
-              <div className="site-map-road road-two" />
-              <div className="site-map-park" />
-              <div className="site-map-hospital">
-                <MapPin size={39} />
-                <strong>Glisan Akbari</strong>
-                <span>Line Bazar · Purnia</span>
-              </div>
-              <span className="site-map-label">
-                ILLUSTRATIVE LOCATION GUIDE
-              </span>
-            </div>
+            <HospitalLocationMap />
             <div className="site-location-card-bottom">
               <h2>See you in Purnia.</h2>
               <p>
-                Opposite Shiv Mandir, Dharamshala Road.
+                {HOSPITAL_PROFILE.address.line2}, {HOSPITAL_PROFILE.address.area}, {HOSPITAL_PROFILE.address.city}.
                 <br />
-                Use Google Maps for the actual route.
+                Tap the map or use the button for directions.
               </p>
               <a
                 href={hospitalMap}
@@ -335,13 +226,12 @@ export function ReviewsPage() {
           <p className="mm-kicker">PATIENT EXPERIENCES</p>
           <h2>A space for real stories.</h2>
           <p>
-            Patient stories are not published on this page yet. You can view the
-            doctor’s booking profile or contact the hospital team to share
-            feedback about your visit.
+            Read patient reviews for Glisan Akbari Super Speciality Hospital on Google. The hospital’s business listing is registered under Dr. Md Taquedis Noori’s name.
           </p>
+          <HospitalFeedback />
           <div className="site-hero-actions">
             {hasReviews ? (
-              <a className="mm-button" href={profileUrl}>
+              <a className="mm-button" href={profileUrl} target="_blank" rel="noreferrer">
                 Read public reviews <ArrowUpRight size={17} />
               </a>
             ) : (

@@ -13,6 +13,35 @@ export const DR_ASIF_IQBAL_BOOKING_URL = 'https://doctordekho.nexeagle.com/docto
 export const DR_ANWAR_KABIR_BOOKING_URL = 'https://doctordekho.nexeagle.com/doctors/dr-anwar-kabir-ent-purnea--2c9b0613-120d-4edd-883c-d8f56dd51e48';
 
 
+// Google profile details from the client-supplied screenshot captured 19 October 2026.
+// This is a dated snapshot, not a live review feed. The place ID was checked against Google Maps.
+export const DR_NOORI_GOOGLE_PROFILE = {
+  name: 'Dr. Md Taquedis Noori, MCh Urologist',
+  rating: 4.8,
+  reviewCount: 343,
+  capturedOn: '19 Oct 2026',
+  placeId: 'ChIJj_f8bKv57zkRejFzO1fZXL0',
+  url: 'https://www.google.com/maps/search/?api=1&query=Dr.%20Md%20Taquedis%20Noori%2C%20MCh%20Urologist%2C%20Purnia&query_place_id=ChIJj_f8bKv57zkRejFzO1fZXL0',
+  directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Glisan%20Akbari%20Super%20Speciality%20Hospital%2C%20Purnia&destination_place_id=ChIJj_f8bKv57zkRejFzO1fZXL0',
+  embedUrl: 'https://www.google.com/maps?cid=13645019939708547450&z=17&output=embed',
+};
+
+// Client reports the doctor confirmed on 21 October 2026 that this is the
+// hospital's business listing, registered under his name. Retain the dated
+// screenshot figures above rather than implying a live review feed.
+export const HOSPITAL_GOOGLE_PROFILE = DR_NOORI_GOOGLE_PROFILE;
+
+export const HOSPITAL_ADDRESS = {
+  line1: HOSPITAL_NAME,
+  line2: 'Dharamshala Road, Ashiyana Colony',
+  area: 'Line Bazar',
+  city: 'Purnia',
+  state: 'Bihar',
+  pincode: '854301',
+  stateAndPin: 'Bihar 854301',
+  fullFormatted: `${HOSPITAL_NAME}, Dharamshala Road, Ashiyana Colony, Line Bazar, Purnia, Bihar 854301`,
+};
+
 export interface DoctorProfile {
   name: string;
   professionalTitle: string;
@@ -29,6 +58,7 @@ export interface DoctorProfile {
   heroValueProp: string;
   doctorIntroduction: string;
   profileImagePlaceholder: string;
+  profileImage?: string;
   logoPlaceholder: string;
   bookingUrl?: string;
   rating?: number;
@@ -157,45 +187,37 @@ export const DOCTOR_PROFILE: DoctorProfile = {
   doctorIntroduction:
     'With nearly a decade of specialized experience, Dr. Md Taquedis Noori (MBBS, MS, MCh) is a dedicated Urologist and Kidney Transplant Surgeon. Whether providing care as an Andrologist, performing advanced laparoscopic procedures, or treating urological cancers, Dr. Noori brings top-tier surgical expertise to his patients.',
   profileImagePlaceholder: 'Dr. Md Taquedis Noori (MBBS, MS, MCh)',
+  profileImage: '/media/dr-md-taquedis-noori.png',
   logoPlaceholder: 'Glisan Akbari Super Speciality Hospital',
   bookingUrl: DR_NOORI_BOOKING_URL,
-  rating: 4.7,
-  reviewCount: 13,
+  rating: DR_NOORI_GOOGLE_PROFILE.rating,
+  reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount,
   isVerified: true,
   focusAreas: [
     'Andrologist',
     'Consultant Urologist',
     'Laproscopic and kidney Transplant Surgeon',
   ],
-  practicesAtAddress: 'Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar – 854301',
+  practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
 };
 
 export const HOSPITAL_PROFILE: HospitalProfile = {
   name: HOSPITAL_NAME,
-  address: {
-    line1: 'Glisan Akbari Super Speciality Hospital',
-    line2: 'Opp- Shiv Mandir, Dharamshala Road',
-    area: 'Line Bazaar',
-    city: 'Purnea',
-    state: 'Bihar',
-    pincode: '854301',
-    stateAndPin: 'Bihar 854301',
-    fullFormatted: 'Glisan Akbari Super Speciality Hospital, Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar 854301',
-  },
+  address: HOSPITAL_ADDRESS,
   phone: '079037 81377',
   officialAppointmentPhone: '079037 81377',
   whatsappNumber: '[PLACEHOLDER: INSERT WHATSAPP NUMBER]',
   email: '[PLACEHOLDER: INSERT OFFICIAL EMAIL]',
   website: '[PLACEHOLDER: INSERT OFFICIAL HOSPITAL WEBSITE]',
-  googleBusinessProfileUrl: '[PLACEHOLDER: INSERT GOOGLE BUSINESS PROFILE URL]',
-  googleMapsUrl: '[PLACEHOLDER: INSERT GOOGLE MAPS URL]',
+  googleBusinessProfileUrl: HOSPITAL_GOOGLE_PROFILE.url,
+  googleMapsUrl: DR_NOORI_GOOGLE_PROFILE.directionsUrl,
   consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
   emergencyInfo: '[PLACEHOLDER: INSERT EMERGENCY INFORMATION IF APPLICABLE]',
   hospitalExteriorPlaceholder: '[PLACEHOLDER: INSERT HOSPITAL EXTERIOR]',
   hospitalInteriorPlaceholder: '[PLACEHOLDER: INSERT HOSPITAL INTERIOR]',
   hospitalLogoPlaceholder: '[PLACEHOLDER: INSERT LOGO]',
   approvedHospitalImagesPlaceholder: '[PLACEHOLDER: INSERT APPROVED HOSPITAL IMAGES]',
-  description: 'Glisan Akbari Super Speciality Hospital provides advanced urological, nephrological, and surgical medical care located Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea.',
+  description: 'Glisan Akbari Super Speciality Hospital provides advanced urological, nephrological, and surgical medical care located on Dharamshala Road, Ashiyana Colony, Line Bazar, Purnia.',
   facilities: [
     'Advanced Endourology & Laser Surgery Suite',
     'Laparoscopic & Keyhole Surgery Unit',
@@ -227,6 +249,7 @@ export interface DoctorListItem {
   medicalRegistration: string;
   yearsOfExperience: string;
   profileImagePlaceholder: string;
+  profileImage?: string;
   consultationTimings: string;
   languages: string;
   isClickable: boolean;
@@ -245,26 +268,27 @@ export const DOCTORS: DoctorListItem[] = [
     id: 'doc-1',
     slug: 'dr-md-taquedis-noori',
     name: DOCTOR_NAME,
-    label: 'Verified Doctor · 4.7 ★',
+    label: `Google rating · ${DR_NOORI_GOOGLE_PROFILE.rating} ★`,
     specialty: 'Urology',
     department: 'Urology',
     qualifications: 'MBBS, MS(Gen. Surgery), MCh Urology',
     medicalRegistration: 'Verified Profile',
     yearsOfExperience: '9 years experience',
     profileImagePlaceholder: 'Dr. Md Taquedis Noori, MBBS, MS, MCh',
+    profileImage: DOCTOR_PROFILE.profileImage,
     consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
     languages: 'English, Bengali, Urdu, Hindi',
     isClickable: true,
     bookingUrl: DR_NOORI_BOOKING_URL,
-    rating: 4.7,
-    reviewCount: 13,
+    rating: DR_NOORI_GOOGLE_PROFILE.rating,
+    reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount,
     isVerified: true,
     focusAreas: [
       'Andrologist',
       'Consultant Urologist',
       'Laproscopic and kidney Transplant Surgeon',
     ],
-    practicesAtAddress: 'Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar – 854301',
+    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
     initials: 'MT',
     avatarGradient: 'from-amber-500 to-orange-500',
   },
@@ -286,7 +310,7 @@ export const DOCTORS: DoctorListItem[] = [
     focusAreas: [
       'Intensive Critical Care',
     ],
-    practicesAtAddress: 'Glisan Akbari Super Speciality Hospital, Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar – 854301',
+    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
     initials: 'AA',
     avatarGradient: 'from-sky-500 to-blue-500',
   },
@@ -308,7 +332,7 @@ export const DOCTORS: DoctorListItem[] = [
     focusAreas: [
       'Consultant Neurosurgeon',
     ],
-    practicesAtAddress: 'Glisan Akbari Super Speciality Hospital, Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar – 854301',
+    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
     initials: 'AI',
     avatarGradient: 'from-purple-500 to-indigo-600',
   },
@@ -330,17 +354,17 @@ export const DOCTORS: DoctorListItem[] = [
     focusAreas: [
       'Ear, Nose & Throat (ENT)',
     ],
-    practicesAtAddress: 'Glisan Akbari Super Speciality Hospital, Opp- Shiv Mandir, Dharamshala Road, Line Bazaar, Purnea, Bihar – 854301',
+    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
     initials: 'AK',
     avatarGradient: 'from-teal-500 to-emerald-500',
   },
 ];
 
 export const TRUST_STRIP_DATA: TrustStripData = {
-  googleRating: '4.7',
-  googleRatingPlaceholder: '4.7 ★ Verified Profile Rating',
-  googleReviewCount: '13 reviews',
-  googleReviewCountPlaceholder: '13 verified patient reviews',
+  googleRating: String(DR_NOORI_GOOGLE_PROFILE.rating),
+  googleRatingPlaceholder: `${DR_NOORI_GOOGLE_PROFILE.rating} ★ Dr. Noori’s Google profile · ${DR_NOORI_GOOGLE_PROFILE.capturedOn}`,
+  googleReviewCount: `${DR_NOORI_GOOGLE_PROFILE.reviewCount} Google reviews`,
+  googleReviewCountPlaceholder: `Google profile snapshot · ${DR_NOORI_GOOGLE_PROFILE.capturedOn}`,
   verifiedCredential: 'MBBS, MS(Gen. Surgery), MCh Urology',
   verifiedExperience: '9 years experience',
   verifiedMembership: 'Urologist & Kidney Transplant Surgeon',

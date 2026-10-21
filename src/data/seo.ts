@@ -8,6 +8,13 @@ export { SITE_URL };
  */
 export const ALLOW_INDEXING = false;
 
+export const ROUTE_REDIRECTS: Record<string, string> = {
+  '/book-appointment': '/doctors',
+  '/conditions': '/services',
+  '/treatments': '/services',
+  '/hospital': '/contact',
+};
+
 export interface RouteSeo {
   path: string;
   title: string;
@@ -51,35 +58,11 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/services': {
     path: '/services',
-    title: `Urology Services & Procedures | ${DOCTOR_NAME}`,
+    title: `Explore Care | ${HOSPITAL_NAME}, ${HOSPITAL_CITY}`,
     description:
-      `Urology services at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}, including kidney stone, prostate, urinary and male infertility care. Book an appointment.`,
+      `Explore kidney stone, prostate, urinary and other urology concerns at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}. Prepare questions for your consultation.`,
     canonical: getFullUrl('/services'),
     url: getFullUrl('/services'),
-  },
-  '/conditions': {
-    path: '/conditions',
-    title: `Conditions We Treat | ${DOCTOR_NAME} - Urologist`,
-    description:
-      `Patient guides for kidney stones, enlarged prostate, urinary infections, male fertility, and bladder concerns in ${HOSPITAL_CITY}.`,
-    canonical: getFullUrl('/conditions'),
-    url: getFullUrl('/conditions'),
-  },
-  '/treatments': {
-    path: '/treatments',
-    title: `Treatments & Surgical Procedures | ${DOCTOR_NAME}`,
-    description:
-      `Advanced minimally invasive, laser, and endoscopic urology procedures at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}.`,
-    canonical: getFullUrl('/treatments'),
-    url: getFullUrl('/treatments'),
-  },
-  '/hospital': {
-    path: '/hospital',
-    title: `Hospital Overview | ${HOSPITAL_NAME}`,
-    description:
-      `${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}: facilities, OPD timings, diagnostic imaging, and emergency care.`,
-    canonical: getFullUrl('/hospital'),
-    url: getFullUrl('/hospital'),
   },
   '/reviews': {
     path: '/reviews',
@@ -96,14 +79,6 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
       'Answers to common questions about booking on Doctor Dekho, preparing reports for a consultation, and finding the hospital.',
     canonical: getFullUrl('/faqs'),
     url: getFullUrl('/faqs'),
-  },
-  '/book-appointment': {
-    path: '/book-appointment',
-    title: `Book Consultation | ${DOCTOR_NAME} Urology Care`,
-    description:
-      `Request an appointment with ${DOCTOR_NAME} at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}.`,
-    canonical: getFullUrl('/book-appointment'),
-    url: getFullUrl('/book-appointment'),
   },
   '/contact': {
     path: '/contact',
@@ -162,12 +137,8 @@ export const SITEMAP_ROUTES = [
   '/doctors/dr-md-taquedis-noori',
   '/services',
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
-  '/conditions',
-  '/treatments',
-  '/hospital',
   '/reviews',
   '/faqs',
-  '/book-appointment',
   '/contact',
   '/privacy-policy',
   '/terms',

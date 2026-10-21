@@ -1,2 +1,11 @@
+# Retired pages and legacy appointment URLs.
+/book-appointment /doctors 301
+/book-appointment/ /doctors 301
+/conditions /services 301
+/conditions/ /services 301
+/treatments /services 301
+/treatments/ /services 301
+/hospital /contact 301
+/hospital/ /contact 301
 # Existing prerendered pages take priority; unknown routes receive the 404 page.
 /* /404.html 404

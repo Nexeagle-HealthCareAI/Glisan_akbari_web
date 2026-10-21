@@ -25,10 +25,7 @@ export const Header: React.FC<HeaderProps> = () => {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/doctors', label: 'Our Doctors' },
-    { path: '/services', label: 'Services' },
-    { path: '/conditions', label: 'Conditions' },
-    { path: '/treatments', label: 'Treatments' },
-    { path: '/hospital', label: 'Hospital' },
+    { path: '/services', label: 'Explore care' },
     { path: '/reviews', label: 'Reviews' },
     { path: '/faqs', label: 'FAQ' },
     { path: '/contact', label: 'Contact' },

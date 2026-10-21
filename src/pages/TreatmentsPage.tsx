@@ -1,1 +1,0 @@
-export { TreatmentsPage } from './CarePages';

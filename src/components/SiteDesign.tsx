@@ -5,10 +5,8 @@ import {
   ArrowRight,
   Phone,
   MapPin,
-  Menu,
+  EllipsisVertical,
   X,
-  Play,
-  Pause,
   ChevronDown,
   CalendarDays,
   FileText,
@@ -21,32 +19,18 @@ import { HOSPITAL_NAME } from "../data/identity";
 import { MimoGuide } from "./MimoGuide";
 import type { MimoAction } from "./MimoMotion";
 
-const MotionContext = createContext({ paused: false, toggle: () => {} });
+const MotionContext = createContext({ paused: false });
 export const useSiteMotion = () => useContext(MotionContext);
 export function SiteMotionProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [paused, setPaused] = useState(false);
-  useEffect(() => {
-    try {
-      setPaused(localStorage.getItem("hospital-motion") === "paused");
-    } catch {}
-  }, []);
-  function toggle() {
-    setPaused((p) => {
-      try {
-        localStorage.setItem("hospital-motion", p ? "playing" : "paused");
-      } catch {}
-      return !p;
-    });
-  }
   return (
-    <MotionContext.Provider value={{ paused, toggle }}>
+    <MotionContext.Provider value={{ paused: false }}>
       <div
         className="mm-home site-app"
-        data-motion={paused ? "paused" : "playing"}
+        data-motion="playing"
       >
         {children}
       </div>
@@ -54,16 +38,11 @@ export function SiteMotionProvider({
   );
 }
 export const hospitalPhone = "tel:" + HOSPITAL_PROFILE.phone.replace(/\s/g, "");
-export const hospitalMap =
-  "https://www.google.com/maps/search/?api=1&query=" +
-  encodeURIComponent(HOSPITAL_PROFILE.address.fullFormatted);
+export const hospitalMap = HOSPITAL_PROFILE.googleMapsUrl;
 export const siteLinks = [
   ["/", "Home"],
   ["/doctors", "Our doctors"],
   ["/services", "Explore care"],
-  ["/conditions", "Conditions"],
-  ["/treatments", "Treatments"],
-  ["/hospital", "Our hospital"],
   ["/reviews", "Patient feedback"],
   ["/faqs", "FAQs"],
   ["/contact", "Contact"],
@@ -84,7 +63,6 @@ export function Header() {
   const [menu, setMenu] = useState(false);
   const header = useRef<HTMLElement>(null);
   const { pathname } = useLocation();
-  const { paused, toggle } = useSiteMotion();
   useEffect(() => {
     setMenu(false);
   }, [pathname]);
@@ -112,10 +90,9 @@ export function Header() {
         Skip to content
       </a>
       <div className="mm-topline">
-        <span>
-          <MapPin size={12} /> Purnia, Bihar
-        </span>
-        <span>Your health. Easier to understand.</span>
+        <a className="site-header-address" href={hospitalMap} target="_blank" rel="noreferrer">
+          <MapPin size={14} /> <span>{HOSPITAL_PROFILE.address.fullFormatted}</span>
+        </a>
         <a href={hospitalPhone}>
           <Phone size={12} /> {HOSPITAL_PROFILE.phone}
         </a>
@@ -127,20 +104,10 @@ export function Header() {
         <nav className="site-nav" aria-label="Main navigation">
           <NavLink to="/services">Explore care</NavLink>
           <NavLink to="/doctors">Our doctors</NavLink>
-          <NavLink to="/hospital">Our hospital</NavLink>
           <NavLink to="/contact">Visit us</NavLink>
         </nav>
         <div className="mm-header-actions">
-          <button
-            className="mm-motion-toggle"
-            onClick={toggle}
-            aria-pressed={paused}
-            aria-label={paused ? "Resume animations" : "Pause animations"}
-          >
-            {paused ? <Play size={15} /> : <Pause size={15} />}
-            <span>{paused ? "Motion off" : "Motion on"}</span>
-          </button>
-          <Link to="/book-appointment" className="mm-button mm-header-book">
+          <Link to="/doctors" className="mm-button mm-header-book">
             Book appointment <ArrowUpRight size={17} />
           </Link>
           <button
@@ -151,7 +118,7 @@ export function Header() {
             aria-expanded={menu}
             aria-controls="site-menu"
           >
-            {menu ? <X size={21} /> : <Menu size={21} />}
+            {menu ? <X size={21} /> : <EllipsisVertical size={21} />}
           </button>
         </div>
         {menu && (
@@ -163,7 +130,7 @@ export function Header() {
                 <ArrowUpRight size={16} />
               </NavLink>
             ))}
-            <Link to="/book-appointment" className="mm-button">
+            <Link to="/doctors" className="mm-button">
               Book appointment <ArrowUpRight size={17} />
             </Link>
           </nav>
@@ -190,7 +157,7 @@ export function Footer() {
           </div>
           <div>
             <h2>Explore</h2>
-            {siteLinks.slice(1, 5).map(([to, label]) => (
+            {siteLinks.slice(1, 3).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>
@@ -198,12 +165,12 @@ export function Footer() {
           </div>
           <div>
             <h2>Plan your visit</h2>
-            {siteLinks.slice(5).map(([to, label]) => (
+            {siteLinks.slice(3).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>
             ))}
-            <Link to="/book-appointment">Book appointment</Link>
+            <Link to="/doctors">Book appointment</Link>
           </div>
           <div>
             <h2>Find us in Purnia</h2>
@@ -235,7 +202,7 @@ export function Footer() {
           </div>
         </div>
         <p className="site-disclaimer">
-          Dr. Memo is an illustrated digital guide. Information here is
+          Mimo is an illustrated digital guide. Information here is
           educational; your qualified doctor provides medical advice.
         </p>
       </div>
@@ -249,7 +216,7 @@ export function MobileActions() {
         <Phone size={17} />
         Call hospital
       </a>
-      <Link className="site-mobile-book" to="/book-appointment">
+      <Link className="site-mobile-book" to="/doctors">
         Book appointment <ArrowUpRight size={17} />
       </Link>
     </div>
@@ -259,7 +226,7 @@ export function GuideScene({
   action = "care",
   message,
   cue = 0,
-  label = "DR. MEMO, YOUR DIGITAL GUIDE",
+  label = "MIMO, YOUR DIGITAL GUIDE",
 }: {
   action?: MimoAction;
   message: string;
@@ -381,7 +348,7 @@ export function VisitCTA() {
         <p>Book a consultation or call our team to plan your visit.</p>
       </div>
       <div>
-        <Link to="/book-appointment" className="mm-button">
+        <Link to="/doctors" className="mm-button">
           Plan your appointment <ArrowUpRight size={18} />
         </Link>
         <a href={hospitalPhone} className="mm-text-link">
