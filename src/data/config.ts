@@ -147,6 +147,11 @@ export interface UrologyServiceItem {
   faqs: ServiceFAQItem[];
   seoTitle?: string;
   seoDescription?: string;
+  explainerVideo?: {
+    src: string;
+    poster: string;
+    description: string;
+  };
 }
 
 export interface WhyChooseReason {
@@ -467,6 +472,11 @@ export const PATIENT_CONDITIONS: PatientConditionItem[] = [
 export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   {
     id: 'srv-1',
+    explainerVideo: {
+      src: '/media/services/kidney-stones.mp4',
+      poster: '/media/services/kidney-stones-poster.jpg',
+      description: 'Learn how PCNL, URSL and RIRS can help treat kidney and ureter stones. Your doctor will advise which approach suits you.',
+    },
     title: 'Kidney Stone Laser Surgery (PCNL, URSL, RIRS)',
     category: 'Endourology & Laser Surgery',
     description: 'Minimally invasive laser treatments (PCNL, URSL, and flexible RIRS) for single, multiple, and complex staghorn kidney or ureteric stones without large incisions.',
@@ -535,6 +545,11 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-2',
+    explainerVideo: {
+      src: '/media/services/prostate-bph.mp4',
+      poster: '/media/services/prostate-bph-poster.jpg',
+      description: 'An enlarged prostate can affect urine flow. Learn about BPH and the care options to discuss with your urologist.',
+    },
     title: 'Prostate Enlargement & BPH Treatment',
     category: 'Prostate Health & Endourology',
     description: 'Advanced medical therapy and endoscopic interventions including Bipolar TURP and laser enucleation for Benign Prostatic Hyperplasia (BPH) to restore free urinary flow.',

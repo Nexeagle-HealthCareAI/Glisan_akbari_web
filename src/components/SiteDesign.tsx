@@ -17,6 +17,7 @@ import {
 import { HOSPITAL_PROFILE, BOOKING_URL } from "../data/config";
 import { HOSPITAL_NAME } from "../data/identity";
 import { MimoGuide } from "./MimoGuide";
+import { CareNavigation } from "./CareNavigation";
 import type { MimoAction } from "./MimoMotion";
 
 const MotionContext = createContext({ paused: false });
@@ -62,10 +63,10 @@ export function Brand() {
 export function Header() {
   const [menu, setMenu] = useState(false);
   const header = useRef<HTMLElement>(null);
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   useEffect(() => {
     setMenu(false);
-  }, [pathname]);
+  }, [pathname, search]);
   useEffect(() => {
     if (!menu) return;
     const close = (e: KeyboardEvent) => {
@@ -102,7 +103,7 @@ export function Header() {
       }}>
         <Brand />
         <nav className="site-nav" aria-label="Main navigation">
-          <NavLink to="/services">Explore care</NavLink>
+          <CareNavigation onOpen={() => setMenu(false)} />
           <NavLink to="/doctors">Our doctors</NavLink>
           <NavLink to="/contact">Visit us</NavLink>
         </nav>
@@ -125,6 +126,7 @@ export function Header() {
           <nav id="site-menu" className="site-menu" aria-label="All pages">
             <p className="mm-kicker">FIND YOUR WAY</p>
             {siteLinks.map(([to, label]) => (
+              to === '/services' ? <CareNavigation key={to} inline onNavigate={() => setMenu(false)} /> :
               <NavLink key={to} to={to} end={to === "/"} onClick={() => setMenu(false)}>
                 {label}
                 <ArrowUpRight size={16} />

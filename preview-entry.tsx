@@ -19,13 +19,13 @@ function RememberPage() {
   useEffect(() => {
     const url = new URL(window.location.href);
     if (location.pathname === "/") url.searchParams.delete("page");
-    else url.searchParams.set("page", location.pathname);
+    else url.searchParams.set("page", location.pathname + location.search);
     url.hash = location.hash;
     if (first.current || fromBrowser.current) window.history.replaceState(null, "", url);
     else window.history.pushState(null, "", url);
     first.current = false;
     fromBrowser.current = false;
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.search, location.hash]);
   return null;
 }
 const initial = (new URLSearchParams(window.location.search).get("page") || "/") + window.location.hash;
