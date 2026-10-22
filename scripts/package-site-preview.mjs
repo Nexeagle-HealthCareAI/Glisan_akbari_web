@@ -21,6 +21,14 @@ let css = fs.readFileSync(
   "utf8",
 );
 let js = fs.readFileSync("site-preview-bundle.js", "utf8");
+// Keep videos outside the HTML so the Finder preview streams only the selected
+// service, just like the deployed site. Resolve these paths next to this file.
+for (const file of fs.readdirSync("public/media/services")) {
+  js = js.replaceAll(
+    JSON.stringify("/media/services/" + file),
+    JSON.stringify("./public/media/services/" + file),
+  );
+}
 let assignments = "window.__SITE_ASSETS__={};";
 for (const [url, value] of data) {
   css = css.replaceAll(url, value);

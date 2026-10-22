@@ -1,22 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight, Phone, MapPin, Plus, Heart, Droplets, Activity, CalendarDays, Check, ShieldCheck, Accessibility, MessageCircle, FileText, Navigation, Video, ChevronRight } from 'lucide-react';
-import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES } from '../data/config';
+import { ArrowUpRight, ArrowRight, Phone, MapPin, Plus, CalendarDays, Check, MessageCircle, FileText, Navigation, Video } from 'lucide-react';
+import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
 import { MimoGuide } from '../components/MimoGuide';
 import { useSiteMotion, hospitalMap } from '../components/SiteDesign';
 import { HospitalFeedback } from '../components/HospitalFeedback';
-import { CareArtwork } from '../components/CareArtwork';
+import { HomeCareSection } from '../components/HomeCareSection';
 import './HomePage.css';
 
 interface HomePageProps { onOpenBooking: () => void; }
-const topics = [
-  { title: 'Kidney stones', short: 'Kidney stones? Let’s explore your options.', line: 'A consultation helps you understand the right next step.', index: 0, Icon: Droplets, hint: 'Understand your options' },
-  { title: 'Prostate health', short: 'A little clarity about prostate health.', line: 'Talk to a urologist about changes in urination.', index: 1, Icon: ShieldCheck, hint: 'Start a conversation' },
-  { title: 'Urinary concerns', short: 'Questions about urinary symptoms?', line: 'Share your symptoms with a qualified doctor.', index: 2, Icon: Activity, hint: 'Talk about your symptoms' },
-  { title: 'Male fertility', short: 'Personal questions. A private conversation.', line: 'Explore your concerns in a consultation.', index: 3, Icon: Heart, hint: 'Find confidential support' },
-  { title: 'Bladder health', short: 'Let’s talk about everyday comfort.', line: 'Understand the care available for bladder concerns.', index: 5, Icon: Droplets, hint: 'Explore bladder care' },
-  { title: 'Children’s urology', short: 'Little ones need a thoughtful approach.', line: 'Speak with a doctor about your child’s urological concerns.', index: 12, Icon: Accessibility, hint: 'Care for little ones' },
-];
 const questions = [
   { q: 'How do I book?', a: 'Use “Book appointment” to choose a doctor, then continue to Doctor Dekho. Our team can also help by phone.', bubble: 'Booking? Main raasta dikhaata hoon.', Icon: CalendarDays },
   { q: 'What should I bring?', a: 'Bring previous reports, prescriptions, and a list of medicines you take.', bubble: 'Reports saath laana yaad rakhein.', Icon: FileText },
@@ -25,12 +17,9 @@ const questions = [
 export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
   const root = useRef<HTMLDivElement>(null);
   const { paused } = useSiteMotion();
-  const [topic, setTopic] = useState(0);
   const [question, setQuestion] = useState(0);
   const phone = 'tel:' + HOSPITAL_PROFILE.phone.replace(/\s+/g, '');
   const map = hospitalMap;
-  const activeTopic = topics[topic];
-  const activeService = UROLOGY_SERVICES[activeTopic.index];
   const activeQuestion = questions[Math.max(0, question)];
   const FaqIcon = activeQuestion.Icon;
   useEffect(() => {
@@ -50,7 +39,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
 
       <section id="meet-mimo" className="mm-welcome mm-scene" aria-label="Meet Mimo, your digital guide"><div className="mm-wrap mm-welcome-inner"><div className="mm-welcome-character"><MimoGuide paused={paused} action="welcome" /><span className="mm-welcome-spark">✳</span></div><div><div className="mm-kicker">A FAMILIAR FACE. EVERY STEP.</div><h2>Hi, I’m <span>Mimo.</span></h2><p>Your little guide to a clearer hospital visit.</p></div><div className="mm-welcome-bubble"><MessageCircle size={22} /><span>“Chaliye, ek-ek step<br />aasaan banaate hain.”</span></div><a href="#care" className="mm-round-link" aria-label="Explore care with Mimo"><ArrowRight size={24} /></a></div></section>
 
-      <section id="care" className="mm-care mm-wrap" aria-labelledby="care-title"><div className="mm-section-heading"><div><div className="mm-kicker">01 / EXPLORE WITH MIMO</div><h2 id="care-title">What brings you here?</h2></div><Link to="/services" className="mm-text-link">Explore care <ArrowUpRight size={17} /></Link></div><div className="mm-care-layout"><div className={'mm-care-scene mm-scene mm-topic-' + topic}><div className="mm-scene-grid" /><div className="mm-speech" key={topic}><span>MIMO EXPLAINS</span><p>{activeTopic.short}</p></div><div className="mm-organ-card" key={activeService.id} role="img" aria-label={activeTopic.title + ' illustration'}><span className="mm-card-caption">LET’S UNDERSTAND</span><CareArtwork serviceId={activeService.id} variant="card" /><strong>{activeTopic.title}</strong></div><MimoGuide paused={paused} action="care" cue={topic} className="mm-care-mimo" /><span className="mm-float-chip mm-care-chip"><Check size={15} /> One step at a time</span><span className="mm-scene-star">✳</span><span className="mm-scene-caption">Your guide to care · Illustrative animation</span></div><div className="mm-topic-panel"><p className="mm-small-heading">CHOOSE A TOPIC. LET’S MAKE IT SIMPLE.</p><div className="mm-topic-list" role="group" aria-label="Explore urology care topics">{topics.map((item, i) => <button key={item.title} onClick={() => setTopic(i)} aria-pressed={topic === i} className={topic === i ? 'is-active' : ''}><CareArtwork serviceId={UROLOGY_SERVICES[item.index].id} /><span className="mm-topic-icon"><item.Icon size={21} strokeWidth={1.6} /></span><span>{item.title}<small>{item.hint}</small></span><ChevronRight size={18} /></button>)}</div><div className="mm-topic-details" aria-live="polite"><p>{activeTopic.line}</p><Link className="mm-text-link" to={'/services/' + activeService.slug}>Explore {activeTopic.title.toLowerCase()} <ArrowUpRight size={17} /></Link></div></div></div></section>
+      <HomeCareSection paused={paused} />
 
       <section className="mm-faq mm-wrap" aria-labelledby="faq-title"><div className="mm-section-heading"><div><div className="mm-kicker">02 / A LITTLE REASSURANCE</div><h2 id="faq-title">Before you say hello.</h2></div><Link to="/faqs" className="mm-text-link">More questions <ArrowUpRight size={17} /></Link></div><div className="mm-faq-layout"><div className="mm-faq-scene mm-scene"><div className="mm-question-orbit"><span>?</span><span>+</span><span>?</span></div><div className="mm-speech" key={'faq-' + question}><span>ASK MIMO</span><p>“{activeQuestion.bubble}”</p></div><MimoGuide paused={paused} action="faq" cue={question} /><span className="mm-faq-floating-icon" key={question}><FaqIcon size={30} strokeWidth={1.4} /></span></div><div className="mm-faq-questions">{questions.map((item, i) => <div key={item.q} className={question === i ? 'mm-faq-item is-open' : 'mm-faq-item'}><h3><button onClick={() => setQuestion(question === i ? -1 : i)} aria-expanded={question === i} aria-controls={'mm-answer-' + i}><item.Icon size={20} /><span>{item.q}</span><Plus size={19} /></button></h3><div id={'mm-answer-' + i} hidden={question !== i}><p>{item.a}</p>{i === 0 && <button onClick={onOpenBooking} className="mm-text-link">Book appointment <ArrowUpRight size={16} /></button>}{i === 2 && <a href={map} target="_blank" rel="noreferrer" className="mm-text-link">Get directions <ArrowUpRight size={16} /></a>}</div></div>)}</div></div></section>
 

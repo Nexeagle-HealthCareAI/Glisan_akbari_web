@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link, useLocation, useParams } from "react-router-dom";
 import {
   ArrowUpRight,
   Activity,
@@ -7,6 +7,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from "../data/config";
+import { ServiceVideo } from "../components/ServiceVideo";
+import { getCareDepartment, getCareDoctor, type CareDepartment } from "../data/careDepartments";
 import {
   PageHero,
   SectionHeading,
@@ -121,66 +123,112 @@ export function ServiceDetailPage(_: Props) {
   );
 }
 export function ConditionsPage(_: Props) {
-  const [open, setOpen] = useState(0);
+  const { search } = useLocation();
+  const department = getCareDepartment(search);
   return (
     <>
       <PageHero
         label="Explore care"
         title="Questions about"
         accent="what you’re feeling?"
-        description="Find a starting point for a conversation with your urologist. Browse the care topics below and the concerns to discuss."
+        description="Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss."
         action="faq"
         message="You don’t need to have all the answers."
       />
-      <section className="site-section mm-wrap">
+      <DepartmentCare key={department.id} department={department} />
+      <VisitCTA />
+    </>
+  );
+}
+
+function DepartmentCare({ department }: { department: CareDepartment }) {
+  const [open, setOpen] = useState(0);
+  const detail = useRef<HTMLElement>(null);
+  const service = department.services[open];
+  const doctor = getCareDoctor(department);
+  return (
+      <section id="care-topics" className="site-section mm-wrap site-care-section">
         <SectionHeading
           number="01"
           title="Start with your concern."
-          note="A guide to your consultation."
+          note={department.label + ' · A guide to your consultation.'}
         />
         <div className="site-condition-layout">
-          <div
-            className="site-condition-tabs"
-            role="group"
-            aria-label="Choose a care topic"
-          >
-            {UROLOGY_SERVICES.map((s, i) => (
-              <button
-                key={s.id}
-                aria-pressed={i === open}
-                className={i === open ? "is-active" : ""}
-                onClick={() => setOpen(i)}
-              >
-                <span>{String(i + 1).padStart(2, "0")}</span>
-                {s.title}
-                <ArrowUpRight size={17} />
-              </button>
-            ))}
-          </div>
-          <article className="site-condition-detail" aria-live="polite">
-            <span className="site-icon">
-              <Activity size={32} />
-            </span>
-            <p className="mm-kicker">LET’S TALK ABOUT IT</p>
-            <h2>{UROLOGY_SERVICES[open].title}</h2>
-            <p>{UROLOGY_SERVICES[open].description}</p>
-            <h3>Concerns to mention</h3>
-            <BulletList items={UROLOGY_SERVICES[open].symptoms} />
-            <Link
-              className="mm-button"
-              to={"/services/" + UROLOGY_SERVICES[open].slug}
+          <div className="site-care-browser">
+            {department.proposed && <p className="site-department-notice" id="department-availability">
+              Topics to discuss. Please confirm consultation and treatment availability with the hospital before planning your visit.
+            </p>}
+            <div
+              key={department.id}
+              className="site-condition-tabs site-care-transition"
+              role="group"
+              aria-label={department.label + ' care topics'}
+              aria-describedby={department.proposed ? 'department-availability' : undefined}
             >
-              Understand this care <ArrowUpRight size={17} />
-            </Link>
+              {department.services.map((s, i) => (
+                <button
+                  type="button"
+                  key={s.id}
+                  aria-pressed={i === open}
+                  className={i === open ? "is-active" : ""}
+                  aria-controls="selected-care-topic"
+                  onClick={() => {
+                    setOpen(i);
+                    if (window.matchMedia('(max-width: 760px)').matches) {
+                      detail.current?.scrollIntoView({
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+                        block: 'start',
+                      });
+                    }
+                  }}
+                >
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  {s.title}
+                  <ArrowUpRight size={17} />
+                </button>
+              ))}
+            </div>
+          </div>
+          <article ref={detail} id="selected-care-topic" className="site-condition-detail" aria-labelledby="selected-care-title">
+            {!service.explainerVideo && <span className="site-icon">
+              <Activity size={32} />
+            </span>}
+            <div aria-live="polite" aria-atomic="true">
+              <div key={service.id} className="site-care-transition">
+                <p className="mm-kicker">LET’S TALK ABOUT IT</p>
+                <h2 id="selected-care-title">{service.title}</h2>
+                <p className="site-condition-summary">{service.explainerVideo?.description || service.description}</p>
+              </div>
+            </div>
+            {service.explainerVideo ? (
+              <ServiceVideo key={service.id} {...service.explainerVideo} title={service.title} />
+            ) : <>
+              <p className="site-care-video-placeholder">A video guide for this topic is not available yet.</p>
+              {service.symptoms && <>
+                <h3>Concerns to mention</h3>
+                <BulletList items={service.symptoms} />
+              </>}
+            </>}
+            {department.proposed && <p className="site-department-notice">
+              Educational topic only. Specific consultations, procedures and facilities have not been confirmed for this topic.
+            </p>}
             <p className="site-caption">
               These topics help you prepare questions; they cannot identify the
               cause of your symptoms.
             </p>
+            <div className="site-care-panel-actions">
+              {service.slug && <Link className="mm-button" to={"/services/" + service.slug}>
+                Understand this care <ArrowUpRight size={17} />
+              </Link>}
+              <div className="site-care-booking">
+                <p>{doctor ? doctor.name + ' · ' + doctor.specialty : 'Need help choosing a doctor?'}</p>
+                {doctor ? <BookLink href={doctor.bookingUrl} label="Book appointment" /> :
+                  <Link className="mm-button" to="/doctors">Book appointment <ArrowUpRight size={17} /></Link>}
+              </div>
+            </div>
           </article>
         </div>
       </section>
-      <VisitCTA />
-    </>
   );
 }
 export function NotFoundPage() {

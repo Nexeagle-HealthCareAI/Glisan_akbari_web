@@ -93,7 +93,7 @@ export const PageMeta: React.FC = () => {
       if (pageChanged) document.getElementById('main-content')?.focus({ preventScroll: true });
     });
     return () => cancelAnimationFrame(frame);
-  }, [location.pathname, location.hash]);
+  }, [location.pathname, location.search, location.hash]);
 
   return null;
 };
