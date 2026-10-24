@@ -2,6 +2,7 @@ import { PATIENT_FAQS } from './patientFaqs';
 import { SITE_URL, getFullUrl } from './seo';
 import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL, DR_NOORI_GOOGLE_PROFILE } from './config';
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
+import { HOMEPAGE_ADDRESS, HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 
 /**
  * Format phone number into clean E.164 international standard (+917903781377).
@@ -76,6 +77,25 @@ const BREADCRUMB_LABELS: Record<string, string> = {
  */
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
+  if (normalizedPath === '/') {
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [{
+        '@type': 'Hospital',
+        '@id': `${HOMEPAGE_URL}#hospital`,
+        name: HOSPITAL_NAME,
+        ...(HOMEPAGE_URL ? {
+          url: HOMEPAGE_URL,
+          image: new URL(HOMEPAGE_SEO.imagePath, HOMEPAGE_URL).href,
+          logo: new URL('/media/hospital-logo.png', HOMEPAGE_URL).href,
+        } : {}),
+        address: { '@type': 'PostalAddress', ...HOMEPAGE_ADDRESS },
+        // Specialist practice listings support Urology and Anesthesiology.
+        // Avoid converting educational topics into claims about hospital facilities.
+        medicalSpecialty: ['https://schema.org/Urologic', 'https://schema.org/Anesthesia'],
+      }],
+    };
+  }
   const hospitalId = `${SITE_URL}/#hospital`;
   const physicianId = `${SITE_URL}/#physician`;
   const cleanPhone = formatInternationalPhone(HOSPITAL_PROFILE.phone);

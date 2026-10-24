@@ -19,6 +19,7 @@ import { HOSPITAL_NAME } from "../data/identity";
 import { MimoGuide } from "./MimoGuide";
 import { CareNavigation } from "./CareNavigation";
 import type { MimoAction } from "./MimoMotion";
+import { HOMEPAGE_ADDRESS, HOMEPAGE_LOCATION } from '../data/homepageSeo';
 
 const MotionContext = createContext({ paused: false });
 export const useSiteMotion = () => useContext(MotionContext);
@@ -49,10 +50,11 @@ export const siteLinks = [
   ["/contact", "Contact"],
 ];
 export function Brand() {
+  const { pathname } = useLocation();
   return (
     <Link to="/" className="mm-brand" aria-label={HOSPITAL_NAME + " home"}>
       <span className="site-logo">
-        <img src="/media/hospital-logo.png" alt="" width="1280" height="1280" />
+        <img src="/media/hospital-logo.png" alt={pathname === '/' ? `${HOSPITAL_NAME} logo` : ''} width="1280" height="1280" />
       </span>
       <span>
         Glisan Akbari<small>SUPER SPECIALITY HOSPITAL</small>
@@ -90,9 +92,13 @@ export function Header() {
       <a href="#main-content" className="mm-skip">
         Skip to content
       </a>
-      <div className="mm-topline">
-        <a className="site-header-address" href={hospitalMap} target="_blank" rel="noreferrer">
-          <MapPin size={14} /> <span>{HOSPITAL_PROFILE.address.fullFormatted}</span>
+      <div className={pathname === '/' ? 'mm-topline site-topline-home' : 'mm-topline'}>
+        <a className="site-header-address" href={hospitalMap} target="_blank" rel="noreferrer"
+          aria-label={pathname === '/' ? `Get directions to ${HOSPITAL_NAME}, ${HOMEPAGE_LOCATION}` : undefined}>
+          <MapPin size={14} /> {pathname === '/' ? <>
+            <span className="site-header-address-full">{HOSPITAL_NAME}, {HOMEPAGE_LOCATION}</span>
+            <span className="site-header-address-short">Line Bazar · Purnea</span>
+          </> : <span>{HOSPITAL_PROFILE.address.fullFormatted}</span>}
         </a>
         <a href={hospitalPhone}>
           <Phone size={12} /> {HOSPITAL_PROFILE.phone}
@@ -142,8 +148,14 @@ export function Header() {
   );
 }
 export function Footer() {
+  const { pathname } = useLocation();
+  const address = pathname === '/' ? {
+    ...HOSPITAL_PROFILE.address,
+    line2: 'Dharamshala Road',
+    city: HOMEPAGE_ADDRESS.addressLocality,
+  } : HOSPITAL_PROFILE.address;
   return (
-    <footer className="site-footer">
+    <footer className={pathname === '/' ? 'site-footer site-footer-home' : 'site-footer'}>
       <div className="mm-wrap">
         <div className="site-footer-grid">
           <div>
@@ -177,11 +189,11 @@ export function Footer() {
           <div>
             <h2>Find us in Purnia</h2>
             <address>
-              {HOSPITAL_PROFILE.address.line2}
+              {address.line2}
               <br />
-              {HOSPITAL_PROFILE.address.area}, {HOSPITAL_PROFILE.address.city}
+              {address.area}, {address.city}
               <br />
-              {HOSPITAL_PROFILE.address.stateAndPin}
+              {address.stateAndPin}
             </address>
             <a
               href={hospitalMap}

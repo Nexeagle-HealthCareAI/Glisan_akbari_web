@@ -24,6 +24,7 @@ async function main() {
   await sharp(Buffer.from(share))
     .png()
     .toFile(path.join(publicDir, "og-image.png"));
+  fs.copyFileSync(path.join(publicDir, "og-image.png"), path.join(publicDir, "glisan-akbari-hospital-purnea.png"));
   console.log(
     "[Assets] Supplied hospital logo applied to favicon, touch icon and social image.",
   );

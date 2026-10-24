@@ -1,5 +1,6 @@
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
 import { UROLOGY_SERVICES } from './config';
+import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 
 export { SITE_URL };
 
@@ -34,11 +35,10 @@ export function getFullUrl(path: string): string {
 export const ROUTES_SEO: Record<string, RouteSeo> = {
   '/': {
     path: '/',
-    title: `${HOSPITAL_NAME}, ${HOSPITAL_CITY} | Book Appointment`,
-    description:
-      `Request an appointment at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}. Meet our doctors and see our urology services.`,
-    canonical: getFullUrl('/'),
-    url: getFullUrl('/'),
+    title: HOMEPAGE_SEO.title,
+    description: HOMEPAGE_SEO.description,
+    canonical: HOMEPAGE_URL,
+    url: HOMEPAGE_URL,
   },
   '/doctors': {
     path: '/doctors',
@@ -151,6 +151,7 @@ export function getSeoForPath(path: string): RouteSeo {
   const normalized = path === '/' ? '/' : path.replace(/\/+$/, '');
   const url = getFullUrl(normalized);
   const base = ROUTES_SEO[normalized];
+  if (normalized === '/') return { ...base };
   if (base) {
     return {
       ...base,

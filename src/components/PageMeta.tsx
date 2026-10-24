@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getSeoForPath, SITE_URL, ALLOW_INDEXING } from '../data/seo';
 import { generatePageSchema } from '../data/schema';
+import { HOSPITAL_NAME, DOCTOR_NAME } from '../data/identity';
+import { HOMEPAGE_SEO } from '../data/homepageSeo';
 
 export const PageMeta: React.FC = () => {
   const location = useLocation();
@@ -9,6 +11,7 @@ export const PageMeta: React.FC = () => {
 
   useEffect(() => {
     const seo = getSeoForPath(location.pathname);
+    const isHome = location.pathname === '/';
 
     // Update Document Title
     document.title = seo.title;
@@ -43,6 +46,7 @@ export const PageMeta: React.FC = () => {
       document.head.appendChild(canonicalLink);
     }
     canonicalLink.setAttribute('href', seo.canonical);
+    if (!seo.canonical) canonicalLink.remove();
 
     // Update OpenGraph Tags
     let ogUrl = document.querySelector<HTMLMetaElement>('meta[property="og:url"]');
@@ -52,6 +56,7 @@ export const PageMeta: React.FC = () => {
       document.head.appendChild(ogUrl);
     }
     ogUrl.setAttribute('content', seo.url);
+    if (!seo.url) ogUrl.remove();
 
     const ogTitle = document.querySelector<HTMLMetaElement>('meta[property="og:title"]');
     if (ogTitle) ogTitle.setAttribute('content', seo.title);
@@ -64,6 +69,28 @@ export const PageMeta: React.FC = () => {
 
     const twitterImage = document.querySelector<HTMLMetaElement>('meta[name="twitter:image"]');
     if (twitterImage) twitterImage.setAttribute('content', `${SITE_URL}/og-image.png`);
+
+    // A client-side route change must match the homepage's prerendered head.
+    const setMeta = (attribute: 'name' | 'property', key: string, content: string) => {
+      let tag = document.head.querySelector<HTMLMetaElement>(`meta[${attribute}="${key}"]`);
+      if (!content) { tag?.remove(); return; }
+      if (!tag) {
+        tag = document.createElement('meta');
+        tag.setAttribute(attribute, key);
+        document.head.appendChild(tag);
+      }
+      tag.content = content;
+    };
+    setMeta('property', 'og:site_name', isHome ? HOSPITAL_NAME : `${DOCTOR_NAME} Urology Care`);
+    setMeta('property', 'og:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : '');
+    setMeta('name', 'twitter:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : '');
+    setMeta('name', 'twitter:title', seo.title);
+    setMeta('name', 'twitter:description', seo.description);
+    const shareImage = isHome
+      ? (seo.url ? new URL(HOMEPAGE_SEO.imagePath, seo.url).href : '')
+      : `${SITE_URL}/og-image.png`;
+    setMeta('property', 'og:image', shareImage);
+    setMeta('name', 'twitter:image', shareImage);
 
     // Update Per-Page JSON-LD Structured Data
     let schemaScript = document.querySelector<HTMLScriptElement>(

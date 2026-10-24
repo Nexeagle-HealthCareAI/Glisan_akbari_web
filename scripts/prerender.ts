@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE_URL, ALLOW_INDEXING, ROUTES_SEO, SITEMAP_ROUTES, PRERENDER_ROUTES, ROUTE_REDIRECTS, getFullUrl } from '../src/data/seo';
 import { generatePageSchema } from '../src/data/schema';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../src/data/identity';
+import { HOMEPAGE_SEO } from '../src/data/homepageSeo';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -123,6 +124,22 @@ async function prerender() {
       /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/?>/i,
       `<meta name="twitter:image" content="${SITE_URL}/og-image.png" />`
     );
+
+    if (route === '/') {
+      pageHtml = pageHtml.replace(
+        /<meta\s+property="og:site_name"\s+content="[^"]*"\s*\/?>/i,
+        `<meta property="og:site_name" content="${escapeHtml(HOMEPAGE_SEO.siteName)}" />`
+      );
+      pageHtml = pageHtml.replace('</head>', `  <meta property="og:image:alt" content="${escapeHtml(HOMEPAGE_SEO.imageAlt)}" />\n  <meta name="twitter:image:alt" content="${escapeHtml(HOMEPAGE_SEO.imageAlt)}" />\n</head>`);
+      if (seo.url) {
+        const image = new URL(HOMEPAGE_SEO.imagePath, seo.url).href;
+        pageHtml = pageHtml.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/gi, `$1${escapeHtml(image)}$2`);
+      } else {
+        // No official domain yet: omit URL tags rather than advertising a placeholder.
+        pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>\n?/i, '');
+        pageHtml = pageHtml.replace(/<meta\s+(?:property="og:(?:url|image)"|name="twitter:image")\s+content="[^"]*"\s*\/?>\n?/gi, '');
+      }
+    }
 
     // 8. Per-Route JSON-LD Structured Data (Task 6)
     const pageSchema = generatePageSchema(route);
