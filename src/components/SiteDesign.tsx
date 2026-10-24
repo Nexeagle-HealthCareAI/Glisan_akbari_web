@@ -44,10 +44,10 @@ export const hospitalMap = HOSPITAL_PROFILE.googleMapsUrl;
 export const siteLinks = [
   ["/", "Home"],
   ["/doctors", "Our doctors"],
-  ["/services", "Explore care"],
-  ["/reviews", "Patient feedback"],
+  ["/explore-care", "Explore care"],
+  ["/services", "Departments"],
   ["/faqs", "FAQs"],
-  ["/contact", "Contact"],
+  ["/contact", "Visit us"],
 ];
 export function Brand() {
   const { pathname } = useLocation();
@@ -92,13 +92,12 @@ export function Header() {
       <a href="#main-content" className="mm-skip">
         Skip to content
       </a>
-      <div className={pathname === '/' ? 'mm-topline site-topline-home' : 'mm-topline'}>
+      <div className="mm-topline site-topline-mobile">
         <a className="site-header-address" href={hospitalMap} target="_blank" rel="noreferrer"
-          aria-label={pathname === '/' ? `Get directions to ${HOSPITAL_NAME}, ${HOMEPAGE_LOCATION}` : undefined}>
-          <MapPin size={14} /> {pathname === '/' ? <>
-            <span className="site-header-address-full">{HOSPITAL_NAME}, {HOMEPAGE_LOCATION}</span>
-            <span className="site-header-address-short">Line Bazar · Purnea</span>
-          </> : <span>{HOSPITAL_PROFILE.address.fullFormatted}</span>}
+          aria-label={`Get directions to ${HOSPITAL_NAME}, ${HOMEPAGE_LOCATION}`}>
+          <MapPin size={14} />
+          <span className="site-header-address-full">{pathname === '/' ? `${HOSPITAL_NAME}, ${HOMEPAGE_LOCATION}` : HOSPITAL_PROFILE.address.fullFormatted}</span>
+          <span className="site-header-address-short">Line Bazar · Purnea</span>
         </a>
         <a href={hospitalPhone}>
           <Phone size={12} /> {HOSPITAL_PROFILE.phone}
@@ -109,6 +108,7 @@ export function Header() {
       }}>
         <Brand />
         <nav className="site-nav" aria-label="Main navigation">
+          <NavLink to="/explore-care">Explore care</NavLink>
           <CareNavigation onOpen={() => setMenu(false)} />
           <NavLink to="/doctors">Our doctors</NavLink>
           <NavLink to="/contact">Visit us</NavLink>
@@ -155,7 +155,7 @@ export function Footer() {
     city: HOMEPAGE_ADDRESS.addressLocality,
   } : HOSPITAL_PROFILE.address;
   return (
-    <footer className={pathname === '/' ? 'site-footer site-footer-home' : 'site-footer'}>
+    <footer className="site-footer site-footer-mobile">
       <div className="mm-wrap">
         <div className="site-footer-grid">
           <div>
@@ -171,7 +171,7 @@ export function Footer() {
           </div>
           <div>
             <h2>Explore</h2>
-            {siteLinks.slice(1, 3).map(([to, label]) => (
+            {siteLinks.slice(1, 4).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>
@@ -179,7 +179,7 @@ export function Footer() {
           </div>
           <div>
             <h2>Plan your visit</h2>
-            {siteLinks.slice(3).map(([to, label]) => (
+            {siteLinks.slice(4).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>

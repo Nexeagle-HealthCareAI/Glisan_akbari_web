@@ -88,10 +88,10 @@ export const Footer: React.FC<FooterProps> = () => {
               {[
                 { name: 'Home', path: '/' },
                 { name: 'Our Doctors', path: '/doctors' },
-                { name: 'Explore care', path: '/services' },
-                { name: 'Patient Reviews', path: '/reviews' },
+                { name: 'Explore care', path: '/explore-care' },
+                { name: 'Departments', path: '/services' },
                 { name: 'FAQ', path: '/faqs' },
-                { name: 'Contact & Location', path: '/contact' }
+                { name: 'Visit us', path: '/contact' }
               ].map((link) => (
                 <li key={link.path}>
                   <Link to={link.path} className="group flex items-center gap-2 text-slate-400 hover:text-teal-400 transition-colors">

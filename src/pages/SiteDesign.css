@@ -2733,3 +2733,102 @@
 @media (max-width: 600px) {
   .mm-organ-card > .care-artwork-card { height: 126px; }
 }
+
+/* Keep the four primary navigation items clear of the logo and booking button. */
+@media (max-width: 1100px) {
+  .site-app .site-nav { display: none; }
+}
+
+/* The compact location is shared on mobile; desktop keeps its full address. */
+.site-header-address .site-header-address-short { display: none; }
+@media (max-width: 600px) {
+  .site-app .site-topline-mobile .site-header-address-short { display: block; }
+}
+
+.site-care-switcher-hint { display: none; }
+@media (max-width: 760px) {
+  .site-care-section .site-condition-layout {
+    gap: 14px;
+    scroll-margin-top: 12px;
+  }
+  .site-care-switcher-hint {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin-bottom: 8px !important;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .site-care-browser .site-condition-tabs {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 5px 5px 10px;
+    scroll-padding-inline: 5px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: #a2b5a2 transparent;
+  }
+  .site-care-browser .site-condition-tabs button {
+    flex: 0 0 min(220px, 76vw);
+    min-height: 66px;
+    padding: 12px 14px;
+    font-size: 13px;
+    line-height: 1.5;
+    scroll-snap-align: start;
+  }
+  .site-care-browser .site-condition-tabs button > svg { display: none; }
+  .site-care-section .site-condition-detail {
+    padding: 20px;
+    scroll-margin-top: 12px;
+  }
+  .site-care-section .site-condition-detail h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .site-care-section .site-condition-summary { line-height: 1.65; }
+  .site-care-section .site-service-video { margin-top: 16px; }
+}
+
+/* On Visit Us, put the map before the practical details and the guide last.
+   Share the existing map and guide rather than loading duplicate mobile copies. */
+@media (max-width: 760px) {
+  .site-visit-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    width: calc(100% - 64px);
+    margin-inline: auto;
+    padding: 25px 0 40px;
+  }
+  .site-visit-page > .site-hero,
+  .site-visit-page > .site-section,
+  .site-visit-page .site-contact-grid {
+    display: contents;
+  }
+  .site-visit-page > .site-hero > div:first-child { order: 0; }
+  .site-visit-page .site-location-card { order: 1; }
+  .site-visit-page > .site-section > .site-section-heading {
+    order: 2;
+    margin: 0;
+  }
+  .site-visit-page .site-contact-info { order: 3; }
+  .site-visit-page > .site-cta {
+    order: 4;
+    width: 100%;
+    margin: 0;
+  }
+  .site-visit-page > .site-hero > .site-guide {
+    order: 5;
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .site-visit-page { width: calc(100% - 40px); }
+}
+@media (max-width: 360px) {
+  .site-visit-page { width: calc(100% - 32px); }
+}

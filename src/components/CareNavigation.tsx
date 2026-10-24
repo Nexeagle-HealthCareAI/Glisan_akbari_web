@@ -57,9 +57,9 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
             else show(index);
           }
         }}>
-        Explore care <ChevronDown size={15} aria-hidden="true" />
+        Departments <ChevronDown size={15} aria-hidden="true" />
       </button>
-      {expanded && <div id={id} className="site-care-dropdown" role="group" aria-label="Care departments">
+      {expanded && <div id={id} className="site-care-dropdown" role="group" aria-label="Departments">
         {CARE_DEPARTMENTS.map((department, index) => (
           <Link key={department.id} to={careDepartmentPath(department.id)}
             ref={(element) => { links.current[index] = element; }}

@@ -23,13 +23,12 @@ import {
 } from "../components/SiteDesign";
 
 import { HospitalLocationMap } from "../components/HospitalLocationMap";
-import { HospitalFeedback } from "../components/HospitalFeedback";
 
 export function ContactPage() {
   return (
-    <>
+    <div className="site-visit-page">
       <PageHero
-        label="Contact & location"
+        label="Visit us"
         title="Your next step"
         accent="starts here."
         description="Find Glisan Akbari Super Speciality Hospital in Line Bazar, Purnia. Call our team for help with your visit."
@@ -109,7 +108,7 @@ export function ContactPage() {
         </div>
       </section>
       <VisitCTA />
-    </>
+    </div>
   );
 }
 export function FaqPage() {
@@ -202,50 +201,6 @@ export function FaqPage() {
           </div>
         </div>
       </section>
-    </>
-  );
-}
-export function ReviewsPage() {
-  const profileUrl = HOSPITAL_PROFILE.googleBusinessProfileUrl;
-  const hasReviews = /^https:\/\//.test(profileUrl);
-  return (
-    <>
-      <PageHero
-        label="Patient feedback"
-        title="Every experience"
-        accent="deserves to be heard."
-        description="Your experience matters. Speak with our team about your hospital visit, or explore the doctor profiles before you book."
-        action="faq"
-        message="Your questions and feedback matter."
-      />
-      <section className="site-section mm-wrap">
-        <div className="site-feedback-card">
-          <span className="site-icon">
-            <MessageCircle size={34} strokeWidth={1.3} />
-          </span>
-          <p className="mm-kicker">PATIENT EXPERIENCES</p>
-          <h2>A space for real stories.</h2>
-          <p>
-            Read patient reviews for Glisan Akbari Super Speciality Hospital on Google. The hospital’s business listing is registered under Dr. Md Taquedis Noori’s name.
-          </p>
-          <HospitalFeedback />
-          <div className="site-hero-actions">
-            {hasReviews ? (
-              <a className="mm-button" href={profileUrl} target="_blank" rel="noreferrer">
-                Read public reviews <ArrowUpRight size={17} />
-              </a>
-            ) : (
-              <a className="mm-button" href={hospitalPhone}>
-                Share your feedback <Phone size={17} />
-              </a>
-            )}
-            <Link className="mm-text-link" to="/doctors">
-              Meet our doctors <ArrowUpRight size={17} />
-            </Link>
-          </div>
-        </div>
-      </section>
-      <VisitCTA />
     </>
   );
 }

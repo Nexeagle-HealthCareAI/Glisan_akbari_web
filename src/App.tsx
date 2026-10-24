@@ -16,7 +16,7 @@ import { DoctorsPage } from "./pages/DoctorsPage";
 import { DoctorProfilePage } from "./pages/DoctorProfilePage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { ConditionsPage } from "./pages/ConditionsPage";
-import { ReviewsPage } from "./pages/ReviewsPage";
+import { ExploreCarePage } from "./pages/ExploreCarePage";
 import { FaqPage } from "./pages/FaqPage";
 import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
@@ -49,7 +49,6 @@ export default function App() {
         conditions: "/services",
         treatments: "/services",
         hospital: "/contact",
-        reviews: "/reviews",
         faqs: "/faqs",
         contact: "/contact",
         privacy: "/privacy-policy",
@@ -90,7 +89,7 @@ export default function App() {
             path="/services/:slug"
             element={<ServiceDetailPage onOpenBooking={handleOpenBooking} />}
           />
-          <Route path="/reviews" element={<ReviewsPage />} />
+          <Route path="/explore-care" element={<ExploreCarePage />} />
           <Route path="/faqs" element={<FaqPage />} />
           {Object.entries(ROUTE_REDIRECTS).map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate to={to} replace />} />

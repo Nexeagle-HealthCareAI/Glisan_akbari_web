@@ -58,19 +58,19 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/services': {
     path: '/services',
-    title: `Explore Care | ${HOSPITAL_NAME}, ${HOSPITAL_CITY}`,
+    title: `Departments | ${HOSPITAL_NAME}, ${HOSPITAL_CITY}`,
     description:
-      `Explore kidney stone, prostate, urinary and other urology concerns at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}. Prepare questions for your consultation.`,
+      `Browse department care topics at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}, and find the right doctor for your consultation.`,
     canonical: getFullUrl('/services'),
     url: getFullUrl('/services'),
   },
-  '/reviews': {
-    path: '/reviews',
-    title: `Patient Feedback | ${HOSPITAL_NAME}`,
+  '/explore-care': {
+    path: '/explore-care',
+    title: `Explore Care | ${HOSPITAL_NAME}`,
     description:
-      `Contact ${HOSPITAL_NAME} to share feedback about your visit or explore our doctor profiles before booking.`,
-    canonical: getFullUrl('/reviews'),
-    url: getFullUrl('/reviews'),
+      `Contact ${HOSPITAL_NAME} for information about hospital facilities and help planning your visit.`,
+    canonical: getFullUrl('/explore-care'),
+    url: getFullUrl('/explore-care'),
   },
   '/faqs': {
     path: '/faqs',
@@ -82,7 +82,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/contact': {
     path: '/contact',
-    title: `Contact & Hospital Location | ${DOCTOR_NAME}`,
+    title: `Visit Us | ${HOSPITAL_NAME}`,
     description:
       `Reach ${HOSPITAL_NAME} in ${HOSPITAL_SHORT_ADDRESS}. OPD contact numbers, address, and consultation directions.`,
     canonical: getFullUrl('/contact'),
@@ -137,7 +137,7 @@ export const SITEMAP_ROUTES = [
   '/doctors/dr-md-taquedis-noori',
   '/services',
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
-  '/reviews',
+  '/explore-care',
   '/faqs',
   '/contact',
   '/privacy-policy',

@@ -128,7 +128,7 @@ export function ConditionsPage(_: Props) {
   return (
     <>
       <PageHero
-        label="Explore care"
+        label="Departments"
         title="Questions about"
         accent="what you’re feeling?"
         description="Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss."
@@ -144,6 +144,7 @@ export function ConditionsPage(_: Props) {
 function DepartmentCare({ department }: { department: CareDepartment }) {
   const [open, setOpen] = useState(0);
   const detail = useRef<HTMLElement>(null);
+  const layout = useRef<HTMLDivElement>(null);
   const service = department.services[open];
   const doctor = getCareDoctor(department);
   return (
@@ -153,17 +154,21 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
           title="Start with your concern."
           note={department.label + ' · A guide to your consultation.'}
         />
-        <div className="site-condition-layout">
+        <div ref={layout} className="site-condition-layout">
           <div className="site-care-browser">
             {department.proposed && <p className="site-department-notice" id="department-availability">
               Topics to discuss. Please confirm consultation and treatment availability with the hospital before planning your visit.
             </p>}
+            <p id="care-switcher-hint" className="site-care-switcher-hint">
+              <span>Choose a service · {open + 1} of {department.services.length}</span>
+              <span>Swipe to browse →</span>
+            </p>
             <div
               key={department.id}
               className="site-condition-tabs site-care-transition"
               role="group"
               aria-label={department.label + ' care topics'}
-              aria-describedby={department.proposed ? 'department-availability' : undefined}
+              aria-describedby={'care-switcher-hint' + (department.proposed ? ' department-availability' : '')}
             >
               {department.services.map((s, i) => (
                 <button
@@ -175,9 +180,22 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
                   onClick={() => {
                     setOpen(i);
                     if (window.matchMedia('(max-width: 760px)').matches) {
-                      detail.current?.scrollIntoView({
-                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
-                        block: 'start',
+                      // Wait for the new title and player to render before measuring.
+                      requestAnimationFrame(() => {
+                        const content = detail.current?.querySelector('video') || detail.current?.querySelector('[aria-live]');
+                        const bounds = content?.getBoundingClientRect();
+                        const stage = layout.current?.getBoundingClientRect();
+                        const actionsHeight = document.querySelector('.mm-mobile-actions')?.getBoundingClientRect().height || 0;
+                        const availableHeight = window.innerHeight - actionsHeight;
+                        if (!bounds || !stage) return;
+                        if (bounds.top < 12 || bounds.bottom > availableHeight - 12) {
+                          // Keep the selector nearby, while clearing the fixed booking bar.
+                          const offset = Math.max(stage.top - 12, bounds.bottom - availableHeight + 12);
+                          window.scrollTo({
+                            top: Math.max(0, window.scrollY + offset),
+                            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
+                          });
+                        }
                       });
                     }
                   }}

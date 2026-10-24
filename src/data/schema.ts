@@ -62,10 +62,10 @@ export function cleanSchemaValue<T>(obj: T): T | undefined {
 const BREADCRUMB_LABELS: Record<string, string> = {
   '/doctors': 'Our Doctors',
   '/doctors/dr-md-taquedis-noori': DOCTOR_NAME,
-  '/services': 'Explore care',
-  '/reviews': 'Reviews',
+  '/services': 'Departments',
+  '/explore-care': 'Explore care',
   '/faqs': 'FAQs',
-  '/contact': 'Contact',
+  '/contact': 'Visit us',
   '/privacy-policy': 'Privacy Policy',
   '/terms': 'Terms',
   '/404': 'Page Not Found',

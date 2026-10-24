@@ -16,29 +16,29 @@
 .site-app .mm-hero>.mm-doctor-video-slot{grid-area:video}
 .mm-home .mm-hero .mm-home-heading{font-size:clamp(42px,4.2vw,60px);line-height:1.12;letter-spacing:-.045em;font-weight:500;text-wrap:balance}
 .site-app .mm-hero-details .mm-hero-doctor{margin-top:0}
-.site-app .site-topline-home .site-header-address-short{display:none}
+.site-app .site-topline-mobile .site-header-address-short{display:none}
 @media(max-width:600px){
   .site-app .mm-hero{grid-template-areas:"intro" "video" "details";gap:26px;padding-top:25px}
   .mm-home .mm-hero .mm-home-heading{font-size:clamp(32px,9.5vw,42px);line-height:1.12;letter-spacing:-.04em}
   .site-app .mm-hero-copy>p{margin-top:18px;font-size:14px;line-height:1.8}
   .site-app .mm-hero>.mm-doctor-video-slot{height:285px;min-height:0;margin-top:0}
-  .site-app .site-topline-home{flex-wrap:nowrap;gap:12px;padding:0 20px;min-height:36px;font-size:10px;line-height:1.4}
-  .site-app .site-topline-home .site-header-address{flex-basis:auto;align-items:center!important;min-height:36px}
-  .site-app .site-topline-home .site-header-address>svg{margin-top:0;width:12px;height:12px}
-  .site-app .site-topline-home .site-header-address-full{display:none}
-  .site-app .site-topline-home .site-header-address-short{display:block;white-space:nowrap}
-  .site-app .site-topline-home>a:last-child{min-height:36px}
-  .site-footer-home{padding:36px 0 108px;text-align:center}
-  .site-footer-home .site-footer-grid{grid-template-columns:1fr;gap:28px;padding-bottom:28px}
-  .site-footer-home .site-footer-grid>div{align-items:center;grid-column:1/-1;padding-bottom:0;gap:8px}
-  .site-footer-home .site-footer-grid .mm-brand{justify-content:center;text-align:left;margin-bottom:4px}
-  .site-footer-home .site-footer-grid h2{font-size:14px;margin-bottom:4px}
-  .site-footer-home .site-footer-grid a:not(.mm-brand){font-size:14px;min-height:36px;display:flex;align-items:center;justify-content:center}
-  .site-footer-home .site-footer-grid p,.site-footer-home .site-footer-grid address{font-size:13px}
-  .site-footer-home .site-footer-bottom{flex-direction:column;align-items:center;gap:14px;font-size:11px}
-  .site-footer-home .site-footer-bottom>div{justify-content:center;flex-wrap:wrap;flex-shrink:1;gap:8px 20px}
-  .site-footer-home .site-footer-bottom>div>a{display:inline-flex;align-items:center;min-height:36px}
-  .site-footer-home .site-disclaimer{font-size:11px!important;max-width:330px;margin:14px auto 0!important}
+  .site-app .site-topline-mobile{flex-wrap:nowrap;gap:12px;padding:0 20px;min-height:36px;font-size:10px;line-height:1.4}
+  .site-app .site-topline-mobile .site-header-address{flex-basis:auto;align-items:center!important;min-height:36px}
+  .site-app .site-topline-mobile .site-header-address>svg{margin-top:0;width:12px;height:12px}
+  .site-app .site-topline-mobile .site-header-address-full{display:none}
+  .site-app .site-topline-mobile .site-header-address-short{display:block;white-space:nowrap}
+  .site-app .site-topline-mobile>a:last-child{min-height:36px}
+  .site-footer-mobile{padding:36px 0 108px;text-align:center}
+  .site-footer-mobile .site-footer-grid{grid-template-columns:1fr;gap:28px;padding-bottom:28px}
+  .site-footer-mobile .site-footer-grid>div{align-items:center;grid-column:1/-1;padding-bottom:0;gap:8px}
+  .site-footer-mobile .site-footer-grid .mm-brand{justify-content:center;text-align:left;margin-bottom:4px}
+  .site-footer-mobile .site-footer-grid h2{font-size:14px;margin-bottom:4px}
+  .site-footer-mobile .site-footer-grid a:not(.mm-brand){font-size:14px;min-height:36px;display:flex;align-items:center;justify-content:center}
+  .site-footer-mobile .site-footer-grid p,.site-footer-mobile .site-footer-grid address{font-size:13px}
+  .site-footer-mobile .site-footer-bottom{flex-direction:column;align-items:center;gap:14px;font-size:11px}
+  .site-footer-mobile .site-footer-bottom>div{justify-content:center;flex-wrap:wrap;flex-shrink:1;gap:8px 20px}
+  .site-footer-mobile .site-footer-bottom>div>a{display:inline-flex;align-items:center;min-height:36px}
+  .site-footer-mobile .site-disclaimer{font-size:11px!important;max-width:330px;margin:14px auto 0!important}
 }
 
 /* Keep department controls beside the explanation in the mobile reading order. */
