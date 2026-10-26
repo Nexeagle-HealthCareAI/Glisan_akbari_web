@@ -8,10 +8,10 @@ export const HOMEPAGE_URL = configuredUrl.hostname === 'example-domain.com'
   : `${configuredUrl.origin}/`;
 
 export const HOMEPAGE_SEO = {
-  title: 'Multispeciality Hospital in Purnea | Glisan Akbari',
-  description: 'Glisan Akbari is a Multispeciality Hospital in Purnea, Bihar. Explore doctors, urology care and appointments on Dharamshala Road, Line Bazar.',
-  imagePath: '/glisan-akbari-hospital-purnea.png',
-  imageAlt: 'Glisan Akbari Super Speciality Hospital logo and care introduction card',
+  title: 'Super Speciality Hospital in Purnea | Glisan Akbari',
+  description: 'Glisan Akbari Super Speciality Hospital in Purnea offers multispeciality care. Find doctors and book a consultation at our hospital in Line Bazar Purnea.',
+  imagePath: '/super-speciality-hospital-in-purnea.png',
+  imageAlt: 'Glisan Akbari Super Speciality Hospital in Purnea — hospital logo and care introduction',
   siteName: HOSPITAL_NAME,
 };
 

@@ -1,20 +1,15 @@
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
 import { UROLOGY_SERVICES } from './config';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
+import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 
 export { SITE_URL };
+export { ROUTE_REDIRECTS } from './routes';
 
 /**
  * Set to true only at launch, after all placeholders are replaced.
  */
 export const ALLOW_INDEXING = false;
-
-export const ROUTE_REDIRECTS: Record<string, string> = {
-  '/book-appointment': '/doctors',
-  '/conditions': '/services',
-  '/treatments': '/services',
-  '/hospital': '/contact',
-};
 
 export interface RouteSeo {
   path: string;
@@ -28,7 +23,8 @@ export interface RouteSeo {
  * Helper to build canonical and og:url without hashes or trailing slashes
  */
 export function getFullUrl(path: string): string {
-  const cleanPath = path === '/' ? '' : path.replace(/\/+$/, '').replace(/^#/, '');
+  const pathname = path.split(/[?#]/, 1)[0] || '/';
+  const cleanPath = pathname === '/' ? '' : pathname.replace(/\/+$/, '');
   return `${SITE_URL}${cleanPath}`;
 }
 
@@ -114,6 +110,19 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
 };
 
+// Urology keeps its existing /services URL. Each other department gets a
+// dedicated static page instead of sharing the Urology canonical URL.
+CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').forEach((department) => {
+  const path = careDepartmentPath(department.id);
+  ROUTES_SEO[path] = {
+    path,
+    title: `${department.label} Care Topics | ${HOSPITAL_CITY}`,
+    description: `Explore ${department.label.toLowerCase()} care topics and questions to discuss with your doctor. Contact ${HOSPITAL_NAME} to confirm availability.`,
+    canonical: getFullUrl(path),
+    url: getFullUrl(path),
+  };
+});
+
 // Dynamically generate SEO metadata for each dedicated urological procedure page
 UROLOGY_SERVICES.forEach((srv) => {
   const servicePath = `/services/${srv.slug}`;
@@ -136,6 +145,8 @@ export const SITEMAP_ROUTES = [
   '/doctors',
   '/doctors/dr-md-taquedis-noori',
   '/services',
+  ...CARE_DEPARTMENTS.filter((department) => department.id !== 'urology')
+    .map((department) => careDepartmentPath(department.id)),
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
   '/explore-care',
   '/faqs',

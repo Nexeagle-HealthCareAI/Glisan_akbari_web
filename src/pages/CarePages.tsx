@@ -23,6 +23,11 @@ export function ServiceDetailPage(_: Props) {
   const { slug } = useParams();
   const service = UROLOGY_SERVICES.find((s) => s.slug === slug);
   if (!service) return <NotFoundPage />;
+  // Rotate the related links so every dedicated service page is reachable,
+  // including services beyond the initially selected topic and doctor cards.
+  const serviceIndex = UROLOGY_SERVICES.indexOf(service);
+  const relatedServices = Array.from({ length: Math.min(3, UROLOGY_SERVICES.length - 1) },
+    (_, index) => UROLOGY_SERVICES[(serviceIndex + index + 1) % UROLOGY_SERVICES.length]);
   return (
     <>
       <PageHero
@@ -100,9 +105,7 @@ export function ServiceDetailPage(_: Props) {
       <section className="site-section mm-wrap">
         <SectionHeading number="02" title="Explore a little further." />
         <div className="site-card-grid">
-          {UROLOGY_SERVICES.filter((s) => s.id !== service.id)
-            .slice(0, 3)
-            .map((s) => (
+          {relatedServices.map((s) => (
               <Link
                 className="site-care-card"
                 to={"/services/" + s.slug}
@@ -123,14 +126,14 @@ export function ServiceDetailPage(_: Props) {
   );
 }
 export function ConditionsPage(_: Props) {
-  const { search } = useLocation();
-  const department = getCareDepartment(search);
+  const { pathname } = useLocation();
+  const department = getCareDepartment(pathname);
   return (
     <>
       <PageHero
         label="Departments"
-        title="Questions about"
-        accent="what you’re feeling?"
+        title={department.label}
+        accent="Care topics explained."
         description="Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss."
         action="faq"
         message="You don’t need to have all the answers."
@@ -235,14 +238,12 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
               cause of your symptoms.
             </p>
             <div className="site-care-panel-actions">
+              <p className="site-care-doctor-label">{doctor ? doctor.name + ' · ' + doctor.specialty : 'Need help choosing a doctor?'}</p>
               {service.slug && <Link className="mm-button" to={"/services/" + service.slug}>
                 Understand this care <ArrowUpRight size={17} />
               </Link>}
-              <div className="site-care-booking">
-                <p>{doctor ? doctor.name + ' · ' + doctor.specialty : 'Need help choosing a doctor?'}</p>
-                {doctor ? <BookLink href={doctor.bookingUrl} label="Book appointment" /> :
-                  <Link className="mm-button" to="/doctors">Book appointment <ArrowUpRight size={17} /></Link>}
-              </div>
+              {doctor ? <BookLink href={doctor.bookingUrl} label="Book appointment" /> :
+                <Link className="mm-button" to="/doctors">Book appointment <ArrowUpRight size={17} /></Link>}
             </div>
           </article>
         </div>

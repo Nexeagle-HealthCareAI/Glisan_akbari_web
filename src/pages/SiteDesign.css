@@ -492,6 +492,28 @@
 .site-footer-grid .mm-brand small {
   font-size: 7px;
 }
+.site-social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.site-footer .site-social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #fffdf7;
+  color: var(--ink);
+  transition: background .2s, border-color .2s;
+}
+.site-footer .site-social-links a:hover {
+  background: #e6efdf;
+  border-color: #9caf9e;
+}
 .site-footer-bottom {
   border-top: 1px solid var(--line);
   padding-top: 20px;
@@ -717,6 +739,9 @@
 .site-care-nav-trigger[aria-expanded="true"] svg {
   transform: rotate(180deg);
 }
+.site-care-dropdown[hidden] {
+  display: none;
+}
 .site-care-dropdown {
   position: absolute;
   z-index: 60;
@@ -779,30 +804,29 @@
   scroll-margin-top: 24px;
 }
 .site-care-panel-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  align-items: stretch;
+  gap: 12px;
   margin-top: 24px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
 }
-.site-care-booking {
-  min-width: 0;
-  max-width: 100%;
-  margin-left: auto;
-  text-align: right;
-}
-.site-care-booking p {
-  margin: 0 0 9px;
+.site-care-panel-actions > .site-care-doctor-label {
+  grid-column: 1 / -1;
+  margin: 0;
   font-size: 11px;
   line-height: 1.6;
   color: var(--muted);
   overflow-wrap: anywhere;
 }
-.site-care-booking .mm-button {
-  max-width: 100%;
+.site-condition-detail .site-care-panel-actions > .mm-button {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  margin: 0;
+  justify-content: center;
+  text-align: center;
   white-space: normal;
 }
 .site-department-notice,
@@ -1084,15 +1108,18 @@
 }
 .site-doctor-actions {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   border-top: 1px solid var(--line);
   margin-top: 22px;
   padding-top: 22px;
   width: 100%;
 }
 .site-doctor-actions .mm-button {
+  width: 100%;
+  min-height: 50px;
+  text-align: center;
   padding: 13px 17px;
   gap: 14px;
   font-size: 12px !important;
@@ -1858,7 +1885,7 @@
     border-radius: 17px;
   }
   .site-doctor-actions {
-    align-items: start;
+    align-items: stretch;
     flex-direction: column;
   }
   .site-profile-grid {
@@ -2207,8 +2234,8 @@
     font-size: 23px;
   }
   .site-doctor-actions {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     gap: 15px;
   }
   .site-doctor-actions .mm-text-link {
@@ -2409,7 +2436,7 @@
   }
   .site-doctor-actions {
     flex-direction: column;
-    align-items: start;
+    align-items: stretch;
   }
   .site-booking-doctors h2 {
     font-size: 20px;

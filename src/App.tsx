@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import {
   Header,
   Footer,
@@ -22,10 +22,18 @@ import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
-import { ROUTE_REDIRECTS } from "./data/seo";
+import { ROUTE_REDIRECTS, getRouteRedirect } from "./data/routes";
+import { CARE_DEPARTMENTS, careDepartmentPath } from "./data/careDepartments";
 
 export default function App() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Static hosts without redirect rules still support existing shared links.
+  useEffect(() => {
+    const target = getRouteRedirect(location.pathname, location.search);
+    if (target) navigate(target + location.hash, { replace: true });
+  }, [location.pathname, location.search, location.hash, navigate]);
 
   const handleOpenBooking = () => {
     navigate("/doctors");
@@ -89,10 +97,15 @@ export default function App() {
             path="/services/:slug"
             element={<ServiceDetailPage onOpenBooking={handleOpenBooking} />}
           />
+          {CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').map((department) => (
+            <Route key={department.id} path={careDepartmentPath(department.id)}
+              element={<ConditionsPage onOpenBooking={handleOpenBooking} />} />
+          ))}
           <Route path="/explore-care" element={<ExploreCarePage />} />
           <Route path="/faqs" element={<FaqPage />} />
           {Object.entries(ROUTE_REDIRECTS).map(([from, to]) => (
-            <Route key={from} path={from} element={<Navigate to={to} replace />} />
+            <Route key={from} path={from} element={<Navigate
+              to={(getRouteRedirect(location.pathname, location.search) || to) + location.hash} replace />} />
           ))}
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

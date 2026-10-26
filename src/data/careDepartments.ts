@@ -57,13 +57,14 @@ export const CARE_DEPARTMENTS: CareDepartment[] = [
   },
 ];
 
-export function getCareDepartment(search: string) {
-  const id = new URLSearchParams(search).get('department');
-  return CARE_DEPARTMENTS.find((department) => department.id === id) || CARE_DEPARTMENTS[0];
+export function getCareDepartment(pathname: string) {
+  const path = pathname.replace(/\/+$/, '') || '/';
+  return CARE_DEPARTMENTS.find((department) => careDepartmentPath(department.id) === path)
+    || CARE_DEPARTMENTS[0];
 }
 
 export function careDepartmentPath(id: string) {
-  return '/services' + (id === 'urology' ? '' : '?department=' + encodeURIComponent(id)) + '#care-topics';
+  return id === 'urology' ? '/services' : `/services/${id}`;
 }
 
 export function getCareDoctor(department: CareDepartment) {

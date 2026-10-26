@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { HOSPITAL_NAME } from "../src/data/identity";
+import { HOMEPAGE_SEO } from "../src/data/homepageSeo";
 const publicDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   "../public",
@@ -25,6 +26,7 @@ async function main() {
     .png()
     .toFile(path.join(publicDir, "og-image.png"));
   fs.copyFileSync(path.join(publicDir, "og-image.png"), path.join(publicDir, "glisan-akbari-hospital-purnea.png"));
+  fs.copyFileSync(path.join(publicDir, "og-image.png"), path.join(publicDir, HOMEPAGE_SEO.imagePath.replace(/^\//, '')));
   console.log(
     "[Assets] Supplied hospital logo applied to favicon, touch icon and social image.",
   );

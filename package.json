@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
+    "check:urls": "node --import tsx scripts/check-static-urls.ts",
     "preview:package": "esbuild preview-entry.tsx --bundle --minify --format=iife --platform=browser --loader:.css=empty --outfile=site-preview-bundle.js && node scripts/package-site-preview.mjs"
   },
   "dependencies": {
