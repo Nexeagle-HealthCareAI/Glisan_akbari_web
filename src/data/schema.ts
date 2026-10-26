@@ -3,6 +3,7 @@ import { SITE_URL, getFullUrl } from './seo';
 import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_URL, DR_NOORI_GOOGLE_PROFILE } from './config';
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 import { HOMEPAGE_ADDRESS, HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
+import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 
 /**
  * Format phone number into clean E.164 international standard (+917903781377).
@@ -259,7 +260,8 @@ export function generatePageSchema(path: string) {
         ],
       });
     } else {
-      const pageTitle = BREADCRUMB_LABELS[normalizedPath] || 'Page';
+      const department = CARE_DEPARTMENTS.find((item) => careDepartmentPath(item.id) === normalizedPath);
+      const pageTitle = BREADCRUMB_LABELS[normalizedPath] || department?.label || 'Page';
       breadcrumbEntity = cleanSchemaValue({
         '@type': 'BreadcrumbList',
         itemListElement: [
