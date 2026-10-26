@@ -13,7 +13,7 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
   const links = useRef<(HTMLAnchorElement | null)[]>([]);
   const focusIndex = useRef<number | null>(null);
   const { pathname, search, hash } = useLocation();
-  const selected = getCareDepartment(search);
+  const selected = getCareDepartment(pathname);
   const active = pathname === '/services' || pathname.startsWith('/services/');
 
   useEffect(() => { setExpanded(false); }, [pathname, search, hash]);
@@ -47,7 +47,7 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
         }
       }}>
       <button type="button" ref={trigger} className="site-care-nav-trigger"
-        aria-expanded={expanded} aria-controls={expanded ? id : undefined}
+        aria-expanded={expanded} aria-controls={id}
         onClick={() => expanded ? setExpanded(false) : show()}
         onKeyDown={(event) => {
           if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
@@ -59,7 +59,7 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
         }}>
         Departments <ChevronDown size={15} aria-hidden="true" />
       </button>
-      {expanded && <div id={id} className="site-care-dropdown" role="group" aria-label="Departments">
+      <div id={id} hidden={!expanded} className="site-care-dropdown" role="group" aria-label="Departments">
         {CARE_DEPARTMENTS.map((department, index) => (
           <Link key={department.id} to={careDepartmentPath(department.id)}
             ref={(element) => { links.current[index] = element; }}
@@ -77,7 +77,7 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
             {active && selected.id === department.id && <Check size={15} aria-hidden="true" />}
           </Link>
         ))}
-      </div>}
+      </div>
     </div>
   );
 }

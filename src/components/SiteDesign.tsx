@@ -13,6 +13,8 @@ import {
   Stethoscope,
   Heart,
   Navigation,
+  Instagram,
+  Facebook,
 } from "lucide-react";
 import { HOSPITAL_PROFILE, BOOKING_URL } from "../data/config";
 import { HOSPITAL_NAME } from "../data/identity";
@@ -54,7 +56,7 @@ export function Brand() {
   return (
     <Link to="/" className="mm-brand" aria-label={HOSPITAL_NAME + " home"}>
       <span className="site-logo">
-        <img src="/media/hospital-logo.png" alt={pathname === '/' ? `${HOSPITAL_NAME} logo` : ''} width="1280" height="1280" />
+        <img src="/media/hospital-logo.png" alt={pathname === '/' ? `${HOSPITAL_NAME} in Purnea logo` : ''} width="1280" height="1280" />
       </span>
       <span>
         Glisan Akbari<small>SUPER SPECIALITY HOSPITAL</small>
@@ -168,6 +170,14 @@ export function Footer() {
               <Phone size={15} />
               {HOSPITAL_PROFILE.phone}
             </a>
+            <nav className="site-social-links" aria-label="Dr. Taquedis Noori on social media">
+              <a href="https://www.instagram.com/drtaquedisnoori?dlrf=MWF2ZjVwdno4djc4YQ==" target="_blank" rel="noopener noreferrer" aria-label="Dr. Taquedis Noori on Instagram (opens in a new tab)" title="Instagram">
+                <Instagram size={20} aria-hidden="true" />
+              </a>
+              <a href="https://www.facebook.com/share/1CFT1RJCwq/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Taquedis Noori on Facebook (opens in a new tab)" title="Facebook">
+                <Facebook size={20} aria-hidden="true" />
+              </a>
+            </nav>
           </div>
           <div>
             <h2>Explore</h2>
