@@ -1,9 +1,10 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { DOCTOR_NAME, HOSPITAL_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from './src/data/identity';
-import { PRERENDER_ROUTES, ROUTE_REDIRECTS } from './src/data/seo';
+import { PRERENDER_ROUTES } from './src/data/seo';
+import { getRouteRedirect } from './src/data/routes';
 
 export default defineConfig(() => {
   return {
@@ -18,15 +19,18 @@ export default defineConfig(() => {
           server.middlewares.use((request, response, next) => {
             const url = new URL(request.url || '/', 'http://localhost');
             const route = url.pathname.replace(/\/+$/, '') || '/';
-            if (ROUTE_REDIRECTS[route]) {
-              response.writeHead(301, { Location: ROUTE_REDIRECTS[route] + url.search });
+            const redirect = getRouteRedirect(url.pathname, url.search);
+            if (redirect) {
+              response.writeHead(301, { Location: redirect });
               response.end();
               return;
             }
             if (route !== '/' && PRERENDER_ROUTES.includes(route)) {
               request.url = (route === '/404' ? '/404.html' : route + '/index.html') + url.search;
+              if (route === '/404') response.statusCode = 404;
             } else if (route !== '/' && !route.split('/').pop()?.includes('.')) {
               request.url = '/404.html' + url.search;
+              response.statusCode = 404;
             }
             next();
           });
@@ -45,7 +49,7 @@ export default defineConfig(() => {
     ],
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': fileURLToPath(new URL('.', import.meta.url)),
       },
     },
     server: {
