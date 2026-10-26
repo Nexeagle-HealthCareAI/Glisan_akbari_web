@@ -67,12 +67,12 @@ export function DoctorsPage() {
                 {d.languages}
               </p>
               <div className="site-doctor-actions">
-                <BookLink href={d.bookingUrl} label="Book this doctor" />
                 {d.isClickable && (
                   <Link className="mm-text-link" to={"/doctors/" + d.slug}>
                     Meet the doctor <ArrowUpRight size={17} />
                   </Link>
                 )}
+                <BookLink href={d.bookingUrl} label="Book this doctor" />
               </div>
             </article>
           ))}
