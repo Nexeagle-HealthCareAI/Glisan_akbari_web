@@ -1,11 +1,43 @@
+# Convert legacy department filters to clean, permanent paths.
+/services department=ent /services/ent 301!
+/services department=general-medicine /services/general-medicine 301!
+/services department=anesthesiology /services/anesthesiology 301!
+/services department=neurology /services/neurology 301!
+/services department=urology /services 301!
+/services/ department=ent /services/ent 301!
+/services/ department=general-medicine /services/general-medicine 301!
+/services/ department=anesthesiology /services/anesthesiology 301!
+/services/ department=neurology /services/neurology 301!
+/services/ department=urology /services 301!
+/conditions department=ent /services/ent 301!
+/conditions department=general-medicine /services/general-medicine 301!
+/conditions department=anesthesiology /services/anesthesiology 301!
+/conditions department=neurology /services/neurology 301!
+/conditions department=urology /services 301!
+/conditions/ department=ent /services/ent 301!
+/conditions/ department=general-medicine /services/general-medicine 301!
+/conditions/ department=anesthesiology /services/anesthesiology 301!
+/conditions/ department=neurology /services/neurology 301!
+/conditions/ department=urology /services 301!
+/treatments department=ent /services/ent 301!
+/treatments department=general-medicine /services/general-medicine 301!
+/treatments department=anesthesiology /services/anesthesiology 301!
+/treatments department=neurology /services/neurology 301!
+/treatments department=urology /services 301!
+/treatments/ department=ent /services/ent 301!
+/treatments/ department=general-medicine /services/general-medicine 301!
+/treatments/ department=anesthesiology /services/anesthesiology 301!
+/treatments/ department=neurology /services/neurology 301!
+/treatments/ department=urology /services 301!
+
 # Retired pages and legacy appointment URLs.
-/book-appointment /doctors 301
-/book-appointment/ /doctors 301
-/conditions /services 301
-/conditions/ /services 301
-/treatments /services 301
-/treatments/ /services 301
-/hospital /contact 301
-/hospital/ /contact 301
+/book-appointment /doctors 301!
+/book-appointment/ /doctors 301!
+/conditions /services 301!
+/conditions/ /services 301!
+/treatments /services 301!
+/treatments/ /services 301!
+/hospital /contact 301!
+/hospital/ /contact 301!
 # Existing prerendered pages take priority; unknown routes receive the 404 page.
 /* /404.html 404
