@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Volume2 } from 'lucide-react';
 
-type Props = { src: string; poster: string; title: string };
+type Props = { src: string; poster: string; title: string; describedBy: string };
 
-export function ServiceVideo({ src, poster, title }: Props) {
+export function ServiceVideo({ src, poster, title, describedBy }: Props) {
   const video = useRef<HTMLVideoElement>(null);
   const [visible, setVisible] = useState(false);
   const [activated, setActivated] = useState(false);
@@ -50,10 +50,14 @@ export function ServiceVideo({ src, poster, title }: Props) {
         preload="none"
         width="1080"
         height="720"
-        aria-label={title + ' — explainer video'}
+        title={title + ' department overview with Mimo'}
+        aria-label={title + ' department overview — explainer video with Mimo'}
+        aria-describedby={describedBy}
         onVolumeChange={(event) => setMuted(event.currentTarget.muted || event.currentTarget.volume === 0)}
         onError={() => setFailed(true)}
-      />
+      >
+        <p>Your browser does not support embedded video. <a href={src}>Watch the {title} department overview</a>.</p>
+      </video>
       {failed ? (
         <p className="site-service-video-help" role="status">
           The video could not load. <a href={src}>Open the video</a> or try again.

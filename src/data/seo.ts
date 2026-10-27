@@ -2,6 +2,7 @@ import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE
 import { UROLOGY_SERVICES } from './config';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
+import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 
 export { SITE_URL };
 export { ROUTE_REDIRECTS } from './routes';
@@ -76,6 +77,13 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
     canonical: getFullUrl('/faqs'),
     url: getFullUrl('/faqs'),
   },
+  '/blogs': {
+    path: '/blogs',
+    title: 'Health Blog | Glisan Akbari Hospital, Purnea',
+    description: 'Explore the Glisan Akbari Hospital health blog for articles about urology, ENT, general medicine, anaesthesia and neurology, explained in simple words.',
+    canonical: getFullUrl('/blogs'),
+    url: getFullUrl('/blogs'),
+  },
   '/contact': {
     path: '/contact',
     title: `Visit Us | ${HOSPITAL_NAME}`,
@@ -140,6 +148,12 @@ UROLOGY_SERVICES.forEach((srv) => {
 /**
  * Public pages for sitemap.xml (including all dedicated procedure pages, excluding /404)
  */
+PUBLISHED_BLOG_POSTS.forEach((post) => {
+  const path = blogPath(post.slug);
+  ROUTES_SEO[path] = { path, title: `${post.title} | Glisan Akbari`, description: post.excerpt,
+    canonical: getFullUrl(path), url: getFullUrl(path) };
+});
+
 export const SITEMAP_ROUTES = [
   '/',
   '/doctors',
@@ -149,6 +163,8 @@ export const SITEMAP_ROUTES = [
     .map((department) => careDepartmentPath(department.id)),
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
   '/explore-care',
+  '/blogs',
+  ...PUBLISHED_BLOG_POSTS.map((post) => blogPath(post.slug)),
   '/faqs',
   '/contact',
   '/privacy-policy',

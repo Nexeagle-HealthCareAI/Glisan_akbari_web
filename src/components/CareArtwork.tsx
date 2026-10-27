@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
+import { CARE_ARTWORK_DESCRIPTIONS } from '../data/mediaDescriptions';
 
 // Decorative service illustrations: no external images, video downloads or timers.
 // Stable service IDs keep artwork consistent when search results change order.
-export function CareArtwork({ serviceId, variant = "background" }: {
+export function CareArtwork({ serviceId, variant = "background", informative = false }: {
   serviceId: string;
   variant?: "background" | "card";
+  informative?: boolean;
 }) {
   const root = useRef<HTMLSpanElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (root.current) root.current.dataset.visible = String(entry.isIntersecting);
@@ -36,8 +39,9 @@ export function CareArtwork({ serviceId, variant = "background" }: {
     case 13: illustration = <><circle cx="101" cy="45" r="15" /><path d="M74 87c0-36 54-36 54 0v17H74Z" /><path className="care-art-line" d="M88 105v23m25-23v23m-40-47-14 15m70-15 14 15" /><path className="care-art-accent care-art-pulse" d="m151 37 3 8 9 1-7 6 2 9-7-5-8 5 2-9-7-6 9-1Z" /></>; break;
     default: illustration = kidney;
   }
-  return <span ref={root} className={"care-artwork care-artwork-" + index + (variant === "card" ? " care-artwork-card" : "")} data-service-id={serviceId} aria-hidden="true">
-    <svg viewBox="0 0 200 160" fill="none" focusable="false">
+  return <span ref={root} className={"care-artwork care-artwork-" + index + (variant === "card" ? " care-artwork-card" : "")} data-service-id={serviceId} aria-hidden={informative ? undefined : true}>
+    <svg viewBox="0 0 200 160" fill="none" focusable="false" role={informative ? 'img' : undefined} aria-labelledby={informative ? titleId : undefined}>
+      {informative && <title id={titleId}>{CARE_ARTWORK_DESCRIPTIONS[serviceId] || 'Simplified kidney illustration representing urological care'}</title>}
       <circle className="care-art-halo" cx="100" cy="80" r="69" />
       <g className="care-art-subject">{illustration}</g>
       <circle className="care-art-dot" cx="31" cy="43" r="4" /><circle className="care-art-dot" cx="169" cy="118" r="3" />

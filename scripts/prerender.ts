@@ -5,6 +5,7 @@ import { SITE_URL, ALLOW_INDEXING, ROUTES_SEO, SITEMAP_ROUTES, PRERENDER_ROUTES,
 import { generatePageSchema } from '../src/data/schema';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from '../src/data/identity';
 import { HOMEPAGE_SEO } from '../src/data/homepageSeo';
+import { SHARED_SOCIAL_IMAGE_ALT } from '../src/data/mediaDescriptions';
 import { CARE_DEPARTMENTS, careDepartmentPath } from '../src/data/careDepartments';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -131,7 +132,6 @@ async function prerender() {
         /<meta\s+property="og:site_name"\s+content="[^"]*"\s*\/?>/i,
         `<meta property="og:site_name" content="${escapeHtml(HOMEPAGE_SEO.siteName)}" />`
       );
-      pageHtml = pageHtml.replace('</head>', `  <meta property="og:image:alt" content="${escapeHtml(HOMEPAGE_SEO.imageAlt)}" />\n  <meta name="twitter:image:alt" content="${escapeHtml(HOMEPAGE_SEO.imageAlt)}" />\n</head>`);
       if (seo.url) {
         const image = new URL(HOMEPAGE_SEO.imagePath, seo.url).href;
         pageHtml = pageHtml.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/gi, `$1${escapeHtml(image)}$2`);
@@ -141,6 +141,10 @@ async function prerender() {
         pageHtml = pageHtml.replace(/<meta\s+(?:property="og:(?:url|image)"|name="twitter:image")\s+content="[^"]*"\s*\/?>\n?/gi, '');
       }
     }
+
+    // Descriptions for social preview images match client-side navigation.
+    const socialImageAlt = route === '/' ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT;
+    pageHtml = pageHtml.replace('</head>', `  <meta property="og:image:alt" content="${escapeHtml(socialImageAlt)}" />\n  <meta name="twitter:image:alt" content="${escapeHtml(socialImageAlt)}" />\n</head>`);
 
     // 8. Per-Route JSON-LD Structured Data (Task 6)
     const pageSchema = generatePageSchema(route);

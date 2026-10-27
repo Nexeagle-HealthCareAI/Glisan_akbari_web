@@ -2,6 +2,7 @@ import { loadMimoArtwork } from './MimoArtwork';
 import React, { useEffect, useRef, useState } from 'react';
 import { drawCharacterRig, RIG_PADDING } from './MimoRig';
 import { getMimoPose, MIMO_ACTIONS, REST_POSE, type MimoAction } from './MimoMotion';
+import { MIMO_IMAGE_ALT } from '../data/mediaDescriptions';
 
 export function MimoGuide({ paused, action = 'welcome', cue = 0, className = '' }: {
   paused: boolean; action?: MimoAction; cue?: number; className?: string;
@@ -89,12 +90,12 @@ export function MimoGuide({ paused, action = 'welcome', cue = 0, className = '' 
     onPointerEnter={() => controller.current?.replay()}>
     <span ref={shadow} className="mm-mimo-shadow" />
     <div ref={body} className="mm-mimo-body">
-      <img src="/media/mimo-original.png" alt="" width="1226" height="1283" loading="lazy" style={{ opacity: !ready && action === 'doctor' ? 1 : 0 }} />
+      <img src="/media/mimo-original.png" alt={MIMO_IMAGE_ALT} width="1226" height="1283" loading="lazy" style={{ opacity: !ready && action === 'doctor' ? 1 : 0 }} />
       <canvas aria-hidden="true" ref={canvas} width={1226 + 2 * RIG_PADDING} height={1283 + 2 * RIG_PADDING} style={{ opacity: ready ? 1 : 0,
         left: (-RIG_PADDING / 1226 * 100) + '%', top: (-RIG_PADDING / 1283 * 100) + '%',
         width: ((1226 + 2 * RIG_PADDING) / 1226 * 100) + '%',
         height: ((1283 + 2 * RIG_PADDING) / 1283 * 100) + '%',
-      }} />
+      }}>{MIMO_ACTIONS[action].label}</canvas>
     </div>
   </div>;
 }

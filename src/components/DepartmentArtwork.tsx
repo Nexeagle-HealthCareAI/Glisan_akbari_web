@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
+import { DEPARTMENT_ARTWORK_DESCRIPTIONS } from '../data/mediaDescriptions';
 
 // Lightweight decorative symbols, not anatomical or diagnostic diagrams.
 // Shared care-artwork styles pause every animation outside the viewport.
-export function DepartmentArtwork({ departmentId, variant = 'background' }: {
+export function DepartmentArtwork({ departmentId, variant = 'background', informative = false }: {
   departmentId: string;
   variant?: 'background' | 'card';
+  informative?: boolean;
 }) {
   const root = useRef<HTMLSpanElement>(null);
+  const titleId = useId();
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
       if (root.current) root.current.dataset.visible = String(entry.isIntersecting);
@@ -62,8 +65,9 @@ export function DepartmentArtwork({ departmentId, variant = 'background' }: {
   }
 
   return <span ref={root} className={'care-artwork department-artwork department-artwork-' + departmentId + (variant === 'card' ? ' care-artwork-card' : '')}
-    data-department-id={departmentId} aria-hidden="true">
-    <svg viewBox="0 0 200 160" fill="none" focusable="false">
+    data-department-id={departmentId} aria-hidden={informative ? undefined : true}>
+    <svg viewBox="0 0 200 160" fill="none" focusable="false" role={informative ? 'img' : undefined} aria-labelledby={informative ? titleId : undefined}>
+      {informative && <title id={titleId}>{DEPARTMENT_ARTWORK_DESCRIPTIONS[departmentId] || DEPARTMENT_ARTWORK_DESCRIPTIONS.urology}</title>}
       <circle className="care-art-halo" cx="100" cy="80" r="69" />
       <g className="care-art-subject">{illustration}</g>
       <circle className="care-art-dot" cx="31" cy="43" r="4" /><circle className="care-art-dot" cx="169" cy="118" r="3" />

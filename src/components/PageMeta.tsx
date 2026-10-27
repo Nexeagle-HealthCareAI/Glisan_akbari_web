@@ -4,6 +4,7 @@ import { getSeoForPath, SITE_URL, ALLOW_INDEXING } from '../data/seo';
 import { generatePageSchema } from '../data/schema';
 import { HOSPITAL_NAME, DOCTOR_NAME } from '../data/identity';
 import { HOMEPAGE_SEO } from '../data/homepageSeo';
+import { SHARED_SOCIAL_IMAGE_ALT } from '../data/mediaDescriptions';
 
 export const PageMeta: React.FC = () => {
   const location = useLocation();
@@ -82,8 +83,8 @@ export const PageMeta: React.FC = () => {
       tag.content = content;
     };
     setMeta('property', 'og:site_name', isHome ? HOSPITAL_NAME : `${DOCTOR_NAME} Urology Care`);
-    setMeta('property', 'og:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : '');
-    setMeta('name', 'twitter:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : '');
+    setMeta('property', 'og:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
+    setMeta('name', 'twitter:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
     setMeta('name', 'twitter:title', seo.title);
     setMeta('name', 'twitter:description', seo.description);
     const shareImage = isHome

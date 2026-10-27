@@ -54,6 +54,13 @@
 .site-app .mm-home-care-stage .mm-topic-details{display:flex;align-items:center;justify-content:space-between;gap:12px 24px;padding-top:18px}
 .site-app .mm-home-care-stage .mm-topic-details p{font-size:13px;margin:0;max-width:540px}
 .mm-home-care-stage .mm-topic-details a{flex-shrink:0}
+.mm-department-player{border:1px solid #ded5c5;border-radius:20px;background:#f5eddf;overflow:hidden}
+.mm-department-player-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px 22px}
+.mm-department-player-heading .mm-kicker{margin:0;font-size:9px}
+.mm-department-player-heading h3{font-size:17px;font-weight:500}
+.mm-department-player .site-service-video{margin:0}
+.mm-department-player .site-service-video video{border:0;border-radius:0;aspect-ratio:3/2}
+.mm-department-player .site-service-video-help{margin:0;padding:8px 18px;min-height:60px}
 @media(max-width:600px){
   .mm-department-buttons{gap:8px;margin-bottom:18px}
   .mm-department-buttons button{font-size:13px;padding:10px 14px}

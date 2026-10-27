@@ -839,13 +839,6 @@
 .site-condition-detail > .site-department-notice {
   margin-top: 20px;
 }
-.site-care-video-placeholder {
-  margin: 22px 0;
-  padding: 15px;
-  border: 1px dashed var(--line);
-  border-radius: 10px;
-  background: #fffefa;
-}
 .site-care-transition {
   animation: site-care-reveal 180ms ease-out;
 }

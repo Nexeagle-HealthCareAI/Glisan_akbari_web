@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Check } from 'lucide-react';
-import { CARE_DEPARTMENTS, careDepartmentPath } from '../data/careDepartments';
-import { DepartmentArtwork } from './DepartmentArtwork';
-import { MimoGuide } from './MimoGuide';
+import { ArrowUpRight } from 'lucide-react';
+import { CARE_DEPARTMENTS, DEPARTMENT_VIDEOS, careDepartmentPath } from '../data/careDepartments';
+import { ServiceVideo } from './ServiceVideo';
 
 const content = {
   urology: { title: 'Urology', hint: 'Kidney, bladder & urinary concerns', short: 'Questions about kidney or urinary health?', line: 'Explore kidney, bladder and urinary concerns to discuss with your urologist.' },
@@ -18,18 +17,17 @@ export const HOME_CARE_DEPARTMENTS = CARE_DEPARTMENTS.map((department) => ({
   ...content[department.id as keyof typeof content],
 }));
 
-export function HomeCareSection({ paused }: { paused: boolean }) {
+export function HomeCareSection() {
   const section = useRef<HTMLElement>(null);
   const [selected, setSelected] = useState(0);
-  const [cue, setCue] = useState(0);
   const department = HOME_CARE_DEPARTMENTS[selected];
+  const video = DEPARTMENT_VIDEOS[department.id];
   const selectDepartment = (index: number) => {
     setSelected(index);
-    setCue(value => value + 1);
     requestAnimationFrame(() => {
       const bounds = section.current?.querySelector('#home-care-scene')?.getBoundingClientRect();
       const actionsHeight = document.querySelector('.mm-mobile-actions')?.getBoundingClientRect().height || 0;
-      // Check after focus settles so keyboard activation also keeps Mimo clear of the booking bar.
+      // Keep the selected video above the mobile booking bar after focus settles.
       if (bounds && (bounds.top < 0 || bounds.bottom > window.innerHeight - actionsHeight)) {
         section.current?.scrollIntoView({ block: 'start', behavior: 'instant' });
       }
@@ -52,22 +50,16 @@ export function HomeCareSection({ paused }: { paused: boolean }) {
         ))}
       </div>
       <div className="mm-care-layout mm-home-care-stage">
-        <div id="home-care-scene" className={'mm-care-scene mm-scene mm-topic-' + selected} data-department={department.id}
+        <div id="home-care-scene" className="mm-department-player" data-department={department.id}
           role="region" aria-label={'Mimo explains ' + department.title}>
-          <div className="mm-scene-grid" />
-          <div className="mm-speech" key={department.id}><span>MIMO EXPLAINS</span><p>{department.short}</p></div>
-          <div className="mm-organ-card" key={'art-' + department.id} role="img" aria-label={department.label + ' illustration'}>
-            <span className="mm-card-caption">LET’S UNDERSTAND</span>
-            <DepartmentArtwork departmentId={department.id} variant="card" />
-            <strong>{department.title}</strong>
+          <div className="mm-department-player-heading">
+            <span className="mm-kicker">MIMO EXPLAINS</span>
+            <h3>{department.title}</h3>
           </div>
-          <MimoGuide paused={paused} action="care" cue={cue} className="mm-care-mimo" />
-          <span className="mm-float-chip mm-care-chip"><Check size={15} /> One step at a time</span>
-          <span className="mm-scene-star">✳</span>
-          <span className="mm-scene-caption">Your guide to care · Illustrative animation</span>
+          <ServiceVideo key={department.id} src={video.src} poster={video.poster} title={department.title} describedBy="home-care-video-description" />
         </div>
         <div id="home-care-details" className="mm-topic-details" aria-live="polite" aria-atomic="true">
-          <p>{department.line}</p>
+          <p id="home-care-video-description">{department.line}</p>
           <Link className="mm-text-link" to={careDepartmentPath(department.id)}>Explore {department.title} <ArrowUpRight size={17} /></Link>
         </div>
       </div>
