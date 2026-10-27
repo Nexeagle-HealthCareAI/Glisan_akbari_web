@@ -1,0 +1,54 @@
+.site-service-explainer {
+  margin: 22px 0;
+  padding: 18px;
+  border: 1px solid #dacebb;
+  border-radius: 16px;
+  background: #fbf4e7;
+  color: #173e35;
+  overflow: hidden;
+}
+.service-explainer-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; }
+.service-explainer-topline > span { font-size: 8px; font-weight: 600; letter-spacing: 1.1px; }
+.service-explainer-toggle { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; padding: 5px 9px; border: 1px solid #d5cebc; border-radius: 20px; background: #fffdf7; font: inherit; font-size: 10px !important; }
+.service-explainer-intro { display: flex; gap: 15px; align-items: center; margin: 8px 0 20px; }
+.service-explainer-art { display: block; width: 100px; height: 84px; flex: 0 0 100px; }
+.service-explainer-art > .care-artwork { position: relative; inset: auto; width: 100%; height: 100%; opacity: 1; }
+.service-explainer-art .care-artwork > svg { width: 100%; height: 100%; }
+.service-explainer-takeaway { font-size: 15px; line-height: 1.55; font-weight: 500; letter-spacing: -.02em; }
+.service-explainer-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; padding: 0; margin: 0; list-style: none; }
+.service-explainer-steps > li { position: relative; min-width: 0; padding: 13px 10px 12px; border: 1px solid #dfdfcf; border-radius: 12px; background: #fffef9; }
+.service-explainer-node { display: grid; place-items: center; position: relative; width: 45px; height: 45px; border: 1px solid #c0d2ba; border-radius: 50%; background: #edf3e5; margin-bottom: 13px; isolation: isolate; }
+.service-explainer-node::before { content: ''; position: absolute; inset: -4px; border: 1px solid #95af89; border-radius: 50%; opacity: 0; animation: service-node-ring 6s ease-out infinite; animation-delay: calc(var(--step) * 1.5s); }
+.service-explainer-node > svg { animation: service-node-lift 6s ease-in-out infinite; animation-delay: calc(var(--step) * 1.5s); }
+.service-explainer-node > span { display: grid; place-items: center; position: absolute; top: -5px; right: -6px; width: 17px; height: 17px; border-radius: 50%; background: #173e35; color: #fff; font-size: 9px; border: 2px solid #fffef9; }
+.service-explainer-steps strong { display: block; font-size: 12px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.service-explainer-steps p { margin: 6px 0 0 !important; color: #607165; font-size: 11px; line-height: 1.65; }
+.service-explainer-connector { position: absolute; right: -17px; top: 29px; width: 21px; height: 20px; display: grid; place-items: center; background: #fbf4e7; color: #8b9d7d; z-index: 1; }
+.service-explainer-connector > svg { animation: service-connector-flow 6s ease-in-out infinite; animation-delay: calc(var(--step) * 1.5s + 1s); }
+.site-service-explainer .service-explainer-footnote { margin: 16px 0 0; color: #67766c; font-size: 10px; line-height: 1.5; }
+.site-service-explainer[data-motion="paused"] *, .site-service-explainer[data-motion="paused"] *::before { animation-play-state: paused !important; }
+.site-service-explainer.is-urgent { background: #fff1e5; border-color: #d9aa88; }
+.site-service-explainer.is-urgent .service-explainer-topline { color: #934a29; }
+.site-service-explainer.is-urgent * { animation: none !important; }
+.is-urgent .service-explainer-connector { display: none; }
+.site-service-explainer .service-explainer-emergency { margin: 16px 0 0; padding-top: 13px; border-top: 1px solid #dbb99c; color: #8d3925; font-size: 13px; line-height: 1.6; font-weight: 600; }
+@keyframes service-node-ring { 0%, 30%, 100% { opacity: 0; transform: scale(.85); } 8% { opacity: .65; } 25% { opacity: 0; transform: scale(1.18); } }
+@keyframes service-node-lift { 0%, 30%, 100% { transform: translateY(0); } 12% { transform: translateY(-3px); } }
+@keyframes service-connector-flow { 0%, 35%, 100% { transform: translateX(0); opacity: .55; } 16% { transform: translateX(3px); opacity: 1; } }
+@media (max-width: 600px) {
+  .site-service-explainer { padding: 15px; margin-top: 17px; }
+  .service-explainer-intro { gap: 10px; margin-bottom: 16px; }
+  .service-explainer-art { width: 78px; height: 70px; flex-basis: 78px; }
+  .service-explainer-takeaway { font-size: 13px; line-height: 1.55; }
+  .service-explainer-steps { grid-template-columns: 1fr; gap: 10px; }
+  .service-explainer-steps > li { display: flex; gap: 12px; align-items: center; padding: 10px 12px; }
+  .service-explainer-node { flex: 0 0 38px; width: 38px; height: 38px; margin: 0; }
+  .service-explainer-node > svg { width: 22px; height: 22px; }
+  .service-explainer-steps p { margin-top: 3px !important; }
+  .service-explainer-connector { right: auto; left: 21px; top: auto; bottom: -16px; transform: rotate(90deg); }
+  .service-explainer-toggle { min-height: 36px; padding-inline: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-service-explainer *, .site-service-explainer *::before { animation: none !important; }
+  .service-explainer-toggle { display: none; }
+}

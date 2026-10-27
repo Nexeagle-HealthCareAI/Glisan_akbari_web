@@ -11,6 +11,15 @@ export type CareDepartment = {
   services: CareService[];
 };
 
+// Locally hosted web copies supplied by the hospital. Originals stay untouched.
+export const DEPARTMENT_VIDEOS: Record<string, { src: string; poster: string }> = {
+  urology: { src: '/media/departments/urology.mp4', poster: '/media/departments/urology-poster.jpg' },
+  ent: { src: '/media/departments/ent.mp4', poster: '/media/departments/ent-poster.jpg' },
+  'general-medicine': { src: '/media/departments/general-medicine.mp4', poster: '/media/departments/general-medicine-poster.jpg' },
+  anesthesiology: { src: '/media/departments/anesthesiology.mp4', poster: '/media/departments/anesthesiology-poster.jpg' },
+  neurology: { src: '/media/departments/neurology.mp4', poster: '/media/departments/neurology-poster.jpg' },
+};
+
 // These are educational topics proposed for review, not confirmed hospital services.
 // Keep Urology's original objects, copy and media untouched.
 export const CARE_DEPARTMENTS: CareDepartment[] = [

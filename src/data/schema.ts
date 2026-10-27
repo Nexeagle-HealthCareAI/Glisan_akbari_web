@@ -4,6 +4,7 @@ import { DOCTOR_PROFILE, HOSPITAL_PROFILE, UROLOGY_SERVICES, DR_NOORI_BOOKING_UR
 import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 import { HOMEPAGE_ADDRESS, HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
+import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 
 /**
  * Format phone number into clean E.164 international standard (+917903781377).
@@ -65,6 +66,7 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   '/doctors/dr-md-taquedis-noori': DOCTOR_NAME,
   '/services': 'Departments',
   '/explore-care': 'Explore care',
+  '/blogs': 'Blogs',
   '/faqs': 'FAQs',
   '/contact': 'Visit us',
   '/privacy-policy': 'Privacy Policy',
@@ -78,6 +80,41 @@ const BREADCRUMB_LABELS: Record<string, string> = {
  */
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
+  const blogPost = PUBLISHED_BLOG_POSTS.find((post) => blogPath(post.slug) === normalizedPath);
+  if (normalizedPath === '/blogs' || blogPost) {
+    const blogUrl = getFullUrl('/blogs');
+    const pageUrl = getFullUrl(normalizedPath);
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Blog', '@id': `${blogUrl}#blog`, url: blogUrl,
+          name: 'The Health Journal — Glisan Akbari Hospital',
+          ...(PUBLISHED_BLOG_POSTS.length > 0 ? { blogPost: PUBLISHED_BLOG_POSTS.map((post) => ({
+            '@type': 'BlogPosting', '@id': `${getFullUrl(blogPath(post.slug))}#article`,
+            headline: post.title, url: getFullUrl(blogPath(post.slug)),
+          })) } : {}),
+        },
+        ...(blogPost ? [{
+          '@type': 'BlogPosting', '@id': `${pageUrl}#article`, url: pageUrl,
+          headline: blogPost.title, description: blogPost.excerpt,
+          datePublished: blogPost.publishedAt,
+          author: { '@type': 'Person', name: blogPost.author },
+          publisher: { '@type': 'Organization', name: HOSPITAL_NAME },
+          mainEntityOfPage: pageUrl, isPartOf: { '@id': `${blogUrl}#blog` },
+          ...(blogPost.image ? { image: getFullUrl(blogPost.image.src) } : {}),
+        }] : []),
+        {
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: getFullUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Blogs', item: blogUrl },
+            ...(blogPost ? [{ '@type': 'ListItem', position: 3, name: blogPost.title, item: pageUrl }] : []),
+          ],
+        },
+      ],
+    };
+  }
   if (normalizedPath === '/') {
     return {
       '@context': 'https://schema.org',

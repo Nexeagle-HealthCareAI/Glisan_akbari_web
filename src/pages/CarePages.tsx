@@ -2,12 +2,11 @@ import React, { useRef, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import {
   ArrowUpRight,
-  Activity,
   Stethoscope,
   ArrowRight,
 } from "lucide-react";
 import { UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from "../data/config";
-import { ServiceVideo } from "../components/ServiceVideo";
+import { ServiceExplainer } from "../components/ServiceExplainer";
 import { getCareDepartment, getCareDoctor, type CareDepartment } from "../data/careDepartments";
 import {
   PageHero,
@@ -183,9 +182,9 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
                   onClick={() => {
                     setOpen(i);
                     if (window.matchMedia('(max-width: 760px)').matches) {
-                      // Wait for the new title and player to render before measuring.
+                      // Keep the selected explanation clear of the mobile booking bar.
                       requestAnimationFrame(() => {
-                        const content = detail.current?.querySelector('video') || detail.current?.querySelector('[aria-live]');
+                        const content = detail.current?.querySelector('[data-service-explainer]') || detail.current?.querySelector('[aria-live]');
                         const bounds = content?.getBoundingClientRect();
                         const stage = layout.current?.getBoundingClientRect();
                         const actionsHeight = document.querySelector('.mm-mobile-actions')?.getBoundingClientRect().height || 0;
@@ -211,9 +210,6 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
             </div>
           </div>
           <article ref={detail} id="selected-care-topic" className="site-condition-detail" aria-labelledby="selected-care-title">
-            {!service.explainerVideo && <span className="site-icon">
-              <Activity size={32} />
-            </span>}
             <div aria-live="polite" aria-atomic="true">
               <div key={service.id} className="site-care-transition">
                 <p className="mm-kicker">LET’S TALK ABOUT IT</p>
@@ -221,14 +217,10 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
                 <p className="site-condition-summary">{service.explainerVideo?.description || service.description}</p>
               </div>
             </div>
-            {service.explainerVideo ? (
-              <ServiceVideo key={service.id} {...service.explainerVideo} title={service.title} />
-            ) : <>
-              <p className="site-care-video-placeholder">A video guide for this topic is not available yet.</p>
-              {service.symptoms && <>
-                <h3>Concerns to mention</h3>
-                <BulletList items={service.symptoms} />
-              </>}
+            <ServiceExplainer key={service.id} serviceId={service.id} departmentId={department.id} title={service.title} />
+            {service.symptoms && <>
+              <h3>Concerns to mention</h3>
+              <BulletList items={service.symptoms} />
             </>}
             {department.proposed && <p className="site-department-notice">
               Educational topic only. Specific consultations, procedures and facilities have not been confirmed for this topic.

@@ -6,6 +6,7 @@ import { MimoGuide } from '../components/MimoGuide';
 import { useSiteMotion, hospitalMap } from '../components/SiteDesign';
 import { HospitalFeedback } from '../components/HospitalFeedback';
 import { HomeCareSection } from '../components/HomeCareSection';
+import { BlogSection } from '../components/BlogSection';
 import { HOMEPAGE_LOCATION } from '../data/homepageSeo';
 import './HomePage.css';
 
@@ -53,10 +54,12 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
 
       <section id="meet-mimo" className="mm-welcome mm-scene" aria-label="Meet Mimo, your digital guide"><div className="mm-wrap mm-welcome-inner"><div className="mm-welcome-character"><MimoGuide paused={paused} action="welcome" /><span className="mm-welcome-spark">✳</span></div><div><div className="mm-kicker">A FAMILIAR FACE. EVERY STEP.</div><h2>Hi, I’m <span>Mimo.</span></h2><p>Your little guide to a clearer hospital visit.</p></div><div className="mm-welcome-bubble"><MessageCircle size={22} /><span>“Chaliye, ek-ek step<br />aasaan banaate hain.”</span></div><a href="#care" className="mm-round-link" aria-label="Explore care with Mimo"><ArrowRight size={24} /></a></div></section>
 
-      <HomeCareSection paused={paused} />
+      <HomeCareSection />
+
+      <BlogSection />
 
 
-      <section id="visit" className="mm-visit mm-wrap mm-scene" aria-labelledby="visit-title"><div className="mm-visit-copy"><div className="mm-kicker">02 / SEE YOU IN PURNIA</div><h2 id="visit-title">Your next step<br />starts <em>here.</em></h2><p>Visit our hospital in Line Bazar Purnea, on Dharamshala Road.</p><p>{HOMEPAGE_LOCATION}</p><div className="mm-visit-actions"><button onClick={onOpenBooking} className="mm-button mm-peach-button">Book appointment <ArrowUpRight size={18} /></button><a href={map} target="_blank" rel="noreferrer" className="mm-text-link"><Navigation size={17} /> Get directions</a></div><a href={phone} className="mm-visit-phone"><Phone size={16} /> {HOSPITAL_PROFILE.phone}</a><small>Please confirm your appointment before visiting.</small></div><div className="mm-visit-scene"><svg className="mm-route" viewBox="0 0 460 350" aria-hidden="true"><path className="mm-route-base" d="M40 290C-10 150 270 320 230 160S430 180 405 45" /><path className="mm-route-trace" d="M40 290C-10 150 270 320 230 160S430 180 405 45" /></svg><a className="mm-map-pin" href={map} target="_blank" rel="noreferrer" aria-label={"Get Google Maps directions to " + HOMEPAGE_LOCATION}><MapPin size={33} strokeWidth={1.6} /><span>Glisan Akbari<br /><small>LINE BAZAR · PURNIA ↗</small></span></a><div className="mm-speech"><p>“Mulaaqaat hogi.<br />Khayaal rakhiye!”</p></div><MimoGuide paused={paused} action="visit" /><span className="mm-route-dot" /></div></section>
+      <section id="visit" className="mm-visit mm-wrap mm-scene" aria-labelledby="visit-title"><div className="mm-visit-copy"><div className="mm-kicker">03 / SEE YOU IN PURNIA</div><h2 id="visit-title">Your next step<br />starts <em>here.</em></h2><p>Visit our hospital in Line Bazar Purnea, on Dharamshala Road.</p><p>{HOMEPAGE_LOCATION}</p><div className="mm-visit-actions"><button onClick={onOpenBooking} className="mm-button mm-peach-button">Book appointment <ArrowUpRight size={18} /></button><a href={map} target="_blank" rel="noreferrer" className="mm-text-link"><Navigation size={17} /> Get directions</a></div><a href={phone} className="mm-visit-phone"><Phone size={16} /> {HOSPITAL_PROFILE.phone}</a><small>Please confirm your appointment before visiting.</small></div><div className="mm-visit-scene"><svg className="mm-route" viewBox="0 0 460 350" aria-hidden="true"><path className="mm-route-base" d="M40 290C-10 150 270 320 230 160S430 180 405 45" /><path className="mm-route-trace" d="M40 290C-10 150 270 320 230 160S430 180 405 45" /></svg><a className="mm-map-pin" href={map} target="_blank" rel="noreferrer" aria-label={"Get Google Maps directions to " + HOMEPAGE_LOCATION}><MapPin size={33} strokeWidth={1.6} /><span>Glisan Akbari<br /><small>LINE BAZAR · PURNIA ↗</small></span></a><div className="mm-speech"><p>“Mulaaqaat hogi.<br />Khayaal rakhiye!”</p></div><MimoGuide paused={paused} action="visit" /><span className="mm-route-dot" /></div></section>
     </div>
 
   </div>;

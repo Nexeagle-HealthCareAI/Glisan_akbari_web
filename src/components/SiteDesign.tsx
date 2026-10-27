@@ -22,6 +22,7 @@ import { MimoGuide } from "./MimoGuide";
 import { CareNavigation } from "./CareNavigation";
 import type { MimoAction } from "./MimoMotion";
 import { HOMEPAGE_ADDRESS, HOMEPAGE_LOCATION } from '../data/homepageSeo';
+import { HOSPITAL_LOGO_ALT } from '../data/mediaDescriptions';
 
 const MotionContext = createContext({ paused: false });
 export const useSiteMotion = () => useContext(MotionContext);
@@ -48,6 +49,7 @@ export const siteLinks = [
   ["/doctors", "Our doctors"],
   ["/explore-care", "Explore care"],
   ["/services", "Departments"],
+  ["/blogs", "Blogs"],
   ["/faqs", "FAQs"],
   ["/contact", "Visit us"],
 ];
@@ -56,7 +58,7 @@ export function Brand() {
   return (
     <Link to="/" className="mm-brand" aria-label={HOSPITAL_NAME + " home"}>
       <span className="site-logo">
-        <img src="/media/hospital-logo.png" alt={pathname === '/' ? `${HOSPITAL_NAME} in Purnea logo` : ''} width="1280" height="1280" />
+        <img src="/media/hospital-logo.png" alt={pathname === '/' ? `${HOSPITAL_NAME} in Purnea logo` : HOSPITAL_LOGO_ALT} width="1280" height="1280" />
       </span>
       <span>
         Glisan Akbari<small>SUPER SPECIALITY HOSPITAL</small>
@@ -113,6 +115,7 @@ export function Header() {
           <NavLink to="/explore-care">Explore care</NavLink>
           <CareNavigation onOpen={() => setMenu(false)} />
           <NavLink to="/doctors">Our doctors</NavLink>
+          <NavLink to="/blogs">Blogs</NavLink>
           <NavLink to="/contact">Visit us</NavLink>
         </nav>
         <div className="mm-header-actions">
@@ -181,7 +184,7 @@ export function Footer() {
           </div>
           <div>
             <h2>Explore</h2>
-            {siteLinks.slice(1, 4).map(([to, label]) => (
+            {siteLinks.slice(1, 5).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>
@@ -189,7 +192,7 @@ export function Footer() {
           </div>
           <div>
             <h2>Plan your visit</h2>
-            {siteLinks.slice(4).map(([to, label]) => (
+            {siteLinks.slice(5).map(([to, label]) => (
               <Link key={to} to={to}>
                 {label}
               </Link>

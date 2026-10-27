@@ -46,7 +46,7 @@ export function DoctorsPage() {
               <div className="site-doctor-card-top">
                 <span className="site-small-label">{d.department}</span>
                 {d.profileImage ? (
-                  <img className="site-avatar site-doctor-photo" src={d.profileImage} alt={d.name} width="1122" height="1402" loading="lazy" />
+                  <img className="site-avatar site-doctor-photo" src={d.profileImage} alt={`${d.name}, ${d.specialty}`} width="1122" height="1402" loading="lazy" />
                 ) : (
                   <span className="site-avatar" aria-hidden="true">{d.initials}</span>
                 )}
@@ -105,7 +105,7 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
       <section className="site-section mm-wrap">
         <div className="site-profile-grid">
           <aside className="site-profile-card">
-            <img className="site-profile-emblem site-profile-photo" src={DOCTOR_PROFILE.profileImage} alt={DOCTOR_PROFILE.name} width="1122" height="1402" loading="lazy" />
+            <img className="site-profile-emblem site-profile-photo" src={DOCTOR_PROFILE.profileImage} alt={`${DOCTOR_PROFILE.name}, ${DOCTOR_PROFILE.professionalTitle}`} width="1122" height="1402" loading="lazy" />
             <p className="mm-kicker">YOUR CONSULTATION</p>
             <h2>{DOCTOR_PROFILE.name}</h2>
             <p>{DOCTOR_PROFILE.qualifications}</p>
