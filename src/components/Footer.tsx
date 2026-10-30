@@ -89,7 +89,7 @@ export const Footer: React.FC<FooterProps> = () => {
                 { name: 'Home', path: '/' },
                 { name: 'Our Doctors', path: '/doctors' },
                 { name: 'Explore care', path: '/explore-care' },
-                { name: 'Departments', path: '/services' },
+                { name: 'Departments', path: '/services/urologist-in-purnia' },
                 { name: 'FAQ', path: '/faqs' },
                 { name: 'Visit us', path: '/contact' }
               ].map((link) => (

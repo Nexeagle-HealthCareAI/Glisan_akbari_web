@@ -37,7 +37,7 @@ export function HomeCareSection() {
     <section ref={section} id="care" className="mm-care mm-wrap" aria-labelledby="care-title">
       <div className="mm-section-heading">
         <div><div className="mm-kicker">01 / EXPLORE WITH MIMO</div><h2 id="care-title">What brings you here?</h2></div>
-        <Link to="/services" className="mm-text-link">Explore care <ArrowUpRight size={17} /></Link>
+        <Link to="/services/urologist-in-purnia" className="mm-text-link">Explore care <ArrowUpRight size={17} /></Link>
       </div>
       <div className="mm-department-buttons" role="group" aria-label="Choose a department for Mimo to explain">
         {HOME_CARE_DEPARTMENTS.map((item, index) => (

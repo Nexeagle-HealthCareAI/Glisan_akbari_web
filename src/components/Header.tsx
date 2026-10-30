@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = () => {
     { path: '/', label: 'Home' },
     { path: '/doctors', label: 'Our Doctors' },
     { path: '/explore-care', label: 'Explore care' },
-    { path: '/services', label: 'Departments' },
+    { path: '/services/urologist-in-purnia', label: 'Departments' },
     { path: '/faqs', label: 'FAQ' },
     { path: '/contact', label: 'Visit us' },
   ];

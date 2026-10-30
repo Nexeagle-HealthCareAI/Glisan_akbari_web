@@ -73,7 +73,7 @@ export function getCareDepartment(pathname: string) {
 }
 
 export function careDepartmentPath(id: string) {
-  return id === 'urology' ? '/services' : `/services/${id}`;
+  return id === 'urology' ? '/services/urologist-in-purnia' : `/services/${id}`;
 }
 
 export function getCareDoctor(department: CareDepartment) {

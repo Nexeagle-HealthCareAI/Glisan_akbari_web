@@ -5,12 +5,13 @@ const assetFiles = [
   "media/hospital-logo.png",
   "media/dr-md-taquedis-noori.png",
   "fonts/Inter.ttf",
+  ...fs.readdirSync("public/media/urology").filter((file) => file.endsWith(".svg")).map((file) => "media/urology/" + file),
 ];
 const data = new Map(
   assetFiles.map((file) => [
     "/" + file,
     "data:" +
-      (file.endsWith(".ttf") ? "font/ttf" : "image/png") +
+      (file.endsWith(".ttf") ? "font/ttf" : file.endsWith(".svg") ? "image/svg+xml" : "image/png") +
       ";base64," +
       fs.readFileSync("public/" + file).toString("base64"),
   ]),

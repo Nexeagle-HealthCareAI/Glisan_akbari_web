@@ -54,9 +54,9 @@ export default function App() {
         doctor: "/doctors",
         doctors: "/doctors",
         how: "/doctors",
-        services: "/services",
-        conditions: "/services",
-        treatments: "/services",
+        services: "/services/urologist-in-purnia",
+        conditions: "/services/urologist-in-purnia",
+        treatments: "/services/urologist-in-purnia",
         hospital: "/contact",
         faqs: "/faqs",
         contact: "/contact",
@@ -91,7 +91,7 @@ export default function App() {
             element={<DoctorProfilePage onOpenBooking={handleOpenBooking} />}
           />
           <Route
-            path="/services"
+            path="/services/urologist-in-purnia"
             element={<ConditionsPage onOpenBooking={handleOpenBooking} />}
           />
           <Route

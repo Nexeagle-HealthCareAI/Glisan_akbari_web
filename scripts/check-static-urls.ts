@@ -1,3 +1,4 @@
+import './load-build-env';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -115,7 +116,7 @@ for (const department of CARE_DEPARTMENTS) {
     assert.equal(redirected, target + '?utm_source=instagram#care-topics');
   }
 }
-assert.equal(getRouteRedirect('/services', '?department=unknown'), '/services');
+assert.equal(getRouteRedirect('/services', '?department=unknown'), '/services/urologist-in-purnia');
 assert.equal(nginxRemainingQuery('utm_source=instagram&department=ent&utm_campaign=hospital'),
   'utm_source=instagram&utm_campaign=hospital');
 assert.equal(getRouteRedirect('/services/ent/'), '/services/ent');

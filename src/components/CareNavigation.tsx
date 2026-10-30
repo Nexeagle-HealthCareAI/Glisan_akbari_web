@@ -14,7 +14,7 @@ export function CareNavigation({ inline = false, onNavigate, onOpen }: Props) {
   const focusIndex = useRef<number | null>(null);
   const { pathname, search, hash } = useLocation();
   const selected = getCareDepartment(pathname);
-  const active = pathname === '/services' || pathname.startsWith('/services/');
+  const active = pathname === '/services/urologist-in-purnia' || pathname.startsWith('/services/');
 
   useEffect(() => { setExpanded(false); }, [pathname, search, hash]);
   useEffect(() => {

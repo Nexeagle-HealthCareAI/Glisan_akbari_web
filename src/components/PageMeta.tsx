@@ -83,13 +83,13 @@ export const PageMeta: React.FC = () => {
       tag.content = content;
     };
     setMeta('property', 'og:site_name', isHome ? HOSPITAL_NAME : `${DOCTOR_NAME} Urology Care`);
-    setMeta('property', 'og:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
-    setMeta('name', 'twitter:image:alt', isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
+    setMeta('property', 'og:image:alt', seo.imageAlt || (isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT));
+    setMeta('name', 'twitter:image:alt', seo.imageAlt || (isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT));
     setMeta('name', 'twitter:title', seo.title);
     setMeta('name', 'twitter:description', seo.description);
     const shareImage = isHome
       ? (seo.url ? new URL(HOMEPAGE_SEO.imagePath, seo.url).href : '')
-      : `${SITE_URL}/og-image.png`;
+      : `${SITE_URL}${seo.imagePath || "/og-image.png"}`;
     setMeta('property', 'og:image', shareImage);
     setMeta('name', 'twitter:image', shareImage);
 

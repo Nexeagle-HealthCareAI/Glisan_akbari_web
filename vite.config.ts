@@ -1,3 +1,4 @@
+import './scripts/load-build-env';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
