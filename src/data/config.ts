@@ -1,3 +1,4 @@
+import { PRIORITY_UROLOGY } from './priorityUrology';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
 
 /**
@@ -33,13 +34,13 @@ export const HOSPITAL_GOOGLE_PROFILE = DR_NOORI_GOOGLE_PROFILE;
 
 export const HOSPITAL_ADDRESS = {
   line1: HOSPITAL_NAME,
-  line2: 'Dharamshala Road, Ashiyana Colony',
+  line2: 'Dharamshala Road',
   area: 'Line Bazar',
   city: 'Purnia',
   state: 'Bihar',
   pincode: '854301',
   stateAndPin: 'Bihar 854301',
-  fullFormatted: `${HOSPITAL_NAME}, Dharamshala Road, Ashiyana Colony, Line Bazar, Purnia, Bihar 854301`,
+  fullFormatted: `${HOSPITAL_NAME}, Dharamshala Road, Line Bazar, Purnia, Bihar 854301`,
 };
 
 export interface DoctorProfile {
@@ -145,6 +146,11 @@ export interface UrologyServiceItem {
   benefits: string[];
   preparation: string[];
   faqs: ServiceFAQItem[];
+  keywords?: [string, string, string];
+  assessment?: string[];
+  risks?: string;
+  featuredImage?: { src: string; social: string; alt: string };
+  references?: { label: string; url: string }[];
   seoTitle?: string;
   seoDescription?: string;
   explainerVideo?: {
@@ -222,7 +228,7 @@ export const HOSPITAL_PROFILE: HospitalProfile = {
   hospitalInteriorPlaceholder: '[PLACEHOLDER: INSERT HOSPITAL INTERIOR]',
   hospitalLogoPlaceholder: '[PLACEHOLDER: INSERT LOGO]',
   approvedHospitalImagesPlaceholder: '[PLACEHOLDER: INSERT APPROVED HOSPITAL IMAGES]',
-  description: 'Glisan Akbari Super Speciality Hospital provides advanced urological, nephrological, and surgical medical care located on Dharamshala Road, Ashiyana Colony, Line Bazar, Purnia.',
+  description: 'Glisan Akbari Super Speciality Hospital provides advanced urological, nephrological, and surgical medical care located on Dharamshala Road, Line Bazar, Purnia.',
   facilities: [
     'Advanced Endourology & Laser Surgery Suite',
     'Laparoscopic & Keyhole Surgery Unit',
@@ -470,270 +476,10 @@ export const PATIENT_CONDITIONS: PatientConditionItem[] = [
 ];
 
 export const UROLOGY_SERVICES: UrologyServiceItem[] = [
-  {
-    id: 'srv-1',
-    explainerVideo: {
-      src: '/media/services/kidney-stones.mp4',
-      poster: '/media/services/kidney-stones-poster.jpg',
-      description: 'Learn how PCNL, URSL and RIRS can help treat kidney and ureter stones. Your doctor will advise which approach suits you.',
-    },
-    title: 'Kidney Stone Laser Surgery (PCNL, URSL, RIRS)',
-    category: 'Endourology & Laser Surgery',
-    description: 'Minimally invasive laser treatments (PCNL, URSL, and flexible RIRS) for single, multiple, and complex staghorn kidney or ureteric stones without large incisions.',
-    patientNotes: 'Fast recovery, minimal discomfort, and same-day or 24-hour discharge protocols for most endoscopic laser stone procedures.',
-    slug: 'kidney-stone-laser-surgery-pcnl-ursl-rirs',
-    tagline: 'Precision Holmium Laser Stone Vaporization with High Clearance Rates in Purnia',
-    overview: [
-      'Kidney and ureteric stones are common urological conditions causing intense colic pain, urinary obstruction, and potential renal impairment if left untreated.',
-      'Dr. Md Taquedis Noori utilizes advanced endourological technologies—including flexible ureteroscopy (RIRS), miniature nephrolithotomy (Mini-PCNL), and semi-rigid ureteroscopy (URSL)—to fragment and clear stones of all sizes with pinpoint laser energy.',
-      'Procedures are performed through natural urinary passages or miniature keyholes, eliminating large painful incisions, reducing hospital stays, and speeding your return to normal activities.'
-    ],
-    symptoms: [
-      'Severe, sharp cramping pain in the flank, back, or lower abdomen radiating to the groin',
-      'Blood in urine (hematuria) appearing pink, red, or tea-colored',
-      'Painful, burning sensation during urination (dysuria)',
-      'Sudden persistent urge to urinate or frequent voiding in small quantities',
-      'Nausea, vomiting, and high fever with chills in cases of infected stone obstruction'
-    ],
-    procedures: [
-      {
-        name: 'RIRS (Retrograde Intrarenal Surgery)',
-        description: 'An ultra-thin flexible ureteroscope navigated through the urethra and bladder into the kidney to dust stones in any calyx using Holmium laser fibers, requiring zero external incisions.'
-      },
-      {
-        name: 'PCNL (Percutaneous Nephrolithotomy / Mini-PCNL)',
-        description: 'Keyhole surgical access through a tiny puncture in the flank to break and evacuate large (>2 cm) or staghorn stones with high clearance efficiency.'
-      },
-      {
-        name: 'URSL (Ureteroscopic Lithotripsy)',
-        description: 'Endoscopic visualization and pneumatic or laser fragmentation of stones impacted in the middle and lower ureter.'
-      },
-      {
-        name: 'DJ Stenting & Cystoscopic Removal',
-        description: 'Placement of a soft temporary internal stent to preserve urine flow, prevent colic, and facilitate safe post-operative renal healing.'
-      }
-    ],
-    benefits: [
-      'No major surgical cuts or disfiguring scars',
-      'Significantly reduced post-operative pain and blood loss',
-      'Short hospital stay (often 24 to 48 hours)',
-      'Rapid return to routine work and daily routine',
-      'Comprehensive metabolic stone analysis and recurrence prevention advice'
-    ],
-    preparation: [
-      'Bring recent Ultrasound KUB, NCCT KUB scan films, and serum creatinine reports',
-      'Provide current urine routine and culture-sensitivity test results',
-      'Inform the doctor of any blood thinners (aspirin, clopidogrel) or cardiac medications',
-      'Follow the fasting instructions provided during pre-anesthetic checkup'
-    ],
-    faqs: [
-      {
-        question: 'Is laser kidney stone surgery painful?',
-        answer: 'The procedure is performed under spinal or general anesthesia, so you feel absolutely no pain during surgery. Mild temporary discomfort or stent-related urgency afterward is well-managed with prescription medications.'
-      },
-      {
-        question: 'How long will I need to stay in the hospital?',
-        answer: 'Most patients undergoing URSL or RIRS are discharged within 24 hours. Mini-PCNL patients typically stay 1 to 2 days for post-operative observation.'
-      },
-      {
-        question: 'Can kidney stones return after laser removal?',
-        answer: 'Yes, stones can recur if metabolic causes and hydration habits are not addressed. Dr. Noori provides individualized dietary counseling and stone analysis to minimize recurrence risk.'
-      }
-    ],
-    seoTitle: 'Kidney Stone Laser Surgery (PCNL, URSL, RIRS) in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Minimally invasive kidney stone laser surgery (PCNL, RIRS, URSL) by Dr. Md Taquedis Noori at Glisan Akbari Hospital, Line Bazar, Purnia. Fast recovery and high stone clearance.'
-  },
-  {
-    id: 'srv-2',
-    explainerVideo: {
-      src: '/media/services/prostate-bph.mp4',
-      poster: '/media/services/prostate-bph-poster.jpg',
-      description: 'An enlarged prostate can affect urine flow. Learn about BPH and the care options to discuss with your urologist.',
-    },
-    title: 'Prostate Enlargement & BPH Treatment',
-    category: 'Prostate Health & Endourology',
-    description: 'Advanced medical therapy and endoscopic interventions including Bipolar TURP and laser enucleation for Benign Prostatic Hyperplasia (BPH) to restore free urinary flow.',
-    patientNotes: 'Timely treatment prevents chronic urinary retention, permanent bladder wall damage, and secondary kidney strain.',
-    slug: 'prostate-enlargement-bph-treatment',
-    tagline: 'Modern Prostate Care Restoring Natural Urinary Flow & Nighttime Rest',
-    overview: [
-      'Benign Prostatic Hyperplasia (BPH) is a common non-cancerous enlargement of the prostate gland in men over 50, causing progressive compression of the urethra.',
-      'Symptoms often start with hesitant urination and frequent nighttime awakenings, progressing to urinary tract infections or complete inability to pass urine if ignored.',
-      'Dr. Md Taquedis Noori provides comprehensive evaluation through digital rectal examination, uroflowmetry, and serum PSA, offering medical protocols or minimally invasive endoscopic surgeries like Bipolar TURP tailored to gland volume.'
-    ],
-    symptoms: [
-      'Frequent urge to urinate, especially waking up multiple times at night (nocturia)',
-      'Weak, slow, or interrupted urinary stream',
-      'Difficulty or straining when beginning to pass urine',
-      'Sensation of incomplete bladder emptying after voiding',
-      'Sudden acute urinary retention requiring emergency catheterization'
-    ],
-    procedures: [
-      {
-        name: 'Bipolar TURP (Transurethral Resection of Prostate)',
-        description: 'Endoscopic resection performed in saline medium to shave obstructing prostate tissue, minimizing bleeding risks and TUR syndrome.'
-      },
-      {
-        name: 'Laser Prostate Enucleation / Vaporization',
-        description: 'High-precision laser technology for larger prostates or high-risk patients on antiplatelet therapy.'
-      },
-      {
-        name: 'Uroflowmetry & Bladder Scan',
-        description: 'Non-invasive computerized flow rate measurement and ultrasound assessment of post-void residual volume.'
-      },
-      {
-        name: 'Targeted Pharmacotherapy Protocol',
-        description: 'Evidence-based alpha-blockers and 5-alpha reductase inhibitors tailored to alleviate urinary resistance and shrink prostate tissue.'
-      }
-    ],
-    benefits: [
-      'Immediate and lasting improvement in urinary flow and emptying',
-      'Cessation of tiring nighttime urinary frequency',
-      'Low blood loss and short catheter duration (typically 24–48 hours)',
-      'Prevention of bladder calculi and secondary hydronephrosis'
-    ],
-    preparation: [
-      'Bring recent Serum PSA (Prostate Specific Antigen) laboratory reports',
-      'Carry Ultrasound of KUB with post-void residual volume assessment',
-      'Disclose any history of diabetes, hypertension, or antiplatelet/blood thinner use'
-    ],
-    faqs: [
-      {
-        question: 'Does an enlarged prostate always indicate prostate cancer?',
-        answer: 'No. Benign Prostatic Hyperplasia is a benign non-cancerous growth. However, a Serum PSA test and clinical examination are always performed to rule out malignancy.'
-      },
-      {
-        question: 'How long will the urinary catheter stay after TURP?',
-        answer: 'In modern bipolar surgery, the urinary catheter is typically removed within 24 to 48 hours once urine clears, allowing you to void naturally before leaving the hospital.'
-      }
-    ],
-    seoTitle: 'Prostate Enlargement & TURP Surgery in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Expert BPH and prostate treatment in Line Bazar, Purnia. Bipolar TURP and laser surgery by senior urologist Dr. Md Taquedis Noori at Glisan Akbari Hospital.'
-  },
-  {
-    id: 'srv-3',
-    title: 'Urinary Tract Infection (UTI) & Hematuria Care',
-    category: 'Clinical Urology & Diagnostics',
-    description: 'Comprehensive diagnostic investigation and evidence-based therapeutic care for recurrent urinary infections, painful micturition, and visible or microscopic blood in urine.',
-    patientNotes: 'Blood in urine (hematuria) is an important clinical warning sign that requires prompt endoscopic and radiological workup.',
-    slug: 'urinary-tract-infection-uti-hematuria-care',
-    tagline: 'Targeted Antimicrobial Therapy & Endoscopic Workup for Clear Urinary Health',
-    overview: [
-      'Recurrent urinary tract infections (UTIs) and blood in the urine (hematuria) can indicate underlying conditions ranging from cystitis and stones to bladder and renal pathologies.',
-      'Self-medicating with over-the-counter antibiotics often leads to drug-resistant infections and masks serious underlying lesions.',
-      'Dr. Md Taquedis Noori conducts methodical clinical evaluations including urine microbiology, high-resolution ultrasound, and gentle diagnostic cystoscopy to diagnose the exact cause.'
-    ],
-    symptoms: [
-      'Persistent burning sensation or pain during urination',
-      'Pink, red, or brownish discoloration in urine (gross hematuria)',
-      'Intense, uncontrollable urge to urinate even with an empty bladder',
-      'Cloudy, dark, or unusually pungent urine',
-      'Pelvic pain in women or rectal/perineal discomfort in men'
-    ],
-    procedures: [
-      {
-        name: 'Diagnostic Flexible Cystoscopy',
-        description: 'Gentle, minimally invasive visualization of the urethral lumen and bladder lining to detect source of bleeding, stones, or mucosal abnormalities.'
-      },
-      {
-        name: 'Urine Culture & Sensitivity Profiling',
-        description: 'Microbiological culture to identify specific bacterial strains and target treatment with sensitive antibiotics, preventing multidrug resistance.'
-      },
-      {
-        name: 'Upper Tract Imaging (Ultrasound & CT Urography)',
-        description: 'Detailed evaluation of kidney parenchyma, renal pelvis, and ureters to rule out silent calculi or upper tract lesions.'
-      },
-      {
-        name: 'Recurrent UTI Preventive Protocols',
-        description: 'Long-term bladder defense regimens, urinary alkalinizers, and behavioral guidance tailored to female and geriatric patients.'
-      }
-    ],
-    benefits: [
-      'Definitive identification of hidden bleeding sources',
-      'Resolution of chronic, antibiotic-resistant urinary infections',
-      'Prevention of acute pyelonephritis (kidney infection) and renal scarring',
-      'Clear, empathetic guidance on daily bladder hygiene and hydration'
-    ],
-    preparation: [
-      'Do not start random antibiotics right before urine collection unless advised',
-      'Bring recent urine routine, microscopy, and culture sensitivity reports',
-      'Drink adequate water before attending the clinic for physical examination'
-    ],
-    faqs: [
-      {
-        question: 'Why should I never ignore blood in my urine if there is no pain?',
-        answer: 'Painless hematuria is actually more concerning because it can indicate early bladder or kidney lesions that do not cause pain initially. Early investigation leads to prompt, curative treatment.'
-      },
-      {
-        question: 'Why do my urinary tract infections keep recurring?',
-        answer: 'Recurrent UTIs can stem from incomplete bladder emptying, anatomical variations, kidney stones harboring bacteria, or resistant microbes. A formal urological workup identifies and resolves the root cause.'
-      }
-    ],
-    seoTitle: 'UTI & Hematuria (Blood in Urine) Treatment in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Accurate diagnosis and targeted care for recurrent UTIs and blood in urine in Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Super Speciality Hospital.'
-  },
-  {
-    id: 'srv-4',
-    title: 'Male Infertility & Varicocele Repair',
-    category: 'Andrology & Men\'s Health',
-    description: 'Specialized reproductive urology evaluation including microscopic subinguinal varicocelectomy, hormonal profiling, and semen parameter optimization for male factor infertility.',
-    patientNotes: 'Microscopic surgical repair preserves testicular arterial supply and lymphatic drainage, drastically lowering recurrence and hydrocele risks.',
-    slug: 'male-infertility-varicocele-repair',
-    tagline: 'Precision Microsurgical Varicocelectomy & Advanced Reproductive Andrology',
-    overview: [
-      'Male factor infertility contributes to nearly 50% of couples facing difficulty conceiving, with varicoceles (abnormally dilated scrotal veins) being the most treatable surgical cause.',
-      'Elevated scrotal temperatures caused by stagnant venous pooling impair sperm count, motility, and DNA integrity.',
-      'Dr. Md Taquedis Noori offers comprehensive andrological evaluation, advanced semen analysis interpretation, and the gold standard microscopic subinguinal varicocelectomy to optimize reproductive potential.'
-    ],
-    symptoms: [
-      'Inability to achieve pregnancy after 12 months of regular unprotected intercourse',
-      'Dull, aching heaviness or pain in the scrotum, especially after prolonged standing or exertion',
-      'Visible or palpable enlarged veins resembling a bag of worms above the testis',
-      'Noticeable difference in size or volume between the testicles (testicular hypotrophy)',
-      'Abnormal semen analysis parameters (low sperm count, poor motility, abnormal morphology)'
-    ],
-    procedures: [
-      {
-        name: 'Microscopic Subinguinal Varicocelectomy',
-        description: 'Gold-standard microsurgical ligation of dilated spermatoceles and veins under surgical operating microscope, protecting testicular arteries and lymphatics.'
-      },
-      {
-        name: 'Standardized Semen Analysis & Hormonal Profiling',
-        description: 'Comprehensive analysis following WHO criteria, coupled with serum testosterone, LH, FSH, and prolactin evaluation.'
-      },
-      {
-        name: 'Surgical Sperm Retrieval (TESA / PESA)',
-        description: 'Micro-needle aspiration or testicular sperm extraction for azoospermic men in coordination with assisted reproductive technology (ART/ICSI).'
-      },
-      {
-        name: 'Scrotal Ultrasound & Color Doppler',
-        description: 'High-frequency duplex imaging measuring venous caliber and retrograde reflux during the Valsalva maneuver.'
-      }
-    ],
-    benefits: [
-      'Statistically significant improvement in sperm concentration, motility, and morphology',
-      'Extremely low complication rates and near-zero hydrocele incidence with microscopic magnification',
-      'Alleviation of chronic scrotal dragging pain and heaviness',
-      'Day-care or 24-hour procedure with rapid return to daily work'
-    ],
-    preparation: [
-      'Maintain 3 to 5 days of sexual abstinence prior to attending for semen testing',
-      'Bring all prior semen analysis reports and scrotal color Doppler scans',
-      'Both partners are encouraged to share previous fertility workup records'
-    ],
-    faqs: [
-      {
-        question: 'Does varicocele repair improve sperm count?',
-        answer: 'Yes. Clinical studies demonstrate that microscopic varicocelectomy improves semen parameters in 60% to 70% of men, leading to significantly higher natural pregnancy rates.'
-      },
-      {
-        question: 'How quickly can I resume work after varicocelectomy?',
-        answer: 'Because the subinguinal approach avoids cutting abdominal muscles, most patients resume light office work within 3 to 4 days, avoiding heavy lifting for 3 weeks.'
-      }
-    ],
-    seoTitle: 'Male Infertility & Varicocele Surgery in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Microscopic varicocele repair and male infertility treatment by Dr. Md Taquedis Noori in Purnia, Bihar. Improved semen parameters with advanced microsurgery.'
-  },
+  PRIORITY_UROLOGY['srv-1'],
+  PRIORITY_UROLOGY['srv-2'],
+  PRIORITY_UROLOGY['srv-3'],
+  PRIORITY_UROLOGY['srv-4'],
   {
     id: 'srv-5',
     title: 'Laparoscopic & Robotic Urological Surgery',
@@ -857,68 +603,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
     seoTitle: 'Urinary Incontinence & Overactive Bladder Treatment in Purnia | Dr. Md Taquedis Noori',
     seoDescription: 'Specialized female and functional urology care for urine leakage and overactive bladder in Purnia. TOT sling and Botox therapy by Dr. Md Taquedis Noori.'
   },
-  {
-    id: 'srv-7',
-    title: 'Erectile Dysfunction & Penile Implants',
-    category: 'Andrology & Sexual Health',
-    description: 'Evidence-based clinical workup and phased management of male erectile difficulties, premature ejaculation, and advanced penile prosthesis options.',
-    patientNotes: 'Conducted in an atmosphere of strict clinical confidentiality, empathy, and scientific medicine.',
-    slug: 'erectile-dysfunction-penile-implants',
-    tagline: 'Confidential Clinical Andrology for Restored Male Vitality & Confidence',
-    overview: [
-      'Erectile dysfunction (ED) is a common medical condition that frequently stems from vascular, neurological, hormonal, or psychological factors—especially in men with diabetes or cardiovascular disease.',
-      'Instead of relying on unverified supplements, patients benefit from scientific andrological workup to address the vascular root cause and safeguard heart and metabolic health.',
-      'Dr. Md Taquedis Noori offers compassionate, private consultations and step-wise evidence-based therapies ranging from oral PDE-5 inhibitors to surgical penile prosthesis implantation.'
-    ],
-    symptoms: [
-      'Difficulty achieving an erection suitable for satisfactory sexual intercourse',
-      'Difficulty maintaining firmness until completion of intercourse',
-      'Reduced sexual desire or lack of morning erections',
-      'Premature ejaculation or difficulty with ejaculatory control',
-      'Penile pain or palpable fibrous plaques causing curvature (Peyronie\'s disease)'
-    ],
-    procedures: [
-      {
-        name: 'Penile Duplex Color Doppler Study',
-        description: 'Pharmacologically induced ultrasound assessment of cavernous arterial inflow and veno-occlusive competence.'
-      },
-      {
-        name: 'Step-Wise Medical & Hormonal Therapy',
-        description: 'Optimized oral PDE-5 inhibitors, testosterone replacement for hypogonadism, and management of diabetic microvascular factors.'
-      },
-      {
-        name: 'Penile Prosthesis Implantation',
-        description: 'Surgical placement of malleable semi-rigid or inflatable hydraulic penile cylinders for end-stage organic erectile dysfunction.'
-      },
-      {
-        name: 'Peyronie\'s Disease Plaque Assessment & Plication',
-        description: 'Medical stabilization and corrective surgical straightening for painful penile curvature.'
-      }
-    ],
-    benefits: [
-      'Restored sexual confidence and intimate partnership harmony',
-      'Scientifically verified treatments safe for diabetic and hypertensive patients',
-      'Strict clinical confidentiality and private one-on-one consultation chambers',
-      'Permanent solutions with high patient satisfaction through penile implants'
-    ],
-    preparation: [
-      'Bring recent fasting blood sugar, HbA1c, and lipid profile reports',
-      'Provide a complete list of current cardiac and blood pressure medications',
-      'Write down questions you wish to discuss privately during consultation'
-    ],
-    faqs: [
-      {
-        question: 'Is erectile dysfunction consultation strictly confidential?',
-        answer: 'Yes. All consultations, records, and treatments with Dr. Md Taquedis Noori are strictly confidential and conducted in private OPD rooms.'
-      },
-      {
-        question: 'Can diabetic men with severe ED regain normal function?',
-        answer: 'Yes. Even if oral tablets fail, advanced treatments such as intracavernous therapy or penile prosthesis implantation provide a 100% reliable erection on demand.'
-      }
-    ],
-    seoTitle: 'Erectile Dysfunction & Andrology Specialist in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Confidential and evidence-based erectile dysfunction and male sexual health treatment by Dr. Md Taquedis Noori at Glisan Akbari Hospital, Line Bazar, Purnia.'
-  },
+  PRIORITY_UROLOGY['srv-7'],
   {
     id: 'srv-8',
     title: 'Kidney Transplantation & Post-Transplant Care',
@@ -1368,7 +1053,7 @@ export const FAQS: FAQItem[] = [
     id: 'faq-2',
     category: 'hospital',
     question: 'Where is Dr. Noori available for consultation?',
-    answer: `${DOCTOR_NAME} consults at ${HOSPITAL_NAME}, situated on Dharamshala Road, Ashiyana Colony, ${HOSPITAL_SHORT_ADDRESS}, Bihar 854301.`,
+    answer: `${DOCTOR_NAME} consults at ${HOSPITAL_NAME}, situated on Dharamshala Road, ${HOSPITAL_SHORT_ADDRESS}, Bihar 854301.`,
   },
   {
     id: 'faq-3',
@@ -1392,7 +1077,7 @@ export const FAQS: FAQItem[] = [
     id: 'faq-6',
     category: 'hospital',
     question: `How can I reach ${HOSPITAL_NAME} in ${HOSPITAL_CITY}?`,
-    answer: `The hospital is centrally located in ${HOSPITAL_SHORT_ADDRESS}, along Dharamshala Road near Ashiyana Colony. It is easily accessible by auto-rickshaw, taxi, or private vehicle from ${HOSPITAL_CITY} Junction and surrounding transit hubs.`,
+    answer: `The hospital is centrally located in ${HOSPITAL_SHORT_ADDRESS}, along Dharamshala Road. It is easily accessible by auto-rickshaw, taxi, or private vehicle from ${HOSPITAL_CITY} Junction and surrounding transit hubs.`,
   },
   {
     id: 'faq-7',

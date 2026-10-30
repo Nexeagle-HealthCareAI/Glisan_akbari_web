@@ -48,7 +48,7 @@ export const siteLinks = [
   ["/", "Home"],
   ["/doctors", "Our doctors"],
   ["/explore-care", "Explore care"],
-  ["/services", "Departments"],
+  ["/services/urologist-in-purnia", "Departments"],
   ["/blogs", "Blogs"],
   ["/faqs", "FAQs"],
   ["/contact", "Visit us"],
@@ -137,7 +137,7 @@ export function Header() {
           <nav id="site-menu" className="site-menu" aria-label="All pages">
             <p className="mm-kicker">FIND YOUR WAY</p>
             {siteLinks.map(([to, label]) => (
-              to === '/services' ? <CareNavigation key={to} inline onNavigate={() => setMenu(false)} /> :
+              to === '/services/urologist-in-purnia' ? <CareNavigation key={to} inline onNavigate={() => setMenu(false)} /> :
               <NavLink key={to} to={to} end={to === "/"} onClick={() => setMenu(false)}>
                 {label}
                 <ArrowUpRight size={16} />
@@ -297,7 +297,9 @@ export function PageHero({
   action = "care",
   message,
   children,
+  image,
 }: {
+  image?: { src: string; alt: string };
   label: string;
   title: string;
   accent: string;
@@ -325,7 +327,10 @@ export function PageHero({
         <p className="site-lead">{description}</p>
         {children && <div className="site-hero-actions">{children}</div>}
       </div>
-      <GuideScene action={action} message={message} />
+      {image ? <figure className="site-service-feature">
+        <img src={(typeof window !== "undefined" && (window as any).__SITE_ASSETS__?.[image.src]) || image.src} alt={image.alt} width="800" height="600" fetchPriority="high" />
+        <figcaption>Illustration for general understanding.</figcaption>
+      </figure> : <GuideScene action={action} message={message} />}
     </section>
   );
 }

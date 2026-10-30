@@ -1,3 +1,4 @@
+import './load-build-env';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -142,8 +143,12 @@ async function prerender() {
       }
     }
 
+    if (seo.imagePath) {
+      const image = getFullUrl(seo.imagePath);
+      pageHtml = pageHtml.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/gi, `$1${escapeHtml(image)}$2`);
+    }
     // Descriptions for social preview images match client-side navigation.
-    const socialImageAlt = route === '/' ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT;
+    const socialImageAlt = seo.imageAlt || (route === '/' ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
     pageHtml = pageHtml.replace('</head>', `  <meta property="og:image:alt" content="${escapeHtml(socialImageAlt)}" />\n  <meta name="twitter:image:alt" content="${escapeHtml(socialImageAlt)}" />\n</head>`);
 
     // 8. Per-Route JSON-LD Structured Data (Task 6)
@@ -192,9 +197,9 @@ async function prerender() {
     const departmentPaths = Object.fromEntries(CARE_DEPARTMENTS.map((department) => [department.id, careDepartmentPath(department.id)]));
     const redirectScript = `const params = new URLSearchParams(window.location.search);
 let target = ${JSON.stringify(to)};
-if (${['/conditions', '/treatments'].includes(from)} && params.has('department')) {
+if (${['/services', '/conditions', '/treatments'].includes(from)} && params.has('department')) {
   const paths = ${JSON.stringify(departmentPaths)};
-  target = Object.hasOwn(paths, params.get('department')) ? paths[params.get('department')] : '/services';
+  target = Object.hasOwn(paths, params.get('department')) ? paths[params.get('department')] : '/services/urologist-in-purnia';
   params.delete('department');
 }
 window.location.replace(target + (params.size ? '?' + params.toString() : '') + window.location.hash);`;

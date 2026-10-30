@@ -64,7 +64,7 @@ export function cleanSchemaValue<T>(obj: T): T | undefined {
 const BREADCRUMB_LABELS: Record<string, string> = {
   '/doctors': 'Our Doctors',
   '/doctors/dr-md-taquedis-noori': DOCTOR_NAME,
-  '/services': 'Departments',
+  '/services/urologist-in-purnia': 'Departments',
   '/explore-care': 'Explore care',
   '/blogs': 'Blogs',
   '/faqs': 'FAQs',
@@ -211,23 +211,12 @@ export function generatePageSchema(path: string) {
 
   if (currentService) {
     procedureEntity = cleanSchemaValue({
-      '@type': 'MedicalProcedure',
-      '@id': `${SITE_URL}${normalizedPath}#procedure`,
-      name: currentService.title,
-      procedureType: 'SurgicalProcedure',
+      '@type': 'MedicalWebPage', '@id': `${getFullUrl(normalizedPath)}#webpage`,
+      url: getFullUrl(normalizedPath), name: currentService.title,
       description: currentService.description,
-      bodyLocation: 'Urinary System',
-      howPerformed: currentService.procedures?.map((p) => p.name).join(', '),
-      performer: {
-        '@type': 'Physician',
-        '@id': physicianId,
-        name: DOCTOR_PROFILE.name,
-      },
-      offers: {
-        '@type': 'Offer',
-        url: DR_NOORI_BOOKING_URL,
-        availability: 'https://schema.org/InStock',
-      },
+      ...(currentService.featuredImage ? { image: getFullUrl(currentService.featuredImage.social) } : {}),
+      about: { '@type': 'Service', name: currentService.title,
+        provider: { '@id': physicianId }, areaServed: { '@type': 'City', name: 'Purnia' } },
     });
 
     if (currentService.faqs && currentService.faqs.length > 0) {
@@ -286,7 +275,7 @@ export function generatePageSchema(path: string) {
             '@type': 'ListItem',
             position: 2,
             name: 'Urology Services',
-            item: `${SITE_URL}/services`,
+            item: getFullUrl(careDepartmentPath("urology")),
           },
           {
             '@type': 'ListItem',

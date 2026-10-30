@@ -30,6 +30,7 @@ export function ServiceDetailPage(_: Props) {
   return (
     <>
       <PageHero
+        image={service.featuredImage}
         label="Urology care"
         title={service.title}
         accent="Let’s understand it."
@@ -37,7 +38,7 @@ export function ServiceDetailPage(_: Props) {
         message="Your questions belong in the conversation."
       >
         <BookLink href={DR_NOORI_BOOKING_URL} label="Consult Dr. Noori" />
-        <Link className="mm-text-link" to="/services">
+        <Link className="mm-text-link" to="/services/urologist-in-purnia">
           Explore care <ArrowRight size={16} />
         </Link>
       </PageHero>
@@ -54,6 +55,10 @@ export function ServiceDetailPage(_: Props) {
               <p>{service.patientNotes}</p>
             </div>
           </section>
+          {service.assessment && <section id="assessment">
+            <h2>How your concern is assessed.</h2>
+            {service.assessment.map((text) => <p key={text}>{text}</p>)}
+          </section>}
           <section id="symptoms">
             <h2>What to discuss with your doctor.</h2>
             <BulletList items={service.symptoms} />
@@ -70,6 +75,7 @@ export function ServiceDetailPage(_: Props) {
               ))}
             </div>
           </section>
+          {service.risks && <section id="risks"><h2>Benefits, limits and possible risks.</h2><p>{service.risks}</p></section>}
           <section id="prepare">
             <h2>Before your consultation.</h2>
             <BulletList items={service.preparation} />
@@ -77,6 +83,15 @@ export function ServiceDetailPage(_: Props) {
           <section id="questions">
             <h2>A few common questions.</h2>
             <Accordion items={service.faqs} prefix={"service-" + slug} />
+          </section>
+          {service.references && <section id="sources"><h2>Sources & further reading.</h2>
+            <ul>{service.references.map((ref) => <li key={ref.url}><a href={ref.url} target="_blank" rel="noopener noreferrer">{ref.label}</a></li>)}</ul>
+            <p className="site-medical-note">General information supports your consultation; it cannot diagnose your symptoms. Your doctor will explain which care is suitable for you.</p>
+          </section>}
+          <section id="book"><h2>Plan your consultation in Purnia.</h2>
+            <p>Meet Dr. Md Taquedis Noori, MBBS, MS (General Surgery), MCh Urology, at Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnea. Bring your existing reports and a medicine list.</p>
+            <p>Confirm the appointment, fees and any proposed procedure with the team before travelling from Purnia, Katihar, Araria or Kishanganj. Ask about the follow-up plan and any symptoms that should bring you back sooner.</p>
+            <BookLink href={DR_NOORI_BOOKING_URL} label="Book with Dr. Noori" />
           </section>
         </article>
         <aside className="site-detail-aside">
@@ -130,13 +145,26 @@ export function ConditionsPage(_: Props) {
   return (
     <>
       <PageHero
+        image={department.id === 'urology' ? { src: '/media/urology/kidney-stone-treatment-in-purnia.svg', alt: 'Kidney and urinary care illustration for a consultation with a urologist in Purnia' } : undefined}
         label="Departments"
-        title={department.label}
+        title={department.id === "urology" ? "Urologist in Purnia" : department.label}
         accent="Care topics explained."
-        description="Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss."
+        description={department.id === 'urology'
+          ? 'Looking for a urologist in Purnia? Meet Dr. Md Taquedis Noori in Line Bazar for a conversation about kidney stones, prostate symptoms, urine problems and men’s health.'
+          : 'Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss.'}
         action="faq"
         message="You don’t need to have all the answers."
       />
+      {department.id === 'urology' && <section className="site-section mm-wrap site-priority-care">
+        <h2>Choose a starting point for your care.</h2>
+        <p>As a urology doctor in Purnia, Dr. Noori sees concerns affecting the kidneys, bladder, prostate and male reproductive health. You do not need to diagnose yourself before booking a urology consultation.</p>
+        <div className="site-card-grid">{UROLOGY_SERVICES.filter((item) => item.keywords).map((item) => <Link key={item.id} className="site-care-card" to={'/services/' + item.slug}>
+          <h3>{item.title}</h3><p>{item.description}</p><span className="site-card-link">Read about assessment and care <ArrowUpRight size={17} /></span>
+        </Link>)}</div>
+        <p>Bring existing reports and your current medicine list. The hospital is on Dharamshala Road, Line Bazar, Purnea. Confirm consultation timing and procedure availability before travelling from Katihar, Araria or Kishanganj.</p>
+        <p>If you cannot pass urine, or have fever with severe side or back pain, seek urgent care rather than waiting for a routine appointment.</p>
+        <BookLink href={DR_NOORI_BOOKING_URL} label="Book a urology consultation" />
+      </section>}
       <DepartmentCare key={department.id} department={department} />
       <VisitCTA />
     </>
@@ -256,7 +284,7 @@ export function NotFoundPage() {
         <Link className="mm-button" to="/">
           Back to home <ArrowUpRight size={17} />
         </Link>
-        <Link className="mm-text-link" to="/services">
+        <Link className="mm-text-link" to="/services/urologist-in-purnia">
           Explore care <ArrowRight size={17} />
         </Link>
       </PageHero>

@@ -34,6 +34,9 @@ jobs:
       - name: Build prerendered site
         run: npm run build
 
+      - name: Validate static routes and priority SEO
+        run: npm run check:urls && npm run check:seo
+
       - name: Upload static site
         uses: actions/upload-artifact@v4
         with:

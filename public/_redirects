@@ -3,41 +3,59 @@
 /services department=general-medicine /services/general-medicine 301!
 /services department=anesthesiology /services/anesthesiology 301!
 /services department=neurology /services/neurology 301!
-/services department=urology /services 301!
+/services department=urology /services/urologist-in-purnia 301!
 /services/ department=ent /services/ent 301!
 /services/ department=general-medicine /services/general-medicine 301!
 /services/ department=anesthesiology /services/anesthesiology 301!
 /services/ department=neurology /services/neurology 301!
-/services/ department=urology /services 301!
+/services/ department=urology /services/urologist-in-purnia 301!
 /conditions department=ent /services/ent 301!
 /conditions department=general-medicine /services/general-medicine 301!
 /conditions department=anesthesiology /services/anesthesiology 301!
 /conditions department=neurology /services/neurology 301!
-/conditions department=urology /services 301!
+/conditions department=urology /services/urologist-in-purnia 301!
 /conditions/ department=ent /services/ent 301!
 /conditions/ department=general-medicine /services/general-medicine 301!
 /conditions/ department=anesthesiology /services/anesthesiology 301!
 /conditions/ department=neurology /services/neurology 301!
-/conditions/ department=urology /services 301!
+/conditions/ department=urology /services/urologist-in-purnia 301!
 /treatments department=ent /services/ent 301!
 /treatments department=general-medicine /services/general-medicine 301!
 /treatments department=anesthesiology /services/anesthesiology 301!
 /treatments department=neurology /services/neurology 301!
-/treatments department=urology /services 301!
+/treatments department=urology /services/urologist-in-purnia 301!
 /treatments/ department=ent /services/ent 301!
 /treatments/ department=general-medicine /services/general-medicine 301!
 /treatments/ department=anesthesiology /services/anesthesiology 301!
 /treatments/ department=neurology /services/neurology 301!
-/treatments/ department=urology /services 301!
+/treatments/ department=urology /services/urologist-in-purnia 301!
 
 # Retired pages and legacy appointment URLs.
 /book-appointment /doctors 301!
 /book-appointment/ /doctors 301!
-/conditions /services 301!
-/conditions/ /services 301!
-/treatments /services 301!
-/treatments/ /services 301!
+/conditions /services/urologist-in-purnia 301!
+/conditions/ /services/urologist-in-purnia 301!
+/treatments /services/urologist-in-purnia 301!
+/treatments/ /services/urologist-in-purnia 301!
 /hospital /contact 301!
 /hospital/ /contact 301!
+/services /services/urologist-in-purnia 301!
+/services/ /services/urologist-in-purnia 301!
+/services/index.html /services/urologist-in-purnia 301!
+/services/kidney-stone-laser-surgery-pcnl-ursl-rirs /services/kidney-stone-treatment-in-purnia 301!
+/services/kidney-stone-laser-surgery-pcnl-ursl-rirs/ /services/kidney-stone-treatment-in-purnia 301!
+/services/kidney-stone-laser-surgery-pcnl-ursl-rirs/index.html /services/kidney-stone-treatment-in-purnia 301!
+/services/prostate-enlargement-bph-treatment /services/prostate-treatment-in-purnia 301!
+/services/prostate-enlargement-bph-treatment/ /services/prostate-treatment-in-purnia 301!
+/services/prostate-enlargement-bph-treatment/index.html /services/prostate-treatment-in-purnia 301!
+/services/urinary-tract-infection-uti-hematuria-care /services/urine-infection-treatment-in-purnia 301!
+/services/urinary-tract-infection-uti-hematuria-care/ /services/urine-infection-treatment-in-purnia 301!
+/services/urinary-tract-infection-uti-hematuria-care/index.html /services/urine-infection-treatment-in-purnia 301!
+/services/male-infertility-varicocele-repair /services/male-infertility-treatment-in-purnia 301!
+/services/male-infertility-varicocele-repair/ /services/male-infertility-treatment-in-purnia 301!
+/services/male-infertility-varicocele-repair/index.html /services/male-infertility-treatment-in-purnia 301!
+/services/erectile-dysfunction-penile-implants /services/erectile-dysfunction-treatment-in-purnia 301!
+/services/erectile-dysfunction-penile-implants/ /services/erectile-dysfunction-treatment-in-purnia 301!
+/services/erectile-dysfunction-penile-implants/index.html /services/erectile-dysfunction-treatment-in-purnia 301!
 # Existing prerendered pages take priority; unknown routes receive the 404 page.
 /* /404.html 404

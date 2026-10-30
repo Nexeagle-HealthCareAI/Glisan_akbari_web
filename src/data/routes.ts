@@ -1,10 +1,17 @@
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 
 export const ROUTE_REDIRECTS: Record<string, string> = {
+  '/services': '/services/urologist-in-purnia',
   '/book-appointment': '/doctors',
-  '/conditions': '/services',
-  '/treatments': '/services',
+  '/conditions': '/services/urologist-in-purnia',
+  '/treatments': '/services/urologist-in-purnia',
   '/hospital': '/contact',
+  '/services/kidney-stone-laser-surgery-pcnl-ursl-rirs': '/services/kidney-stone-treatment-in-purnia',
+  '/services/prostate-enlargement-bph-treatment': '/services/prostate-treatment-in-purnia',
+  '/services/urinary-tract-infection-uti-hematuria-care': '/services/urine-infection-treatment-in-purnia',
+  '/services/male-infertility-varicocele-repair': '/services/male-infertility-treatment-in-purnia',
+  '/services/erectile-dysfunction-penile-implants': '/services/erectile-dysfunction-treatment-in-purnia',
+
 };
 
 // Resolve old links in one hop, retaining campaign parameters and anchors.

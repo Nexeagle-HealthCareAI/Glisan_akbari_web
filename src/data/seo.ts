@@ -1,16 +1,16 @@
-import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
+import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL, ALLOW_INDEXING } from './identity';
 import { UROLOGY_SERVICES } from './config';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 
-export { SITE_URL };
+export { SITE_URL, ALLOW_INDEXING };
 export { ROUTE_REDIRECTS } from './routes';
 
 /**
  * Set to true only at launch, after all placeholders are replaced.
  */
-export const ALLOW_INDEXING = false;
+// Indexing is opt-in through the shared, validated environment configuration.
 
 export interface RouteSeo {
   path: string;
@@ -18,6 +18,8 @@ export interface RouteSeo {
   description: string;
   canonical: string;
   url: string;
+  imagePath?: string;
+  imageAlt?: string;
 }
 
 /**
@@ -53,13 +55,11 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
     canonical: getFullUrl('/doctors/dr-md-taquedis-noori'),
     url: getFullUrl('/doctors/dr-md-taquedis-noori'),
   },
-  '/services': {
-    path: '/services',
-    title: `Departments | ${HOSPITAL_NAME}, ${HOSPITAL_CITY}`,
-    description:
-      `Browse department care topics at ${HOSPITAL_NAME}, ${HOSPITAL_CITY}, and find the right doctor for your consultation.`,
-    canonical: getFullUrl('/services'),
-    url: getFullUrl('/services'),
+  '/services/urologist-in-purnia': {
+    path: '/services/urologist-in-purnia',
+    title: 'Urologist in Purnia | Dr. Md Taquedis Noori',
+    description: 'Looking for a urologist in Purnia? Meet Dr. Md Taquedis Noori in Line Bazar to discuss kidney stones, prostate concerns, urine problems and men’s health.',
+    canonical: getFullUrl('/services/urologist-in-purnia'), url: getFullUrl('/services/urologist-in-purnia'),
   },
   '/explore-care': {
     path: '/explore-care',
@@ -118,8 +118,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
 };
 
-// Urology keeps its existing /services URL. Each other department gets a
-// dedicated static page instead of sharing the Urology canonical URL.
+// Each department uses a dedicated canonical static page.
 CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').forEach((department) => {
   const path = careDepartmentPath(department.id);
   ROUTES_SEO[path] = {
@@ -136,6 +135,8 @@ UROLOGY_SERVICES.forEach((srv) => {
   const servicePath = `/services/${srv.slug}`;
   ROUTES_SEO[servicePath] = {
     path: servicePath,
+    imagePath: srv.featuredImage?.social,
+    imageAlt: srv.featuredImage?.alt,
     title: srv.seoTitle || `${srv.title} in ${HOSPITAL_CITY} | ${DOCTOR_NAME}`,
     description:
       srv.seoDescription ||
@@ -158,7 +159,7 @@ export const SITEMAP_ROUTES = [
   '/',
   '/doctors',
   '/doctors/dr-md-taquedis-noori',
-  '/services',
+  '/services/urologist-in-purnia',
   ...CARE_DEPARTMENTS.filter((department) => department.id !== 'urology')
     .map((department) => careDepartmentPath(department.id)),
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),

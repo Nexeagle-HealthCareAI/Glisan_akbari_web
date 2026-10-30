@@ -2852,3 +2852,13 @@
 @media (max-width: 360px) {
   .site-visit-page { width: calc(100% - 32px); }
 }
+
+/* Lightweight topical illustrations reserve space in the hero. */
+.site-service-feature { margin: 0; min-width: 0; align-self: center; }
+.site-service-feature img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 24px; }
+.site-service-feature figcaption { margin-top: 10px; color: var(--muted); font-size: 12px; text-align: center; }
+.site-priority-care > h2 { margin-bottom: 18px; }
+.site-priority-care > p { max-width: 850px; margin: 18px 0; line-height: 1.8; }
+.site-priority-care .site-card-grid { margin: 28px 0; }
+.site-medical-note { font-size: 13px; }
+@media (max-width: 760px) { .site-service-feature img { max-height: 340px; object-fit: contain; background: #f5eddf; } }
