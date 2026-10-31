@@ -7,6 +7,7 @@ import {
   SiteMotionProvider,
 } from "./components/SiteDesign";
 import "./pages/SiteDesign.css";
+import "./pages/CareUpdates.css";
 
 import { PageMeta } from "./components/PageMeta";
 
@@ -17,6 +18,7 @@ import { DoctorProfilePage } from "./pages/DoctorProfilePage";
 import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { ConditionsPage } from "./pages/ConditionsPage";
 import { ExploreCarePage } from "./pages/ExploreCarePage";
+import { SitemapPage } from "./pages/SitemapPage";
 import { BlogsPage, BlogPostPage } from "./pages/BlogsPage";
 import { FaqPage } from "./pages/FaqPage";
 import { ContactPage } from "./pages/ContactPage";
@@ -103,6 +105,7 @@ export default function App() {
               element={<ConditionsPage onOpenBooking={handleOpenBooking} />} />
           ))}
           <Route path="/explore-care" element={<ExploreCarePage />} />
+          <Route path="/sitemap" element={<SitemapPage />} />
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:slug" element={<BlogPostPage />} />
           <Route path="/faqs" element={<FaqPage />} />

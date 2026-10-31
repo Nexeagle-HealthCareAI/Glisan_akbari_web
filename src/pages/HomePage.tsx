@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight, Phone, MapPin, MessageCircle, Navigation, Video } from 'lucide-react';
 import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
 import { MimoGuide } from '../components/MimoGuide';
-import { useSiteMotion, hospitalMap } from '../components/SiteDesign';
+import { useSiteMotion, hospitalMap, hospitalPhone } from '../components/SiteDesign';
 import { HospitalFeedback } from '../components/HospitalFeedback';
 import { HomeCareSection } from '../components/HomeCareSection';
 import { BlogSection } from '../components/BlogSection';
@@ -14,7 +14,7 @@ interface HomePageProps { onOpenBooking: () => void; }
 export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
   const root = useRef<HTMLDivElement>(null);
   const { paused } = useSiteMotion();
-  const phone = 'tel:' + HOSPITAL_PROFILE.phone.replace(/\s+/g, '');
+  const phone = hospitalPhone;
   const map = hospitalMap;
   useEffect(() => {
     const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -43,6 +43,7 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
             <h2>{DOCTOR_PROFILE.name}</h2>
             <p>{DOCTOR_PROFILE.professionalTitle}</p>
             <p className="mm-hero-credentials">{DOCTOR_PROFILE.qualifications}</p>
+            <p className="mm-hero-experience">{DOCTOR_PROFILE.yearsOfExperience}</p>
             <p className="mm-hero-languages">Hindi · English · Bengali · Urdu</p>
             <div className="mm-hero-doctor-links"><Link to="/doctors/dr-md-taquedis-noori" className="mm-text-link">Meet Dr. Noori <ArrowUpRight size={16} /></Link><Link to="/doctors" className="mm-text-link">All doctors <ArrowRight size={16} /></Link></div>
           </div>

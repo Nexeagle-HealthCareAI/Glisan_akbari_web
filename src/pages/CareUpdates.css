@@ -1,0 +1,76 @@
+/* Patient guidance, consultation decisions and the public page directory. */
+.site-breadcrumb { flex-wrap: wrap; align-items: baseline; }
+.site-breadcrumb a { text-decoration: underline; text-underline-offset: 3px; }
+.site-app .mm-hero-experience { display: inline-flex; margin-top: 10px; padding: 5px 11px; border: 1px solid #bacdb7; border-radius: 30px; background: #e6efdf; color: #284f40; font-size: 12px; font-weight: 600; }
+.site-decision { display: grid; grid-template-columns: 1.25fr 1fr; gap: 46px; padding: 34px; margin-bottom: 56px; border: 1px solid #c7d7c7; border-radius: 22px; background: #eaf1e6; }
+.site-decision h2 { font-size: clamp(27px, 3vw, 38px); max-width: 620px; }
+.site-decision p:not(.mm-kicker) { font-size: 14px; line-height: 1.85; margin-top: 16px; }
+.site-decision-action { display: flex; flex-direction: column; align-items: flex-start; padding: 25px; border: 1px solid var(--line); background: var(--paper); border-radius: 15px; }
+.site-decision-action h3 { font-size: 21px; margin-top: 12px; font-weight: 500; }
+.site-decision-action .mm-button { width: 100%; margin-top: 22px; gap: 14px; }
+.site-decision-action .mm-text-link { margin-top: 8px; }
+.site-directory-intro { max-width: 790px; margin-top: 20px !important; line-height: 1.8; color: #53655b; }
+.site-service-directory { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin-top: 28px; }
+.site-service-directory a { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.site-service-directory svg { flex-shrink: 0; }
+.site-care-choice-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 32px; }
+.site-care-choice { display: flex; flex-direction: column; align-items: flex-start; gap: 17px; padding: 26px; border: 1px solid #c9d6c7; border-radius: 18px; background: #f1f5eb; transition: border-color .2s, background .2s; }
+.site-care-choice:hover { border-color: #7f9c83; background: #e6efdf; }
+.site-care-choice .site-small-label { text-transform: uppercase; font-size: 10px; letter-spacing: .08em; }
+.site-care-choice h3 { font-size: 20px; font-weight: 500; line-height: 1.45; margin-bottom: 8px; }
+.site-emergency-note { display: flex; align-items: flex-start; gap: 16px; margin-top: 22px; border: 1px solid #edc0a4; border-radius: 14px; background: #fff0e3; padding: 22px; font-size: 14px; line-height: 1.8; }
+.site-emergency-note > svg { flex-shrink: 0; margin-top: 3px; }
+.site-emergency-note a { font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.site-explore-care [id] { scroll-margin-top: 26px; }
+.site-emergency { padding: 42px; background: var(--ink); color: #fffcf7; border-radius: 24px; }
+.site-emergency-heading { display: grid; grid-template-columns: 1.6fr 1fr; align-items: center; gap: 40px; }
+.site-emergency-heading h2 { font-size: clamp(31px, 3.5vw, 46px); }
+.site-emergency-heading p:not(.mm-kicker) { margin-top: 22px; max-width: 650px; line-height: 1.8; color: #e0e9df; }
+.site-emergency-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
+.site-emergency .mm-peach-button { background: #ffdfcd; color: #173e35 !important; border-color: #ffdfcd; }
+.site-emergency .mm-text-link:hover { color: #ffdfcd; }
+.site-emergency-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; margin-top: 38px; padding-top: 32px; border-top: 1px solid #668176; }
+.site-emergency h3 { font-size: 21px; font-weight: 500; margin-bottom: 20px; }
+.site-emergency .site-bullets { color: #edf2e9; }
+.site-emergency .site-bullets li { border-color: #668176; }
+.site-arrival-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; }
+.site-arrival-steps li { display: flex; align-items: flex-start; gap: 15px; font-size: 14px; line-height: 1.8; }
+.site-arrival-steps li > span { flex: 0 0 30px; height: 30px; display: grid; place-items: center; border: 1px solid #8ca294; border-radius: 50%; font-size: 12px; }
+.site-bring-note { padding: 24px; margin-top: 32px; border-radius: 14px; border: 1px solid #668176; background: #ffffff08; }
+.site-bring-note h3 { margin-bottom: 10px; }
+.site-bring-note p { font-size: 14px; line-height: 1.85; }
+.site-stay-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 32px; }
+.site-stay-grid article { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 28px; border: 1px solid var(--line); border-radius: 18px; }
+.site-stay-grid h3 { font-size: 28px; font-weight: 500; }
+.site-stay-grid p { font-size: 14px; line-height: 1.8; }
+.site-stay-grid .site-small-label { font-size: 9px; letter-spacing: .1em; }
+.site-stay-grid a { margin-top: auto; }
+.site-sitemap-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px; padding-bottom: 70px; }
+.site-sitemap-grid section { border-top: 1px solid var(--line); padding-top: 24px; }
+.site-sitemap-grid h2 { font-size: 27px; margin-bottom: 18px; }
+.site-sitemap-grid ul { list-style: none; padding: 0; margin: 0; }
+.site-sitemap-grid a { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.site-sitemap-grid svg { flex-shrink: 0; }
+@media (max-width: 1050px) {
+  .site-care-choice-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-decision { gap: 24px; }
+}
+@media (max-width: 760px) {
+  .site-decision { grid-template-columns: minmax(0, 1fr); gap: 25px; padding: 23px; }
+  .site-service-directory, .site-emergency-heading, .site-emergency-columns, .site-stay-grid, .site-sitemap-grid { grid-template-columns: minmax(0, 1fr); }
+  .site-emergency { padding: 28px 23px; }
+  .site-emergency-heading { gap: 25px; }
+  .site-emergency-columns { gap: 28px; }
+  .site-emergency-actions { width: 100%; }
+  .site-emergency-actions .mm-button { width: 100%; gap: 12px; }
+  .site-bring-note { padding: 20px; }
+  .site-care-choice { padding: 23px; }
+  .site-stay-grid { gap: 16px; }
+}
+@media (max-width: 480px) {
+  .site-care-choice-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .site-care-choice { gap: 13px; }
+  .site-care-choice h3 { font-size: 21px; }
+  .site-decision-action { padding: 20px; }
+  .site-decision-action .mm-button { padding-inline: 14px; gap: 10px; }
+}
