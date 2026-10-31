@@ -4,8 +4,10 @@ import {
   ArrowUpRight,
   Stethoscope,
   ArrowRight,
+  Phone,
 } from "lucide-react";
-import { UROLOGY_SERVICES, DR_NOORI_BOOKING_URL } from "../data/config";
+import { UROLOGY_SERVICES, DR_NOORI_BOOKING_URL, DOCTOR_PROFILE, HOSPITAL_PROFILE } from "../data/config";
+import { SERVICE_MARKETING } from "../data/serviceMarketing";
 import { ServiceExplainer } from "../components/ServiceExplainer";
 import { getCareDepartment, getCareDoctor, type CareDepartment } from "../data/careDepartments";
 import {
@@ -15,6 +17,7 @@ import {
   Accordion,
   BulletList,
   BookLink,
+  hospitalPhone,
 } from "../components/SiteDesign";
 
 type Props = { onOpenBooking?: () => void };
@@ -22,16 +25,17 @@ export function ServiceDetailPage(_: Props) {
   const { slug } = useParams();
   const service = UROLOGY_SERVICES.find((s) => s.slug === slug);
   if (!service) return <NotFoundPage />;
-  // Rotate the related links so every dedicated service page is reachable,
-  // including services beyond the initially selected topic and doctor cards.
-  const serviceIndex = UROLOGY_SERVICES.indexOf(service);
-  const relatedServices = Array.from({ length: Math.min(3, UROLOGY_SERVICES.length - 1) },
-    (_, index) => UROLOGY_SERVICES[(serviceIndex + index + 1) % UROLOGY_SERVICES.length]);
+  const marketing = SERVICE_MARKETING[service.id];
+  const relatedServices = (marketing?.related || []).flatMap((id) => {
+    const related = UROLOGY_SERVICES.find((item) => item.id === id);
+    return related ? [related] : [];
+  });
   return (
     <>
       <PageHero
         image={service.featuredImage}
         label="Urology care"
+        breadcrumbs={[{ label: 'Urology Services', to: '/services/urologist-in-purnia' }, { label: service.title }]}
         title={service.title}
         accent="Let’s understand it."
         description={service.tagline || service.description}
@@ -39,20 +43,36 @@ export function ServiceDetailPage(_: Props) {
       >
         <BookLink href={DR_NOORI_BOOKING_URL} label="Consult Dr. Noori" />
         <Link className="mm-text-link" to="/services/urologist-in-purnia">
-          Explore care <ArrowRight size={16} />
+          All urology services <ArrowRight size={16} />
         </Link>
       </PageHero>
+      {marketing && <section className="site-decision mm-wrap" aria-labelledby="decision-title">
+        <div>
+          <p className="mm-kicker">YOUR CONCERN. A CLEARER NEXT STEP.</p>
+          <h2 id="decision-title">{marketing.heading}</h2>
+          <p>{marketing.concern}</p>
+          <p>{marketing.consultation}</p>
+        </div>
+        <div className="site-decision-action">
+          <span className="site-small-label">YOUR UROLOGY CONSULTATION</span>
+          <h3>{DOCTOR_PROFILE.name}</h3>
+          <p>{DOCTOR_PROFILE.qualifications}<br />{DOCTOR_PROFILE.yearsOfExperience}</p>
+          <p>Line Bazar, Purnia · Confirm timing and fees before your visit.</p>
+          <BookLink href={DR_NOORI_BOOKING_URL} label="Book a urology consultation" />
+          <a href={hospitalPhone} className="mm-text-link"><Phone size={16} /> Call {HOSPITAL_PROFILE.phone}</a>
+        </div>
+      </section>}
       <div className="site-detail-layout mm-wrap">
         <article className="site-reading">
           <section id="overview">
             <p className="mm-kicker">01 / UNDERSTANDING YOUR CARE</p>
             <h2>A clearer picture.</h2>
-            {service.overview.map((p) => (
+            {(marketing?.introduction || service.overview).map((p) => (
               <p key={p}>{p}</p>
             ))}
             <div className="site-note">
               <Stethoscope size={22} />
-              <p>{service.patientNotes}</p>
+              <p>{marketing?.note || service.patientNotes}</p>
             </div>
           </section>
           {service.assessment && <section id="assessment">
@@ -110,14 +130,15 @@ export function ServiceDetailPage(_: Props) {
           ))}
           <div className="site-aside-book">
             <Stethoscope size={26} />
-            <h3>A real conversation.</h3>
-            <p>Discuss your concerns with Dr. Md Taquedis Noori.</p>
+            <h3>Know your next step.</h3>
+            <p>Discuss your reports, treatment choices and questions with Dr. Md Taquedis Noori.</p>
             <BookLink href={DR_NOORI_BOOKING_URL} label="Book a consultation" />
+            <a href={hospitalPhone} className="mm-text-link"><Phone size={16} /> Call the hospital</a>
           </div>
         </aside>
       </div>
       <section className="site-section mm-wrap">
-        <SectionHeading number="02" title="Explore a little further." />
+        <SectionHeading number="02" title="Related urology care." />
         <div className="site-card-grid">
           {relatedServices.map((s) => (
               <Link
@@ -147,6 +168,7 @@ export function ConditionsPage(_: Props) {
       <PageHero
         image={department.id === 'urology' ? { src: '/media/urology/kidney-stone-treatment-in-purnia.svg', alt: 'Kidney and urinary care illustration for a consultation with a urologist in Purnia' } : undefined}
         label="Departments"
+        breadcrumbs={[{ label: department.label }]}
         title={department.id === "urology" ? "Urologist in Purnia" : department.label}
         accent="Care topics explained."
         description={department.id === 'urology'
@@ -154,7 +176,10 @@ export function ConditionsPage(_: Props) {
           : 'Find a starting point for a conversation with your doctor. Browse the care topics below and the concerns to discuss.'}
         action="faq"
         message="You don’t need to have all the answers."
-      />
+      >
+        {getCareDoctor(department) ? <BookLink href={getCareDoctor(department)!.bookingUrl} label={department.id === 'urology' ? 'Book a urology consultation' : 'Book a specialist consultation'} /> : <Link to="/doctors" className="mm-button">Find your doctor <ArrowUpRight size={17} /></Link>}
+        <a className="mm-text-link" href={hospitalPhone}><Phone size={16} /> Ask about your visit</a>
+      </PageHero>
       {department.id === 'urology' && <section className="site-section mm-wrap site-priority-care">
         <h2>Choose a starting point for your care.</h2>
         <p>As a urology doctor in Purnia, Dr. Noori sees concerns affecting the kidneys, bladder, prostate and male reproductive health. You do not need to diagnose yourself before booking a urology consultation.</p>
@@ -166,6 +191,14 @@ export function ConditionsPage(_: Props) {
         <BookLink href={DR_NOORI_BOOKING_URL} label="Book a urology consultation" />
       </section>}
       <DepartmentCare key={department.id} department={department} />
+      {department.id === 'urology' && <section className="site-section mm-wrap" aria-labelledby="all-urology-services">
+        <p className="mm-kicker">ALL UROLOGY SERVICES</p>
+        <h2 id="all-urology-services">Find the care you want to discuss.</h2>
+        <p className="site-directory-intro">Read about each concern, how it may be assessed and the questions to bring to your consultation.</p>
+        <div className="site-service-directory">{UROLOGY_SERVICES.map((item) => <Link key={item.id} to={'/services/' + item.slug}>
+          <span>{item.title}</span><ArrowUpRight size={18} aria-hidden="true" />
+        </Link>)}</div>
+      </section>}
       <VisitCTA />
     </>
   );

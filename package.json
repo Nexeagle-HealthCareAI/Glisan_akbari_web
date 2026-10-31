@@ -12,6 +12,7 @@
     "check:urls": "node --import tsx scripts/check-static-urls.ts",
     "preview:package": "esbuild preview-entry.tsx --bundle --minify --format=iife --define:import.meta.env='{}' --platform=browser --loader:.css=empty --outfile=site-preview-bundle.js && node scripts/package-site-preview.mjs",
     "check:seo": "node --import tsx scripts/check-priority-seo.ts",
+    "check:care": "node --import tsx scripts/check-care-updates.ts",
     "assets:urology": "node --import tsx scripts/generate-urology-artwork.ts"
   },
   "dependencies": {

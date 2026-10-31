@@ -73,8 +73,8 @@ async function prerender() {
     }
 
     // 4. Robots indexing tag
-    const robotsTag = '<meta name="robots" content="noindex, nofollow" />';
-    if (!ALLOW_INDEXING) {
+    const robotsTag = `<meta name="robots" content="noindex, ${ALLOW_INDEXING ? 'follow' : 'nofollow'}" />`;
+    if (!ALLOW_INDEXING || seo.noindex) {
       if (pageHtml.includes('name="robots"')) {
         pageHtml = pageHtml.replace(/<meta\s+name="robots"\s+content="[^"]*"\s*\/?>/i, robotsTag);
       } else {

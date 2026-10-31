@@ -28,13 +28,13 @@ export const PageMeta: React.FC = () => {
 
     // Update Robots Meta according to ALLOW_INDEXING
     let robotsMeta = document.querySelector<HTMLMetaElement>('meta[name="robots"]');
-    if (!ALLOW_INDEXING) {
+    if (!ALLOW_INDEXING || seo.noindex) {
       if (!robotsMeta) {
         robotsMeta = document.createElement('meta');
         robotsMeta.setAttribute('name', 'robots');
         document.head.appendChild(robotsMeta);
       }
-      robotsMeta.setAttribute('content', 'noindex, nofollow');
+      robotsMeta.setAttribute('content', ALLOW_INDEXING ? 'noindex, follow' : 'noindex, nofollow');
     } else if (robotsMeta) {
       robotsMeta.remove();
     }

@@ -2,6 +2,7 @@ import './scripts/load-build-env';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
+import { existsSync } from 'node:fs';
 import { defineConfig } from 'vite';
 import { DOCTOR_NAME, HOSPITAL_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } from './src/data/identity';
 import { PRERENDER_ROUTES } from './src/data/seo';
@@ -29,7 +30,7 @@ export default defineConfig(() => {
             if (route !== '/' && PRERENDER_ROUTES.includes(route)) {
               request.url = (route === '/404' ? '/404.html' : route + '/index.html') + url.search;
               if (route === '/404') response.statusCode = 404;
-            } else if (route !== '/' && !route.split('/').pop()?.includes('.')) {
+            } else if (route === '/404.html' || (route !== '/' && !existsSync(fileURLToPath(new URL('./dist' + url.pathname, import.meta.url))))) {
               request.url = '/404.html' + url.search;
               response.statusCode = 404;
             }

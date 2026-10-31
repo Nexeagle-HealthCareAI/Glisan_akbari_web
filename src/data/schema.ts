@@ -7,7 +7,7 @@ import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 
 /**
- * Format phone number into clean E.164 international standard (+917903781377).
+ * Format phone number into clean E.164 international standard (+919234606330).
  */
 export function formatInternationalPhone(phone: string): string {
   const digits = phone.replace(/\D/g, '');
@@ -72,6 +72,7 @@ const BREADCRUMB_LABELS: Record<string, string> = {
   '/privacy-policy': 'Privacy Policy',
   '/terms': 'Terms',
   '/404': 'Page Not Found',
+  '/sitemap': 'Sitemap',
 };
 
 /**
@@ -128,6 +129,7 @@ export function generatePageSchema(path: string) {
           logo: new URL('/media/hospital-logo.png', HOMEPAGE_URL).href,
         } : {}),
         address: { '@type': 'PostalAddress', ...HOMEPAGE_ADDRESS },
+        telephone: formatInternationalPhone(HOSPITAL_PROFILE.phone),
         // Specialist practice listings support Urology and Anesthesiology.
         // Avoid converting educational topics into claims about hospital facilities.
         medicalSpecialty: ['https://schema.org/Urologic', 'https://schema.org/Anesthesia'],

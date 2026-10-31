@@ -15,8 +15,9 @@ import {
   Navigation,
   Instagram,
   Facebook,
+  Youtube,
 } from "lucide-react";
-import { HOSPITAL_PROFILE, BOOKING_URL } from "../data/config";
+import { HOSPITAL_PROFILE, BOOKING_URL, HOSPITAL_PHONE_HREF } from "../data/config";
 import { HOSPITAL_NAME } from "../data/identity";
 import { MimoGuide } from "./MimoGuide";
 import { CareNavigation } from "./CareNavigation";
@@ -42,7 +43,7 @@ export function SiteMotionProvider({
     </MotionContext.Provider>
   );
 }
-export const hospitalPhone = "tel:" + HOSPITAL_PROFILE.phone.replace(/\s/g, "");
+export const hospitalPhone = HOSPITAL_PHONE_HREF;
 export const hospitalMap = HOSPITAL_PROFILE.googleMapsUrl;
 export const siteLinks = [
   ["/", "Home"],
@@ -180,6 +181,9 @@ export function Footer() {
               <a href="https://www.facebook.com/share/1CFT1RJCwq/" target="_blank" rel="noopener noreferrer" aria-label="Dr. Taquedis Noori on Facebook (opens in a new tab)" title="Facebook">
                 <Facebook size={20} aria-hidden="true" />
               </a>
+              <a href="https://youtube.com/@drmdtaquedisnooriurology?si=MuSIyTSW64yfLc7a" target="_blank" rel="noopener noreferrer" aria-label="Dr. Taquedis Noori on YouTube (opens in a new tab)" title="YouTube">
+                <Youtube size={20} aria-hidden="true" />
+              </a>
             </nav>
           </div>
           <div>
@@ -225,6 +229,7 @@ export function Footer() {
           <div>
             <Link to="/privacy-policy">Privacy</Link>
             <Link to="/terms">Terms</Link>
+            <Link to="/sitemap">Sitemap</Link>
             <a href="#main-content">Back to top ↑</a>
           </div>
         </div>
@@ -298,8 +303,10 @@ export function PageHero({
   message,
   children,
   image,
+  breadcrumbs,
 }: {
   image?: { src: string; alt: string };
+  breadcrumbs?: { label: string; to?: string }[];
   label: string;
   title: string;
   accent: string;
@@ -313,8 +320,10 @@ export function PageHero({
       <div>
         <nav className="site-breadcrumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
-          <span>/</span>
-          <span>{label}</span>
+          {(breadcrumbs || [{ label }]).map((item, index) => <React.Fragment key={index}>
+            <span aria-hidden="true">/</span>
+            {item.to ? <Link to={item.to}>{item.label}</Link> : <span aria-current="page">{item.label}</span>}
+          </React.Fragment>)}
         </nav>
         <p className="mm-kicker">
           <span /> {label.toUpperCase()}

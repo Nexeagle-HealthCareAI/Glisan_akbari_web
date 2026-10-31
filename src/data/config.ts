@@ -7,6 +7,10 @@ import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE
  * Any client updates can be made directly in this single file.
  */
 
+export const HOSPITAL_PHONE = '9234606330';
+export const HOSPITAL_PHONE_HREF = 'tel:+91' + HOSPITAL_PHONE;
+export const DOCTOR_EXPERIENCE = '10+ years of experience';
+
 export const BOOKING_URL = 'https://doctordekho.nexeagle.com/';
 export const DR_NOORI_BOOKING_URL = 'https://doctordekho.nexeagle.com/doctors/dr-md-taquedis-noori-urology-purnea--f7445125-df8b-45d9-9441-fc2a47208caa';
 export const DR_AZIZ_AHMED_BOOKING_URL = 'https://doctordekho.nexeagle.com/doctors/dr-aziz-ahmed-anesthesiology-purnea--4069bdb7-8822-4ee1-838f-28c164a4af2b';
@@ -185,18 +189,18 @@ export const DOCTOR_PROFILE: DoctorProfile = {
   primaryProfessionalIdentity: 'Consultant Urologist & Kidney Transplant Surgeon',
   qualifications: 'MBBS, MS(Gen. Surgery), MCh Urology',
   medicalRegistration: 'Verified Profile',
-  yearsOfExperience: '9 years experience',
+  yearsOfExperience: DOCTOR_EXPERIENCE,
   memberships: 'Andrologist, Consultant Urologist, Laparoscopic & Kidney Transplant Surgeon',
   currentHospital: HOSPITAL_NAME,
   hospitalRelationship: 'Consultant Urologist & Kidney Transplant Surgeon',
   languages: 'English, Bengali, Urdu, Hindi',
   biography:
-    'With nearly a decade of specialized experience, Dr. Md Taquedis Noori (MBBS, MS, MCh) is a dedicated Urologist and Kidney Transplant Surgeon. Whether providing care as an Andrologist, performing advanced laparoscopic procedures, or treating urological cancers, Dr. Noori brings top-tier surgical expertise to his patients.',
+    'With 10+ years of experience, Dr. Md Taquedis Noori (MBBS, MS, MCh) is a dedicated Urologist and Kidney Transplant Surgeon. Whether providing care as an Andrologist, performing advanced laparoscopic procedures, or treating urological cancers, Dr. Noori brings top-tier surgical expertise to his patients.',
   specialtyLabel: 'Urology, Andrology & Kidney Transplant Surgery',
   heroValueProp:
-    'Dedicated Urologist and Kidney Transplant Surgeon with 9 years of specialized experience in Line Bazar, Purnia.',
+    'Dedicated Urologist and Kidney Transplant Surgeon with 10+ years of experience in Line Bazar, Purnia.',
   doctorIntroduction:
-    'With nearly a decade of specialized experience, Dr. Md Taquedis Noori (MBBS, MS, MCh) is a dedicated Urologist and Kidney Transplant Surgeon. Whether providing care as an Andrologist, performing advanced laparoscopic procedures, or treating urological cancers, Dr. Noori brings top-tier surgical expertise to his patients.',
+    'With 10+ years of experience, Dr. Md Taquedis Noori (MBBS, MS, MCh) is a dedicated Urologist and Kidney Transplant Surgeon. Whether providing care as an Andrologist, performing advanced laparoscopic procedures, or treating urological cancers, Dr. Noori brings top-tier surgical expertise to his patients.',
   profileImagePlaceholder: 'Dr. Md Taquedis Noori (MBBS, MS, MCh)',
   profileImage: '/media/dr-md-taquedis-noori.png',
   logoPlaceholder: 'Glisan Akbari Super Speciality Hospital',
@@ -215,8 +219,8 @@ export const DOCTOR_PROFILE: DoctorProfile = {
 export const HOSPITAL_PROFILE: HospitalProfile = {
   name: HOSPITAL_NAME,
   address: HOSPITAL_ADDRESS,
-  phone: '079037 81377',
-  officialAppointmentPhone: '079037 81377',
+  phone: HOSPITAL_PHONE,
+  officialAppointmentPhone: HOSPITAL_PHONE,
   whatsappNumber: '[PLACEHOLDER: INSERT WHATSAPP NUMBER]',
   email: '[PLACEHOLDER: INSERT OFFICIAL EMAIL]',
   website: '[PLACEHOLDER: INSERT OFFICIAL HOSPITAL WEBSITE]',
@@ -284,7 +288,7 @@ export const DOCTORS: DoctorListItem[] = [
     department: 'Urology',
     qualifications: 'MBBS, MS(Gen. Surgery), MCh Urology',
     medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '9 years experience',
+    yearsOfExperience: DOCTOR_EXPERIENCE,
     profileImagePlaceholder: 'Dr. Md Taquedis Noori, MBBS, MS, MCh',
     profileImage: DOCTOR_PROFILE.profileImage,
     consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
@@ -377,7 +381,7 @@ export const TRUST_STRIP_DATA: TrustStripData = {
   googleReviewCount: `${DR_NOORI_GOOGLE_PROFILE.reviewCount} Google reviews`,
   googleReviewCountPlaceholder: `Google profile snapshot · ${DR_NOORI_GOOGLE_PROFILE.capturedOn}`,
   verifiedCredential: 'MBBS, MS(Gen. Surgery), MCh Urology',
-  verifiedExperience: '9 years experience',
+  verifiedExperience: DOCTOR_EXPERIENCE,
   verifiedMembership: 'Urologist & Kidney Transplant Surgeon',
 };
 
@@ -1047,7 +1051,7 @@ export const FAQS: FAQItem[] = [
     id: 'faq-1',
     category: 'appointment',
     question: `How can I book an appointment with ${DOCTOR_NAME}?`,
-    answer: 'You can request an appointment through the online form on this website, call the hospital desk at 079037 81377, or message via WhatsApp [PLACEHOLDER: INSERT WHATSAPP NUMBER]. Our team will connect with you to confirm your consultation slot.',
+    answer: 'You can request an appointment through the online form on this website, call the hospital desk at 9234606330, or message via WhatsApp [PLACEHOLDER: INSERT WHATSAPP NUMBER]. Our team will connect with you to confirm your consultation slot.',
   },
   {
     id: 'faq-2',
@@ -1059,7 +1063,7 @@ export const FAQS: FAQItem[] = [
     id: 'faq-3',
     category: 'appointment',
     question: 'What are the consultation timings?',
-    answer: '[PLACEHOLDER: INSERT VERIFIED CONSULTATION DAYS AND TIMES]. Please call 079037 81377 to confirm today’s available OPD schedule.',
+    answer: '[PLACEHOLDER: INSERT VERIFIED CONSULTATION DAYS AND TIMES]. Please call 9234606330 to confirm today’s available OPD schedule.',
   },
   {
     id: 'faq-4',

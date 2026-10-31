@@ -20,6 +20,7 @@ export interface RouteSeo {
   url: string;
   imagePath?: string;
   imageAlt?: string;
+  noindex?: boolean;
 }
 
 /**
@@ -109,12 +110,20 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
     url: getFullUrl('/terms'),
   },
   '/404': {
+    noindex: true,
     path: '/404',
     title: `Page Not Found (404) | ${DOCTOR_NAME}`,
     description:
       `The requested urology care page could not be found. Return to home or schedule an appointment with ${DOCTOR_NAME}.`,
     canonical: getFullUrl('/404'),
     url: getFullUrl('/404'),
+  },
+  '/sitemap': {
+    path: '/sitemap',
+    title: `Sitemap | ${HOSPITAL_NAME}`,
+    description: 'Find hospital departments, urology services, doctors, emergency care information and practical details for your visit in one clear sitemap.',
+    canonical: getFullUrl('/sitemap'),
+    url: getFullUrl('/sitemap'),
   },
 };
 
@@ -170,6 +179,7 @@ export const SITEMAP_ROUTES = [
   '/contact',
   '/privacy-policy',
   '/terms',
+  '/sitemap',
 ];
 
 export const PRERENDER_ROUTES = Object.keys(ROUTES_SEO);
@@ -189,11 +199,9 @@ export function getSeoForPath(path: string): RouteSeo {
   }
 
   return {
+    ...ROUTES_SEO['/404'],
     path: normalized,
-    title: `${DOCTOR_NAME} - Urology | ${HOSPITAL_NAME}`,
-    description:
-      `Urology consultation with ${DOCTOR_NAME} at ${HOSPITAL_NAME}, ${HOSPITAL_SHORT_ADDRESS}, Bihar.`,
-    canonical: url,
-    url,
+    canonical: '',
+    url: '',
   };
 }
