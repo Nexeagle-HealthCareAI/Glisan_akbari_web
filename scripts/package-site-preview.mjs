@@ -2,16 +2,19 @@ import fs from "node:fs";
 const assetFiles = [
   "media/mimo-original.png",
   "media/mimo-poses.png",
+  "media/memo/memo-poses.webp",
   "media/hospital-logo.png",
   "media/dr-md-taquedis-noori.png",
   "fonts/Inter.ttf",
   ...fs.readdirSync("public/media/urology").filter((file) => file.endsWith(".svg")).map((file) => "media/urology/" + file),
+  ...fs.readdirSync("public/media/neurology").filter((file) => file.endsWith(".svg")).map((file) => "media/neurology/" + file),
+  ...fs.readdirSync("public/media/service-heroes").filter((file) => file.endsWith(".webp") && !/-(480|800)\.webp$/.test(file)).map((file) => "media/service-heroes/" + file),
 ];
 const data = new Map(
   assetFiles.map((file) => [
     "/" + file,
     "data:" +
-      (file.endsWith(".ttf") ? "font/ttf" : file.endsWith(".svg") ? "image/svg+xml" : "image/png") +
+      (file.endsWith(".ttf") ? "font/ttf" : file.endsWith(".svg") ? "image/svg+xml" : file.endsWith(".webp") ? "image/webp" : "image/png") +
       ";base64," +
       fs.readFileSync("public/" + file).toString("base64"),
   ]),

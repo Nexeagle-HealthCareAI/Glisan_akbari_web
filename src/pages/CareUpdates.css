@@ -1,7 +1,7 @@
 /* Patient guidance, consultation decisions and the public page directory. */
 .site-breadcrumb { flex-wrap: wrap; align-items: baseline; }
 .site-breadcrumb a { text-decoration: underline; text-underline-offset: 3px; }
-.site-app .mm-hero-experience { display: inline-flex; margin-top: 10px; padding: 5px 11px; border: 1px solid #bacdb7; border-radius: 30px; background: #e6efdf; color: #284f40; font-size: 12px; font-weight: 600; }
+.site-app .mm-hero-experience { display: inline-flex; margin-top: 10px; padding: 5px 11px; border: 1px solid #bacdb7; border-radius: 30px; background: #e6efdf; color: #000; font-size: 12px; font-weight: 600; }
 .site-decision { display: grid; grid-template-columns: 1.25fr 1fr; gap: 46px; padding: 34px; margin-bottom: 56px; border: 1px solid #c7d7c7; border-radius: 22px; background: #eaf1e6; }
 .site-decision h2 { font-size: clamp(27px, 3vw, 38px); max-width: 620px; }
 .site-decision p:not(.mm-kicker) { font-size: 14px; line-height: 1.85; margin-top: 16px; }
@@ -9,7 +9,7 @@
 .site-decision-action h3 { font-size: 21px; margin-top: 12px; font-weight: 500; }
 .site-decision-action .mm-button { width: 100%; margin-top: 22px; gap: 14px; }
 .site-decision-action .mm-text-link { margin-top: 8px; }
-.site-directory-intro { max-width: 790px; margin-top: 20px !important; line-height: 1.8; color: #53655b; }
+.site-directory-intro { max-width: 790px; margin-top: 20px !important; line-height: 1.8; color: #000; }
 .site-service-directory { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; margin-top: 28px; }
 .site-service-directory a { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
 .site-service-directory svg { flex-shrink: 0; }
@@ -27,7 +27,7 @@
 .site-emergency-heading h2 { font-size: clamp(31px, 3.5vw, 46px); }
 .site-emergency-heading p:not(.mm-kicker) { margin-top: 22px; max-width: 650px; line-height: 1.8; color: #e0e9df; }
 .site-emergency-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 13px; }
-.site-emergency .mm-peach-button { background: #ffdfcd; color: #173e35 !important; border-color: #ffdfcd; }
+.site-emergency .mm-peach-button { background: #ffdfcd; color: #000 !important; border-color: #ffdfcd; }
 .site-emergency .mm-text-link:hover { color: #ffdfcd; }
 .site-emergency-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 52px; margin-top: 38px; padding-top: 32px; border-top: 1px solid #668176; }
 .site-emergency h3 { font-size: 21px; font-weight: 500; margin-bottom: 20px; }

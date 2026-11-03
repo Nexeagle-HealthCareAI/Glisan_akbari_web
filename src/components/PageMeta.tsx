@@ -13,6 +13,7 @@ export const PageMeta: React.FC = () => {
   useEffect(() => {
     const seo = getSeoForPath(location.pathname);
     const isHome = location.pathname === '/';
+    const isNeurology = location.pathname === '/services/neurology' || location.pathname.startsWith('/services/neurology/');
 
     // Update Document Title
     document.title = seo.title;
@@ -82,7 +83,7 @@ export const PageMeta: React.FC = () => {
       }
       tag.content = content;
     };
-    setMeta('property', 'og:site_name', isHome ? HOSPITAL_NAME : `${DOCTOR_NAME} Urology Care`);
+    setMeta('property', 'og:site_name', isHome || isNeurology ? HOSPITAL_NAME : `${DOCTOR_NAME} Urology Care`);
     setMeta('property', 'og:image:alt', seo.imageAlt || (isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT));
     setMeta('name', 'twitter:image:alt', seo.imageAlt || (isHome ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT));
     setMeta('name', 'twitter:title', seo.title);

@@ -3,6 +3,7 @@ import { UROLOGY_SERVICES } from './config';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
+import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
 
 export { SITE_URL, ALLOW_INDEXING };
 export { ROUTE_REDIRECTS } from './routes';
@@ -139,6 +140,20 @@ CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').forEach((de
   };
 });
 
+ROUTES_SEO[NEUROLOGY_PATH] = {
+  path: NEUROLOGY_PATH, title: NEUROLOGY_SEO.title, description: NEUROLOGY_SEO.description,
+  canonical: getFullUrl(NEUROLOGY_PATH), url: getFullUrl(NEUROLOGY_PATH),
+  imagePath: NEUROLOGY_SEO.image.social, imageAlt: NEUROLOGY_SEO.image.alt,
+};
+NEUROLOGY_TOPICS.forEach((topic) => {
+  const path = neurologyTopicPath(topic);
+  ROUTES_SEO[path] = {
+    path, title: topic.seoTitle, description: topic.seoDescription,
+    canonical: getFullUrl(path), url: getFullUrl(path),
+    imagePath: neurologyTopicImage(topic).social, imageAlt: topic.imageAlt,
+  };
+});
+
 // Dynamically generate SEO metadata for each dedicated urological procedure page
 UROLOGY_SERVICES.forEach((srv) => {
   const servicePath = `/services/${srv.slug}`;
@@ -172,6 +187,7 @@ export const SITEMAP_ROUTES = [
   ...CARE_DEPARTMENTS.filter((department) => department.id !== 'urology')
     .map((department) => careDepartmentPath(department.id)),
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
+  ...NEUROLOGY_TOPICS.map(neurologyTopicPath),
   '/explore-care',
   '/blogs',
   ...PUBLISHED_BLOG_POSTS.map((post) => blogPath(post.slug)),

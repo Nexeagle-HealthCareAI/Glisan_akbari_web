@@ -4,6 +4,7 @@ import { ArrowUpRight, BookOpen, Brain, Ear, HeartPulse, ShieldCheck, Stethoscop
 import { BLOG_TOPICS, PUBLISHED_BLOG_POSTS, blogCategoryLabel, blogDate, blogPath, blogReadingMinutes, type BlogPost } from '../data/blogs';
 import { careDepartmentPath } from '../data/careDepartments';
 import '../pages/Blogs.css';
+import { MemoCharacter } from './MemoCharacter';
 
 const topicIcons = { urology: Stethoscope, ent: Ear, 'general-medicine': HeartPulse, anesthesiology: ShieldCheck, neurology: Brain };
 
@@ -39,7 +40,7 @@ export function BlogSection() {
     <section id="blogs" className="site-home-blogs mm-wrap" aria-labelledby="home-blogs-title">
       <div className="mm-section-heading">
         <div><p className="mm-kicker">02 / THE HEALTH JOURNAL</p><h2 id="home-blogs-title">Health explained.<br /><em>Simply.</em></h2></div>
-        <Link className="mm-text-link" to="/blogs">Explore blogs <ArrowUpRight size={17} /></Link>
+        <div className="site-journal-guide"><MemoCharacter pose="thinking" /><Link className="mm-text-link" to="/blogs">Explore blogs <ArrowUpRight size={17} /></Link></div>
       </div>
       <p className="site-blog-intro">A space for clearer answers, useful questions and a little more confidence in your care.{posts.length === 0 && ' Our first articles are coming soon.'}</p>
       <div className="site-blog-grid">

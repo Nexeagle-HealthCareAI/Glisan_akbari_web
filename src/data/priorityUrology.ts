@@ -1,8 +1,8 @@
 import type { UrologyServiceItem } from './config';
+import { SERVICE_IMAGES } from './serviceImages';
 
 // Three editorial targets per page. Clinical terms used for explanation are not
 // additional SEO targets. No keyword-stuffing or unverified volume claims.
-const image = (slug: string, alt: string) => ({ src: `/media/urology/${slug}.svg`, social: `/media/urology/${slug}.png`, alt });
 export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
   'srv-1': {
     id: 'srv-1', title: 'Kidney Stone Treatment in Purnia', category: 'Kidney & ureter stones',
@@ -28,7 +28,7 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     ],
     seoTitle: 'Kidney Stone Treatment in Purnia | Dr. Noori',
     seoDescription: 'Discuss kidney stone treatment in Purnia with Dr. Noori. Understand scans, laser options and preparation for your urology consultation in Line Bazar.',
-    featuredImage: image('kidney-stone-treatment-in-purnia', 'Kidneys and a stone symbol illustrating kidney stone treatment in Purnia'),
+    featuredImage: SERVICE_IMAGES['srv-1'],
     references: [{ label: 'NIDDK: treatment for kidney stones', url: 'https://www.niddk.nih.gov/health-information/urologic-diseases/kidney-stones/treatment' }],
   },
   'srv-2': {
@@ -54,7 +54,7 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     ],
     seoTitle: 'Prostate Treatment in Purnia | Dr. Noori',
     seoDescription: 'Explore prostate treatment in Purnia with Dr. Noori. Learn about urine symptoms, enlarged prostate care, TURP and booking a consultation in Line Bazar.',
-    featuredImage: image('prostate-treatment-in-purnia', 'Bladder, prostate and urine-flow symbols illustrating prostate treatment in Purnia'),
+    featuredImage: SERVICE_IMAGES['srv-2'],
     references: [{ label: 'NHS: enlarged prostate', url: 'https://www.nhs.uk/conditions/enlarged-prostate/' }],
   },
   'srv-3': {
@@ -80,7 +80,7 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     ],
     seoTitle: 'Urine Infection Treatment in Purnia | Dr. Noori',
     seoDescription: 'Get advice on urine infection treatment in Purnia with Dr. Noori. Discuss burning, recurrent UTI, blood in urine and tests at a Line Bazar consultation.',
-    featuredImage: image('urine-infection-treatment-in-purnia', 'Bladder and urine-test symbols illustrating urine infection treatment in Purnia'),
+    featuredImage: SERVICE_IMAGES['srv-3'],
     references: [{ label: 'NIDDK: treatment for bladder infection in adults', url: 'https://www.niddk.nih.gov/health-information/urologic-diseases/bladder-infection-uti-in-adults/treatment' }],
   },
   'srv-4': {
@@ -106,7 +106,7 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     ],
     seoTitle: 'Male Infertility Treatment in Purnia | Dr. Noori',
     seoDescription: 'Discuss male infertility treatment in Purnia with Dr. Noori. Review semen reports, varicocele concerns and suitable next steps at a Line Bazar consultation.',
-    featuredImage: image('male-infertility-treatment-in-purnia', 'Sperm and examination symbols illustrating male infertility treatment in Purnia'),
+    featuredImage: SERVICE_IMAGES['srv-4'],
     references: [{ label: 'NHS: low sperm count', url: 'https://www.nhs.uk/conditions/low-sperm-count/' }, { label: 'WHO: treatment of infertility due to male factors', url: 'https://www.ncbi.nlm.nih.gov/books/NBK620436/' }],
   },
   'srv-7': {
@@ -132,7 +132,7 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     ],
     seoTitle: 'Erectile Dysfunction Treatment in Purnia | Dr. Noori',
     seoDescription: 'Explore erectile dysfunction treatment in Purnia with Dr. Noori. Discuss ED, health checks, medicines and suitable care choices at a Line Bazar consultation.',
-    featuredImage: image('erectile-dysfunction-treatment-in-purnia', 'Health review and blood-flow symbols illustrating erectile dysfunction treatment in Purnia'),
+    featuredImage: SERVICE_IMAGES['srv-7'],
     references: [{ label: 'NIDDK: treatment for erectile dysfunction', url: 'https://www.niddk.nih.gov/health-information/urologic-diseases/erectile-dysfunction/treatment' }],
   },
 };

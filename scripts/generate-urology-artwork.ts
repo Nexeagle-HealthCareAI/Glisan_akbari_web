@@ -15,8 +15,10 @@ const symbols: Record<string, string> = {
   'srv-7': '<rect x="255" y="155" width="214" height="240" rx="24" fill="#fffaf2"/><path d="M310 168v-23h105v23" fill="none"/><path d="M286 265h32l23-45 36 90 25-45h35" fill="none"/><circle cx="511" cy="319" r="58" fill="#f3b492"/><path d="m487 319 18 18 31-37" fill="none"/>',
 };
 for (const item of Object.values(PRIORITY_UROLOGY)) {
+  // This legacy symbol generator must never overwrite approved 3D artwork.
+  if (!item.featuredImage?.src.endsWith('.svg')) continue;
   const source = `<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" rx="28" fill="#f5eddf"/><circle cx="400" cy="264" r="198" fill="#e3ecda"/><g fill="#f3b492" stroke="#3d785e" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">${symbols[item.id]}</g><text x="400" y="500" text-anchor="middle" fill="#173e35" font-family="sans-serif" font-size="25">${item.category.replaceAll('&', '&amp;')}</text><text x="400" y="546" text-anchor="middle" fill="#68766f" font-family="sans-serif" font-size="16">GLISAN AKBARI · PURNIA</text></svg>`;
   fs.writeFileSync(path.join('public', item.featuredImage!.src), source);
   await sharp(Buffer.from(source)).png().toFile(path.join('public', item.featuredImage!.social));
 }
-console.log('Generated five topical SVG illustrations and PNG share images.');
+console.log('Generated legacy SVG illustrations where configured; approved 3D artwork retained.');

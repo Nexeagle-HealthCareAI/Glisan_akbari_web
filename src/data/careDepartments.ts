@@ -1,4 +1,5 @@
 import { DOCTORS, UROLOGY_SERVICES, type UrologyServiceItem } from './config';
+import { NEUROLOGY_TOPICS } from './neurology';
 
 export type CareService = Pick<UrologyServiceItem, 'id' | 'title' | 'description'> &
   Partial<Pick<UrologyServiceItem, 'slug' | 'symptoms' | 'explainerVideo'>>;
@@ -56,13 +57,10 @@ export const CARE_DEPARTMENTS: CareDepartment[] = [
   },
   {
     id: 'neurology', label: 'Neurology', doctorDepartment: 'Neurology', proposed: true,
-    services: [
-      { id: 'neurology-1', title: 'Stroke Assessment & Emergency Guidance', description: 'Sudden face drooping, arm weakness or speech difficulty needs immediate emergency medical attention. Do not wait for a website response or routine appointment.' },
-      { id: 'neurology-2', title: 'Headache & Migraine Management', description: 'Discuss headache patterns, triggers and their effect on daily life. An assessment can help clarify the cause and appropriate next steps.' },
-      { id: 'neurology-3', title: 'Epilepsy & Seizure Evaluation', description: 'Describe any episodes of shaking, loss of awareness or unusual sensations, including how long they lasted. A doctor can advise on further assessment.' },
-      { id: 'neurology-4', title: 'Numbness, Tingling & Nerve Problems', description: 'Discuss where numbness or tingling occurs, when it began and whether there is weakness. These symptoms can have several causes that need assessment.' },
-      { id: 'neurology-5', title: 'Memory & Cognitive Disorders', description: 'Discuss changes in memory, concentration or everyday tasks, including when they started. A clinician can review possible causes and advise on assessment.' },
-    ],
+    services: NEUROLOGY_TOPICS.map((topic) => ({
+      id: topic.id, title: topic.title, description: topic.summary,
+      slug: `neurology/${topic.slug}`,
+    })),
   },
 ];
 

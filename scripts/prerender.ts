@@ -147,6 +147,9 @@ async function prerender() {
       const image = getFullUrl(seo.imagePath);
       pageHtml = pageHtml.replace(/(<meta\s+(?:property="og:image"|name="twitter:image")\s+content=")[^"]*("\s*\/?>)/gi, `$1${escapeHtml(image)}$2`);
     }
+    if (route === '/services/neurology' || route.startsWith('/services/neurology/')) {
+      pageHtml = pageHtml.replace(/(<meta\s+property="og:site_name"\s+content=")[^"]*("\s*\/?>)/i, `$1${escapeHtml(HOSPITAL_NAME)}$2`);
+    }
     // Descriptions for social preview images match client-side navigation.
     const socialImageAlt = seo.imageAlt || (route === '/' ? HOMEPAGE_SEO.imageAlt : SHARED_SOCIAL_IMAGE_ALT);
     pageHtml = pageHtml.replace('</head>', `  <meta property="og:image:alt" content="${escapeHtml(socialImageAlt)}" />\n  <meta name="twitter:image:alt" content="${escapeHtml(socialImageAlt)}" />\n</head>`);

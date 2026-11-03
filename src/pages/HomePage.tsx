@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight, Phone, MapPin, MessageCircle, Navigation, Video } from 'lucide-react';
 import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
@@ -12,19 +12,10 @@ import './HomePage.css';
 
 interface HomePageProps { onOpenBooking: () => void; }
 export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
-  const root = useRef<HTMLDivElement>(null);
   const { paused } = useSiteMotion();
   const phone = hospitalPhone;
   const map = hospitalMap;
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
-      (entry.target as HTMLElement).dataset.visible = entry.isIntersecting ? 'true' : 'false';
-    }), { threshold: .08 });
-    root.current?.querySelectorAll('.mm-scene').forEach(element => observer.observe(element));
-    return () => observer.disconnect();
-  }, []);
-
-  return <div ref={root} className="mm-home" data-motion={paused ? 'paused' : 'playing'}>
+  return <div className="mm-home" data-motion={paused ? 'paused' : 'playing'}>
     <div id="home-content">
       <section className="mm-hero mm-wrap" aria-labelledby="hero-title">
         <div className="mm-hero-copy">

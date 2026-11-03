@@ -1,0 +1,218 @@
+/* Character animation is confined to lightweight transforms of the approved artwork. */
+.memo-character {
+  position: relative;
+  width: 240px;
+  max-width: 100%;
+  flex-shrink: 0;
+  isolation: isolate;
+}
+.site-app .memo-character { aspect-ratio: 1; }
+.memo-motion {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 88%;
+  animation: memo-explain 6s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.memo-crop {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  overflow: hidden;
+  transform-origin: 50% 90%;
+  animation: memo-breathe 5s ease-in-out infinite;
+  animation-play-state: paused;
+}
+.memo-character .memo-crop > img {
+  position: absolute;
+  display: block;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+}
+.memo-ground {
+  position: absolute;
+  bottom: -1%;
+  left: 20%;
+  width: 60%;
+  height: 4%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #294f4226, #294f4200 70%);
+}
+.memo-resting .memo-motion { animation-name: memo-rest; animation-duration: 7s; }
+.memo-sad .memo-motion { animation-name: memo-sad; animation-duration: 6s; }
+.memo-happy .memo-motion { animation-name: memo-happy; animation-duration: 5.5s; }
+.memo-waving .memo-motion { animation-name: memo-wave; animation-duration: 5s; }
+.memo-thinking .memo-motion { animation-name: memo-think; animation-duration: 7s; }
+.memo-character[data-visible="true"][data-paused="false"] :is(.memo-motion, .memo-crop) {
+  animation-play-state: running;
+}
+.memo-character[data-visible="true"] .memo-motion { will-change: transform; }
+
+@keyframes memo-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.012, 1.018); }
+}
+@keyframes memo-rest {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-2px) rotate(1deg); }
+}
+@keyframes memo-sad {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1deg) translateY(2px); }
+}
+@keyframes memo-happy {
+  0%, 38%, 65%, 100% { transform: translateY(0) rotate(0); }
+  45% { transform: translateY(-9px) rotate(-3deg); }
+  52% { transform: translateY(0) rotate(1deg); }
+  59% { transform: translateY(-5px) rotate(2deg); }
+}
+@keyframes memo-wave {
+  0%, 52%, 100% { transform: rotate(0) translateY(0); }
+  12%, 32% { transform: rotate(-3deg) translateY(-3px); }
+  22%, 42% { transform: rotate(2deg) translateY(-1px); }
+}
+@keyframes memo-think {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  40% { transform: rotate(2deg) translateY(-3px); }
+  65% { transform: rotate(1deg) translateY(-1px); }
+}
+@keyframes memo-explain {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  45% { transform: translateY(-5px) rotate(1.5deg); }
+  70% { transform: translateY(-2px) rotate(.5deg); }
+}
+
+/* Contextual placement; existing section content and layout remain readable. */
+.site-app .site-guide { min-height: 360px; }
+.site-app .site-guide > .memo-character { width: 228px; right: 18px; bottom: 18px; }
+.site-app .site-footer-memo { width: 138px; margin: 2px 0 -4px; align-self: flex-start; }
+.site-app .site-service-feature { position: relative; }
+.site-app .site-service-feature > .site-feature-memo {
+  position: absolute;
+  right: 4px;
+  bottom: 22px;
+  width: 132px;
+}
+.site-app .site-blog-memo-note {
+  padding: 22px 24px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.site-blog-memo-note > .memo-character { width: 215px; margin-bottom: 18px; }
+.site-journal-guide { display: flex; align-items: center; gap: 8px; }
+.site-journal-guide > .memo-character { width: 118px; }
+.site-app .site-home-care-memo { width: 200px; margin: 4px auto 20px; }
+
+/* Scroll progress and a stable, readable header. No scroll interception or page pinning. */
+.site-scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #3d785e, #f1a278);
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 100;
+  pointer-events: none;
+}
+.site-app .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: background-color .25s ease, box-shadow .25s ease;
+}
+.site-app .site-header.is-scrolled {
+  background-color: #fffcf7;
+  box-shadow: 0 10px 26px -20px #173e3559, 0 0 0 12px #fffcf7;
+}
+.site-nav > a { position: relative; }
+.site-nav > a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -7px;
+  height: 2px;
+  border-radius: 2px;
+  background: #b66e4c;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease;
+}
+.site-nav > a:is(:hover, :focus-visible, [aria-current="page"])::after { transform: scaleX(1); }
+.site-app :is(.site-care-card, .site-doctor-card, .site-blog-card, .site-care-choice,
+  .site-stay-grid > article, .site-procedures > div, .site-service-directory > a) {
+  transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, border-color .3s ease;
+}
+.site-app :is(.mm-button, .mm-text-link, .site-card-link) > svg {
+  transition: transform .25s cubic-bezier(.22,1,.36,1);
+}
+.site-app .mm-button:active { transform: scale(.97); }
+.site-app :is(.mm-department-buttons, .site-blog-filters, .site-condition-tabs) button {
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
+}
+.site-app .site-accordion summary > svg { transition: transform .3s ease; }
+.site-app .site-accordion details[open] > div { animation: site-detail-open .35s cubic-bezier(.22,1,.36,1); }
+.site-app .site-menu { animation: site-menu-open .25s cubic-bezier(.22,1,.36,1); transform-origin: top right; }
+.site-app .site-care-transition { animation: site-detail-open .4s cubic-bezier(.22,1,.36,1); }
+
+@keyframes site-detail-open {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes site-menu-open {
+  from { opacity: 0; transform: translateY(-6px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .site-app :is(.site-care-card, .site-doctor-card, .site-blog-card, .site-care-choice,
+    .site-stay-grid > article, .site-procedures > div, .site-service-directory > a):hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 32px -22px #173e3570;
+    border-color: #a9bd9c;
+  }
+  .site-app :is(.mm-button, .mm-text-link):hover > svg,
+  .site-app :is(.site-care-card, .site-blog-card):hover .site-card-link > svg { transform: translate(3px, -2px); }
+  .site-app :is(.mm-department-buttons, .site-blog-filters) button:hover { transform: translateY(-2px); }
+}
+
+/* Pause work outside the viewport and when this browser tab is hidden. */
+.site-app[data-tab-active="false"] *,
+.site-app [data-visible="false"] * { animation-play-state: paused !important; }
+
+@media (max-width: 760px) {
+  .site-app .site-footer-memo { align-self: center; width: 130px; }
+  .site-app .site-home-care-memo { width: 150px; margin-bottom: 12px; }
+  .site-journal-guide { flex-direction: column; gap: 2px; align-items: flex-end; }
+  .site-journal-guide > .memo-character { width: 100px; }
+}
+@media (max-width: 600px) {
+  .site-app .site-guide { min-height: 330px; }
+  .site-app .site-guide > .memo-character { width: 209px; right: 8px; bottom: 14px; }
+  .site-app .site-service-feature > .site-feature-memo { width: 102px; bottom: 20px; }
+  .site-app .site-blog-memo-note { display: grid; grid-template-columns: 128px 1fr; column-gap: 16px; padding: 16px; text-align: left; }
+  .site-blog-memo-note > .memo-character { width: 128px; grid-row: 1 / 3; margin: 0; }
+  .site-app .site-blog-memo-note > span { margin: auto 0 6px; align-self: end; font-size: 7px; }
+  .site-app .site-blog-memo-note > p { font-size: 17px; align-self: start; }
+  .site-home-blogs .mm-section-heading { flex-wrap: wrap; gap: 14px; }
+}
+@media (max-width: 360px) {
+  .site-app .site-blog-memo-note { grid-template-columns: 105px 1fr; column-gap: 8px; }
+  .site-blog-memo-note > .memo-character { width: 105px; }
+  .site-app .site-blog-memo-note > p { font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-app *, .site-app *::before, .site-app *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .site-app :is(.mm-button, .site-care-card, .site-doctor-card, .site-blog-card,
+    .site-care-choice, .site-service-directory > a):hover { transform: none !important; }
+}

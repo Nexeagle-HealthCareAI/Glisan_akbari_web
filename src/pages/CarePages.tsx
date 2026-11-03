@@ -9,6 +9,9 @@ import {
 import { UROLOGY_SERVICES, DR_NOORI_BOOKING_URL, DOCTOR_PROFILE, HOSPITAL_PROFILE } from "../data/config";
 import { SERVICE_MARKETING } from "../data/serviceMarketing";
 import { ServiceExplainer } from "../components/ServiceExplainer";
+import { ResponsiveCareImage } from '../components/ResponsiveCareImage';
+import { SERVICE_IMAGES } from '../data/serviceImages';
+import { NeurologyDepartmentPage } from './NeurologyPages';
 import { getCareDepartment, getCareDoctor, type CareDepartment } from "../data/careDepartments";
 import {
   PageHero,
@@ -163,11 +166,13 @@ export function ServiceDetailPage(_: Props) {
 export function ConditionsPage(_: Props) {
   const { pathname } = useLocation();
   const department = getCareDepartment(pathname);
+  if (department.id === 'neurology') return <NeurologyDepartmentPage />;
   return (
     <>
       <PageHero
-        image={department.id === 'urology' ? { src: '/media/urology/kidney-stone-treatment-in-purnia.svg', alt: 'Kidney and urinary care illustration for a consultation with a urologist in Purnia' } : undefined}
+        image={department.id === 'urology' ? SERVICE_IMAGES['srv-1'] : undefined}
         label="Departments"
+        pose={department.id === 'urology' ? undefined : 'waving'}
         breadcrumbs={[{ label: department.label }]}
         title={department.id === "urology" ? "Urologist in Purnia" : department.label}
         accent="Care topics explained."
@@ -278,7 +283,11 @@ function DepartmentCare({ department }: { department: CareDepartment }) {
                 <p className="site-condition-summary">{service.explainerVideo?.description || service.description}</p>
               </div>
             </div>
-            <ServiceExplainer key={service.id} serviceId={service.id} departmentId={department.id} title={service.title} />
+            {SERVICE_IMAGES[service.id] && <figure key={service.id} className="site-topic-feature" data-care-image={service.id}>
+              <ResponsiveCareImage image={SERVICE_IMAGES[service.id]} sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 55vw, 650px" />
+              <figcaption>Illustration for general understanding.</figcaption>
+            </figure>}
+            <ServiceExplainer key={'explainer-' + service.id} serviceId={service.id} departmentId={department.id} title={service.title} />
             {service.symptoms && <>
               <h3>Concerns to mention</h3>
               <BulletList items={service.symptoms} />
@@ -308,6 +317,7 @@ export function NotFoundPage() {
     <>
       <PageHero
         label="Page not found"
+        pose="sad"
         title="A small detour."
         accent="Let’s find your way."
         description="This page could not be found. Head home or explore our care topics."

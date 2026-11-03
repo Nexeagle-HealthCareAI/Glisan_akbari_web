@@ -32,6 +32,7 @@ export function DoctorsPage() {
         accent="Here for your questions."
         description="Meet the doctors at Glisan Akbari Super Speciality Hospital. Explore their areas of care and choose your consultation."
         action="doctor"
+        pose="thinking"
         message="A real doctor. A real conversation."
       />
       <section className="site-section mm-wrap">
@@ -95,6 +96,7 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
         accent="Dr. Md Taquedis Noori."
         description={DOCTOR_PROFILE.professionalTitle}
         action="doctor"
+        pose="thinking"
         message="Bring your questions. Your doctor will listen."
       >
         <BookLink href={DR_NOORI_BOOKING_URL} label="Book with Dr. Noori" />

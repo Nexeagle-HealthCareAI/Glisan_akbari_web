@@ -1,5 +1,5 @@
 .site-home-blogs { padding: 0 0 90px; }
-.site-home-blogs h2 em, .site-blog-hero h1 em { color: #3d785e; font-style: normal; }
+.site-home-blogs h2 em, .site-blog-hero h1 em { color: #000; font-style: normal; }
 .site-blog-intro { max-width: 650px; margin: -12px 0 30px !important; color: var(--muted); font-size: 14px; line-height: 1.8; }
 .site-blog-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .site-blog-card { display: flex; flex-direction: column; min-width: 0; padding: 26px; border: 1px solid #d9e2d7; border-radius: 18px; background: #f1f5ed; }
@@ -8,10 +8,10 @@
 .site-blog-card-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 30px; }
 .site-blog-category { font-size: 11px; font-weight: 600; letter-spacing: .02em; }
 .site-blog-topic-icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid #173e3520; border-radius: 50%; }
-.site-blog-status { display: block; color: #6b786d; font-size: 8px; letter-spacing: 1.2px; margin-bottom: 13px; }
+.site-blog-status { display: block; color: #000; font-size: 8px; letter-spacing: 1.2px; margin-bottom: 13px; }
 .site-blog-card h3 { font-size: 22px; line-height: 1.3; font-weight: 500; text-wrap: balance; }
 .site-blog-card h3 a:hover { text-decoration: underline; text-underline-offset: 4px; }
-.site-blog-card > p { margin: 15px 0 24px !important; font-size: 13px; color: #5b6b60; line-height: 1.8; }
+.site-blog-card > p { margin: 15px 0 24px !important; font-size: 13px; color: #000; line-height: 1.8; }
 .site-blog-card-link { margin-top: auto; padding-top: 16px !important; border-top: 1px solid #173e3520; justify-content: space-between; }
 .site-blog-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; color: var(--muted); font-size: 11px; margin: 0 0 20px; }
 .site-blog-cover { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; margin-bottom: 22px; }
@@ -37,7 +37,7 @@
 .site-blog-body { margin-top: 35px; }
 .site-blog-body > section { margin-top: 34px; }
 .site-blog-body h2 { font-size: 27px; margin-bottom: 18px; }
-.site-blog-body p, .site-blog-body li { font-size: 15px; line-height: 1.9; color: #52665a; }
+.site-blog-body p, .site-blog-body li { font-size: 15px; line-height: 1.9; color: #000; }
 .site-blog-body p + p { margin-top: 16px; }
 .site-blog-body ul { list-style: disc; padding-left: 24px; margin: 16px 0; }
 .site-blog-body a { text-decoration: underline; text-underline-offset: 3px; }
