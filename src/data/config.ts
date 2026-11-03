@@ -1,4 +1,5 @@
 import { PRIORITY_UROLOGY } from './priorityUrology';
+import { SERVICE_IMAGES, type CareImage } from './serviceImages';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
 
 /**
@@ -153,7 +154,7 @@ export interface UrologyServiceItem {
   keywords?: [string, string, string];
   assessment?: string[];
   risks?: string;
-  featuredImage?: { src: string; social: string; alt: string };
+  featuredImage?: CareImage & { social: string };
   references?: { label: string; url: string }[];
   seoTitle?: string;
   seoDescription?: string;
@@ -486,6 +487,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   PRIORITY_UROLOGY['srv-4'],
   {
     id: 'srv-5',
+    featuredImage: SERVICE_IMAGES['srv-5'],
     title: 'Laparoscopic & Robotic Urological Surgery',
     category: 'Advanced Laparoscopic Surgery',
     description: 'Keyhole surgical management of complex renal and pelvic pathologies including pyeloplasty for PUJ obstruction, simple nephrectomy, and cyst deroofing.',
@@ -547,6 +549,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-6',
+    featuredImage: SERVICE_IMAGES['srv-6'],
     title: 'Urinary Incontinence & Overactive Bladder',
     category: 'Female & Functional Urology',
     description: 'Specialized medical and surgical management of accidental urine leakage, stress incontinence, urgency incontinence, and neurogenic bladder dysfunction.',
@@ -610,6 +613,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   PRIORITY_UROLOGY['srv-7'],
   {
     id: 'srv-8',
+    featuredImage: SERVICE_IMAGES['srv-8'],
     title: 'Kidney Transplantation & Post-Transplant Care',
     category: 'Renal Transplantation & Nephro-Urology',
     description: 'Pre-transplant urological clearance, donor-recipient anatomical workup, vascular/ureteral anastomosis counseling, and long-term post-transplant urological surveillance.',
@@ -672,6 +676,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-9',
+    featuredImage: SERVICE_IMAGES['srv-9'],
     title: 'Dialysis Access Surgery (AV Fistula Creation)',
     category: 'Vascular Access & Dialysis Surgery',
     description: 'Precision surgical creation of radiocephalic and brachiocephalic Arteriovenous (AV) Fistulas, fistula salvage, and maintenance for chronic hemodialysis patients.',
@@ -734,6 +739,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-10',
+    featuredImage: SERVICE_IMAGES['srv-10'],
     title: 'Prostate Cancer Screening & Radical Prostatectomy',
     category: 'Urologic Oncology (Uro-Oncology)',
     description: 'Early detection, multiparametric MRI evaluation, TRUS-guided prostate biopsy, and surgical management of localized to advanced prostate adenocarcinoma.',
@@ -796,6 +802,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-11',
+    featuredImage: SERVICE_IMAGES['srv-11'],
     title: 'Kidney Cancer Surgery (Nephrectomy)',
     category: 'Urologic Oncology (Uro-Oncology)',
     description: 'Specialized surgical extirpation of renal cell carcinoma (RCC) emphasizing nephron-sparing partial nephrectomy whenever possible to preserve healthy kidney parenchyma.',
@@ -858,6 +865,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-12',
+    featuredImage: SERVICE_IMAGES['srv-12'],
     title: 'Bladder & Testicular Cancer Treatment',
     category: 'Urologic Oncology (Uro-Oncology)',
     description: 'Transurethral Resection of Bladder Tumor (TURBT), intravesical BCG immunotherapy, radical cystectomy with urinary diversion, and high inguinal orchidectomy for testicular tumors.',
@@ -920,6 +928,7 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   },
   {
     id: 'srv-13',
+    featuredImage: SERVICE_IMAGES['srv-13'],
     title: 'Pediatric Urology & Congenital Reconstruction',
     category: 'Pediatric Urology & Reconstructive Surgery',
     description: 'Compassionate surgical correction of congenital urinary tract anomalies in infants and children including Pelvi-Ureteric Junction (PUJ) obstruction, hypospadias, undescended testis, and vesicoureteral reflux (VUR).',

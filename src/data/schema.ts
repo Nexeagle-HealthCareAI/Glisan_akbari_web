@@ -5,6 +5,7 @@ import { HOSPITAL_NAME, DOCTOR_NAME } from './identity';
 import { HOMEPAGE_ADDRESS, HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
+import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
 
 /**
  * Format phone number into clean E.164 international standard (+919234606330).
@@ -81,6 +82,49 @@ const BREADCRUMB_LABELS: Record<string, string> = {
  */
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
+  const neurologyTopic = NEUROLOGY_TOPICS.find((topic) => neurologyTopicPath(topic) === normalizedPath);
+  if (normalizedPath === NEUROLOGY_PATH || neurologyTopic) {
+    const hospitalId = `${SITE_URL}/#hospital`;
+    const pageUrl = getFullUrl(normalizedPath);
+    const image = neurologyTopic ? neurologyTopicImage(neurologyTopic) : NEUROLOGY_SEO.image;
+    return {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Hospital', '@id': hospitalId, name: HOSPITAL_NAME,
+          url: getFullUrl('/'), telephone: formatInternationalPhone(HOSPITAL_PROFILE.phone),
+          address: { '@type': 'PostalAddress',
+            streetAddress: `${HOSPITAL_PROFILE.address.line2}, ${HOSPITAL_PROFILE.address.area}`,
+            addressLocality: HOSPITAL_PROFILE.address.city, addressRegion: HOSPITAL_PROFILE.address.state,
+            postalCode: HOSPITAL_PROFILE.address.pincode, addressCountry: 'IN' },
+        },
+        {
+          '@type': 'MedicalWebPage', '@id': `${pageUrl}#webpage`, url: pageUrl,
+          name: neurologyTopic?.heading || NEUROLOGY_SEO.heading,
+          description: neurologyTopic?.seoDescription || NEUROLOGY_SEO.description,
+          inLanguage: 'en-IN', image: getFullUrl(image.social),
+          publisher: { '@id': hospitalId },
+          ...(neurologyTopic ? {
+            isPartOf: { '@id': `${getFullUrl(NEUROLOGY_PATH)}#webpage` },
+            citation: neurologyTopic.references.map((reference) => reference.url),
+          } : {}),
+        },
+        ...(!neurologyTopic ? [{
+          '@type': 'ItemList', name: 'Neurology care topics',
+          itemListElement: NEUROLOGY_TOPICS.map((topic, index) => ({
+            '@type': 'ListItem', position: index + 1, name: topic.title, url: getFullUrl(neurologyTopicPath(topic)),
+          })),
+        }] : []),
+        {
+          '@type': 'BreadcrumbList', itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Home', item: getFullUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Neurology', item: getFullUrl(NEUROLOGY_PATH) },
+            ...(neurologyTopic ? [{ '@type': 'ListItem', position: 3, name: neurologyTopic.label, item: pageUrl }] : []),
+          ],
+        },
+      ],
+    };
+  }
   const blogPost = PUBLISHED_BLOG_POSTS.find((post) => blogPath(post.slug) === normalizedPath);
   if (normalizedPath === '/blogs' || blogPost) {
     const blogUrl = getFullUrl('/blogs');

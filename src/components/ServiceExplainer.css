@@ -4,7 +4,7 @@
   border: 1px solid #dacebb;
   border-radius: 16px;
   background: #fbf4e7;
-  color: #173e35;
+  color: #000;
   overflow: hidden;
 }
 .service-explainer-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 30px; }
@@ -22,16 +22,16 @@
 .service-explainer-node > svg { animation: service-node-lift 6s ease-in-out infinite; animation-delay: calc(var(--step) * 1.5s); }
 .service-explainer-node > span { display: grid; place-items: center; position: absolute; top: -5px; right: -6px; width: 17px; height: 17px; border-radius: 50%; background: #173e35; color: #fff; font-size: 9px; border: 2px solid #fffef9; }
 .service-explainer-steps strong { display: block; font-size: 12px; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
-.service-explainer-steps p { margin: 6px 0 0 !important; color: #607165; font-size: 11px; line-height: 1.65; }
-.service-explainer-connector { position: absolute; right: -17px; top: 29px; width: 21px; height: 20px; display: grid; place-items: center; background: #fbf4e7; color: #8b9d7d; z-index: 1; }
+.service-explainer-steps p { margin: 6px 0 0 !important; color: #000; font-size: 11px; line-height: 1.65; }
+.service-explainer-connector { position: absolute; right: -17px; top: 29px; width: 21px; height: 20px; display: grid; place-items: center; background: #fbf4e7; color: #000; z-index: 1; }
 .service-explainer-connector > svg { animation: service-connector-flow 6s ease-in-out infinite; animation-delay: calc(var(--step) * 1.5s + 1s); }
-.site-service-explainer .service-explainer-footnote { margin: 16px 0 0; color: #67766c; font-size: 10px; line-height: 1.5; }
+.site-service-explainer .service-explainer-footnote { margin: 16px 0 0; color: #000; font-size: 10px; line-height: 1.5; }
 .site-service-explainer[data-motion="paused"] *, .site-service-explainer[data-motion="paused"] *::before { animation-play-state: paused !important; }
 .site-service-explainer.is-urgent { background: #fff1e5; border-color: #d9aa88; }
-.site-service-explainer.is-urgent .service-explainer-topline { color: #934a29; }
+.site-service-explainer.is-urgent .service-explainer-topline { color: #000; }
 .site-service-explainer.is-urgent * { animation: none !important; }
 .is-urgent .service-explainer-connector { display: none; }
-.site-service-explainer .service-explainer-emergency { margin: 16px 0 0; padding-top: 13px; border-top: 1px solid #dbb99c; color: #8d3925; font-size: 13px; line-height: 1.6; font-weight: 600; }
+.site-service-explainer .service-explainer-emergency { margin: 16px 0 0; padding-top: 13px; border-top: 1px solid #dbb99c; color: #000; font-size: 13px; line-height: 1.6; font-weight: 600; }
 @keyframes service-node-ring { 0%, 30%, 100% { opacity: 0; transform: scale(.85); } 8% { opacity: .65; } 25% { opacity: 0; transform: scale(1.18); } }
 @keyframes service-node-lift { 0%, 30%, 100% { transform: translateY(0); } 12% { transform: translateY(-3px); } }
 @keyframes service-connector-flow { 0%, 35%, 100% { transform: translateX(0); opacity: .55; } 16% { transform: translateX(3px); opacity: 1; } }

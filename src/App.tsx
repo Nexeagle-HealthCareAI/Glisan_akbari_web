@@ -19,6 +19,7 @@ import { ServiceDetailPage } from "./pages/ServiceDetailPage";
 import { ConditionsPage } from "./pages/ConditionsPage";
 import { ExploreCarePage } from "./pages/ExploreCarePage";
 import { SitemapPage } from "./pages/SitemapPage";
+import { NeurologyTopicPage } from './pages/NeurologyPages';
 import { BlogsPage, BlogPostPage } from "./pages/BlogsPage";
 import { FaqPage } from "./pages/FaqPage";
 import { ContactPage } from "./pages/ContactPage";
@@ -100,6 +101,7 @@ export default function App() {
             path="/services/:slug"
             element={<ServiceDetailPage onOpenBooking={handleOpenBooking} />}
           />
+          <Route path="/services/neurology/:slug" element={<NeurologyTopicPage />} />
           {CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').map((department) => (
             <Route key={department.id} path={careDepartmentPath(department.id)}
               element={<ConditionsPage onOpenBooking={handleOpenBooking} />} />

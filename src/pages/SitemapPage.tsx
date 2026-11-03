@@ -5,6 +5,7 @@ import { PageHero } from '../components/SiteDesign';
 import { CARE_DEPARTMENTS, careDepartmentPath } from '../data/careDepartments';
 import { UROLOGY_SERVICES } from '../data/config';
 import { PUBLISHED_BLOG_POSTS, blogPath } from '../data/blogs';
+import { NEUROLOGY_TOPICS, neurologyTopicPath } from '../data/neurology';
 
 const groups = [
   { title: 'Plan your visit', links: [
@@ -15,6 +16,7 @@ const groups = [
   ...CARE_DEPARTMENTS.map((department) => ({ title: department.label, links: [
     { to: careDepartmentPath(department.id), label: department.label + ' overview' },
     ...(department.id === 'urology' ? UROLOGY_SERVICES.map((service) => ({ to: '/services/' + service.slug, label: service.title })) : []),
+    ...(department.id === 'neurology' ? NEUROLOGY_TOPICS.map((topic) => ({ to: neurologyTopicPath(topic), label: topic.title })) : []),
   ] })),
   { title: 'Health journal', links: [{ to: '/blogs', label: 'Health blog' }, ...PUBLISHED_BLOG_POSTS.map((post) => ({ to: blogPath(post.slug), label: post.title }))] },
   { title: 'Website information', links: [

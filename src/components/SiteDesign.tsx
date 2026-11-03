@@ -24,6 +24,11 @@ import { CareNavigation } from "./CareNavigation";
 import type { MimoAction } from "./MimoMotion";
 import { HOMEPAGE_ADDRESS, HOMEPAGE_LOCATION } from '../data/homepageSeo';
 import { HOSPITAL_LOGO_ALT } from '../data/mediaDescriptions';
+import { MemoCharacter, type MemoPose } from './MemoCharacter';
+import { usePageMotion } from './usePageMotion';
+import { ResponsiveCareImage } from './ResponsiveCareImage';
+import type { CareImage } from '../data/serviceImages';
+import './SiteMotion.css';
 
 const MotionContext = createContext({ paused: false });
 export const useSiteMotion = () => useContext(MotionContext);
@@ -32,12 +37,17 @@ export function SiteMotionProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const root = useRef<HTMLDivElement>(null);
+  const { pathname } = useLocation();
+  usePageMotion(root, pathname);
   return (
     <MotionContext.Provider value={{ paused: false }}>
       <div
+        ref={root}
         className="mm-home site-app"
         data-motion="playing"
       >
+        <div className="site-scroll-progress" aria-hidden="true" />
         {children}
       </div>
     </MotionContext.Provider>
@@ -185,6 +195,7 @@ export function Footer() {
                 <Youtube size={20} aria-hidden="true" />
               </a>
             </nav>
+            <MemoCharacter pose="resting" className="site-footer-memo" />
           </div>
           <div>
             <h2>Explore</h2>
@@ -256,11 +267,13 @@ export function MobileActions() {
 }
 export function GuideScene({
   action = "care",
+  pose,
   message,
   cue = 0,
   label = "MIMO, YOUR DIGITAL GUIDE",
 }: {
   action?: MimoAction;
+  pose?: MemoPose;
   message: string;
   cue?: number;
   label?: string;
@@ -284,7 +297,7 @@ export function GuideScene({
         <span>{label}</span>
         <p>{message}</p>
       </div>
-      <MimoGuide paused={paused} action={action} cue={cue} />
+      <MimoGuide paused={paused} action={action} pose={pose} cue={cue} />
       <div className="site-guide-symbol">
         <Icon size={40} strokeWidth={1.2} />
       </div>
@@ -300,18 +313,20 @@ export function PageHero({
   accent,
   description,
   action = "care",
+  pose,
   message,
   children,
   image,
   breadcrumbs,
 }: {
-  image?: { src: string; alt: string };
+  image?: CareImage;
   breadcrumbs?: { label: string; to?: string }[];
   label: string;
   title: string;
   accent: string;
   description: string;
   action?: MimoAction;
+  pose?: MemoPose;
   message: string;
   children?: React.ReactNode;
 }) {
@@ -337,9 +352,10 @@ export function PageHero({
         {children && <div className="site-hero-actions">{children}</div>}
       </div>
       {image ? <figure className="site-service-feature">
-        <img src={(typeof window !== "undefined" && (window as any).__SITE_ASSETS__?.[image.src]) || image.src} alt={image.alt} width="800" height="600" fetchPriority="high" />
+        <ResponsiveCareImage image={image} hero />
+        {pose && <MemoCharacter pose={pose} className="site-feature-memo" />}
         <figcaption>Illustration for general understanding.</figcaption>
-      </figure> : <GuideScene action={action} message={message} />}
+      </figure> : <GuideScene action={action} pose={pose} message={message} />}
     </section>
   );
 }

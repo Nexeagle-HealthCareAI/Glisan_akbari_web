@@ -26,7 +26,7 @@ export function ExploreCarePage() {
   return <div className="site-explore-care">
     <PageHero label="Explore care" title="Here to help" accent="you plan your visit."
       description="Find a starting point for emergency care, a monitored stay or a planned admission. Our doctors will assess the patient and explain the right next step."
-      action="visit" message="Start with how the patient is feeling.">
+      action="visit" pose="explaining" message="Start with how the patient is feeling.">
       <a className="mm-button" href="#choose-care">Find a starting point <ArrowDown size={17} /></a>
       <a className="mm-text-link" href={hospitalPhone}><Phone size={17} /> {HOSPITAL_PROFILE.phone}</a>
     </PageHero>

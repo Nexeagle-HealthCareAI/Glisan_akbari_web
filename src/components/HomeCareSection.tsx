@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { CARE_DEPARTMENTS, DEPARTMENT_VIDEOS, careDepartmentPath } from '../data/careDepartments';
 import { ServiceVideo } from './ServiceVideo';
+import { MemoCharacter } from './MemoCharacter';
 
 const content = {
   urology: { title: 'Urology', hint: 'Kidney, bladder & urinary concerns', short: 'Questions about kidney or urinary health?', line: 'Explore kidney, bladder and urinary concerns to discuss with your urologist.' },
@@ -59,6 +60,7 @@ export function HomeCareSection() {
           <ServiceVideo key={department.id} src={video.src} poster={video.poster} title={department.title} describedBy="home-care-video-description" />
         </div>
         <div id="home-care-details" className="mm-topic-details" aria-live="polite" aria-atomic="true">
+          <MemoCharacter pose="explaining" cue={selected} className="site-home-care-memo" />
           <p id="home-care-video-description">{department.line}</p>
           <Link className="mm-text-link" to={careDepartmentPath(department.id)}>Explore {department.title} <ArrowUpRight size={17} /></Link>
         </div>
