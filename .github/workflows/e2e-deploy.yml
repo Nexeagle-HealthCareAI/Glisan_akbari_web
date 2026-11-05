@@ -113,7 +113,32 @@ jobs:
             if [ -n "$existing" ]; then
               docker rm -f "$existing"
             fi
-            docker run -d --name glisan-e2e --restart unless-stopped -p 91:80 "$IMAGE"
+            docker network create glisan >/dev/null 2>&1 || true
+            docker run -d --name glisan-e2e --restart unless-stopped --network glisan -p 91:80 "$IMAGE"
+
+            # Caddy: automatic HTTPS for the domain, proxying to the site container.
+            mkdir -p "$HOME/glisan-caddy"
+            cat > "$HOME/glisan-caddy/Caddyfile" <<'EOF'
+            glisanhospitalpurnia.in {
+                encode zstd gzip
+                reverse_proxy glisan-e2e:80
+            }
+
+            www.glisanhospitalpurnia.in {
+                redir https://glisanhospitalpurnia.in{uri} permanent
+            }
+            EOF
+            if [ -n "$(docker ps -q --filter name='^/glisan-caddy$')" ]; then
+              docker network connect glisan glisan-caddy >/dev/null 2>&1 || true
+              docker exec glisan-caddy caddy reload --config /etc/caddy/Caddyfile
+            else
+              docker rm -f glisan-caddy >/dev/null 2>&1 || true
+              docker run -d --name glisan-caddy --restart unless-stopped --network glisan \
+                -p 80:80 -p 443:443 -p 443:443/udp \
+                -v "$HOME/glisan-caddy:/etc/caddy" \
+                -v glisan_caddy_data:/data -v glisan_caddy_config:/config \
+                caddy:2
+            fi
 
       - name: Verify deployment
         env:
