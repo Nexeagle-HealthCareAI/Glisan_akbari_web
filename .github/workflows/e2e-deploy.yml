@@ -32,6 +32,9 @@ jobs:
         run: npm run lint
 
       - name: Build prerendered site
+        env:
+          VITE_SITE_URL: https://glisanhospitalpurnia.in
+          VITE_ALLOW_INDEXING: "true"
         run: npm run build
 
       - name: Validate static routes and priority SEO
