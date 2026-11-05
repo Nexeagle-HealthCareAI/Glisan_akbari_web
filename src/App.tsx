@@ -20,6 +20,7 @@ import { ConditionsPage } from "./pages/ConditionsPage";
 import { ExploreCarePage } from "./pages/ExploreCarePage";
 import { SitemapPage } from "./pages/SitemapPage";
 import { NeurologyTopicPage } from './pages/NeurologyPages';
+import { CareServiceRoute } from './pages/ServicePage';
 import { BlogsPage, BlogPostPage } from "./pages/BlogsPage";
 import { FaqPage } from "./pages/FaqPage";
 import { ContactPage } from "./pages/ContactPage";
@@ -45,7 +46,7 @@ export default function App() {
 
   // Backward compatibility: seamlessly redirect legacy hash links (#about -> /doctors)
   useEffect(() => {
-    if (typeof window !== "undefined" && window.location.hash) {
+    if (typeof window !== "undefined" && location.pathname === "/" && window.location.hash) {
       const hash = window.location.hash.replace("#", "");
       if (hash === "book" || hash === "book-appointment") {
         navigate("/doctors", { replace: true });
@@ -102,6 +103,7 @@ export default function App() {
             element={<ServiceDetailPage onOpenBooking={handleOpenBooking} />}
           />
           <Route path="/services/neurology/:slug" element={<NeurologyTopicPage />} />
+          {['ent', 'general-medicine', 'anesthesiology'].map(department => <Route key={department} path={'/services/' + department + '/:slug'} element={<CareServiceRoute />} />)}
           {CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').map((department) => (
             <Route key={department.id} path={careDepartmentPath(department.id)}
               element={<ConditionsPage onOpenBooking={handleOpenBooking} />} />

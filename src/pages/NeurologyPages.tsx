@@ -4,6 +4,13 @@ import { ArrowRight, ArrowUpRight, Phone, Stethoscope } from 'lucide-react';
 import { DOCTORS, DR_ASIF_IQBAL_BOOKING_URL, HOSPITAL_PROFILE } from '../data/config';
 import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from '../data/neurology';
 import { Accordion, BookLink, BulletList, PageHero, SectionHeading, hospitalPhone } from '../components/SiteDesign';
+import { CareCard } from '../components/CareCard';
+import { DepartmentConcernTabs } from '../components/DepartmentConcernTabs';
+import { CARE_DEPARTMENTS } from '../data/careDepartments';
+import { DEPARTMENT_HERO_IMAGES } from '../data/pageImages';
+import { ServicePage } from './ServicePage';
+import { neurologyServiceContent } from '../data/servicePageContent';
+import { NotFoundPage } from './NotFoundPage';
 
 function AppointmentOptions() {
   const doctor = DOCTORS.find((item) => item.id === 'doc-3')!;
@@ -20,8 +27,8 @@ function AppointmentOptions() {
 
 export function NeurologyDepartmentPage() {
   return <>
-    <PageHero label="Neurology" title={NEUROLOGY_SEO.heading} accent="Start with your concern."
-      description={NEUROLOGY_SEO.introduction} image={NEUROLOGY_SEO.image} pose="thinking"
+    <PageHero label="Neurology" imageLayout="background" title={NEUROLOGY_SEO.heading} accent="Start with your concern."
+      description={NEUROLOGY_SEO.introduction} image={{ ...DEPARTMENT_HERO_IMAGES.neurology, alt: NEUROLOGY_SEO.image.alt }} pose="thinking"
       breadcrumbs={[{ label: 'Neurology' }]} message="Let’s find the right next step.">
       <a href={hospitalPhone} className="mm-button"><Phone size={17} /> Ask about a consultation</a>
       <a href="#care-topics" className="mm-text-link">Explore care topics <ArrowRight size={16} /></a>
@@ -36,14 +43,12 @@ export function NeurologyDepartmentPage() {
       </div>
       <AppointmentOptions />
     </section>
-    <section id="care-topics" className="site-section mm-wrap" aria-label="Neurology care topics">
+    <DepartmentConcernTabs department={CARE_DEPARTMENTS.find(item => item.id === 'neurology')!} />
+    <section className="site-section mm-wrap" aria-label="Neurology care directory">
       <SectionHeading number="01" title="Choose the concern you want to understand." note="Five guides to help you prepare for assessment." />
-      <div className="site-card-grid">{NEUROLOGY_TOPICS.map((topic) => <Link className="site-care-card" to={neurologyTopicPath(topic)} key={topic.id}>
-        <span className="site-small-label">{topic.label}</span>
-        <h2>{topic.title}</h2>
-        <p>{topic.summary}</p>
-        <span className="site-card-link">Read the assessment guide <ArrowUpRight size={17} /></span>
-      </Link>)}</div>
+      <div className="site-card-grid">{NEUROLOGY_TOPICS.map((topic) => <CareCard key={topic.id}
+        to={neurologyTopicPath(topic)} title={topic.title} description={topic.summary} label={topic.label}
+        image={neurologyTopicImage(topic)} linkLabel="Read the assessment guide" />)}</div>
     </section>
     <div className="site-detail-layout mm-wrap">
       <article className="site-reading">
@@ -80,62 +85,6 @@ export function NeurologyDepartmentPage() {
 
 export function NeurologyTopicPage() {
   const { slug } = useParams();
-  const topic = NEUROLOGY_TOPICS.find((item) => item.slug === slug);
-  if (!topic) return <PageHero label="Page not found" title="This guide is unavailable." accent="Explore neurology care."
-    description="Choose a care topic from the department overview." message="Let’s find your starting point.">
-    <Link to={NEUROLOGY_PATH} className="mm-button">Neurology overview <ArrowRight size={17} /></Link>
-  </PageHero>;
-  const related = topic.related.flatMap((id) => NEUROLOGY_TOPICS.find((item) => item.id === id) || []);
-  return <>
-    <PageHero label="Neurology information" title={topic.heading} accent="Understand your next step."
-      description={topic.introduction} image={neurologyTopicImage(topic)}
-      breadcrumbs={[{ label: 'Neurology', to: NEUROLOGY_PATH }, { label: topic.label }]} message="Bring your questions.">
-      <a href={hospitalPhone} className="mm-button"><Phone size={17} /> Check the right appointment</a>
-      <Link to={NEUROLOGY_PATH} className="mm-text-link">All neurology topics <ArrowRight size={16} /></Link>
-    </PageHero>
-    <section className="site-decision mm-wrap" aria-labelledby="neuro-next-title">
-      <div>
-        <p className="mm-kicker">YOUR CONCERN. A CLEARER CONVERSATION.</p>
-        <h2 id="neuro-next-title">{topic.summary}</h2>
-        <p>Before a planned visit, ask which specialist should assess your concern and which existing reports to bring. You do not need to know the diagnosis to ask for help.</p>
-        <div className="site-emergency-note"><Stethoscope size={22} aria-hidden="true" /><p>{topic.emergency}</p></div>
-      </div>
-      <AppointmentOptions />
-    </section>
-    <div className="site-detail-layout mm-wrap">
-      <article className="site-reading">
-        <section id="symptoms"><h2>Concerns to discuss.</h2><BulletList items={topic.concerns} /></section>
-        <section id="assessment"><h2>What assessment may involve.</h2><p>{topic.assessment}</p></section>
-        <section id="next-steps"><h2>Questions about care and next steps.</h2><p>{topic.discussion}</p></section>
-        <section id="prepare"><h2>Prepare for your appointment.</h2><BulletList items={topic.preparation} /></section>
-        <section id="questions"><h2>Common questions.</h2><Accordion items={topic.faqs} prefix={topic.id} /></section>
-        <section id="book">
-          <h2>Check consultation options in Purnia.</h2>
-          <p>Contact Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnea, on {HOSPITAL_PROFILE.phone}. Confirm the appropriate specialist, timing, fees and any referral arrangements before travelling.</p>
-          <p>The listed doctor is Dr Asif Iqbal, Consultant Neurosurgeon. These guides do not confirm a specialist clinic or a particular procedure for every condition.</p>
-          <a href={hospitalPhone} className="mm-button"><Phone size={17} /> Call for appointment information</a>
-          <Link to="/contact" className="mm-text-link">Address and directions <ArrowRight size={16} /></Link>
-        </section>
-        <section id="sources">
-          <h2>Sources and further reading.</h2>
-          <ul>{topic.references.map((ref) => <li key={ref.url}><a href={ref.url} target="_blank" rel="noopener noreferrer">{ref.label}</a></li>)}</ul>
-          <p className="site-medical-note">General information cannot diagnose symptoms or replace medical advice. External resources describe general care, not this hospital’s facilities. Contact local emergency services for urgent symptoms.</p>
-        </section>
-      </article>
-      <aside className="site-detail-aside" aria-label="Guide navigation">
-        <p className="mm-kicker">ON THIS PAGE</p>
-        {[
-          ['symptoms', 'Concerns to discuss'], ['assessment', 'Assessment'], ['prepare', 'Before your visit'],
-          ['questions', 'Common questions'], ['book', 'Appointment information'],
-        ].map(([id, label]) => <a href={'#' + id} key={id}>{label}<ArrowRight size={15} /></a>)}
-        <Link to={NEUROLOGY_PATH}>Neurology overview <ArrowRight size={15} /></Link>
-      </aside>
-    </div>
-    <section className="site-section mm-wrap" aria-labelledby="related-neurology-title">
-      <h2 id="related-neurology-title">Related neurology guides.</h2>
-      <div className="site-card-grid">{related.map((item) => <Link className="site-care-card" to={neurologyTopicPath(item)} key={item.id}>
-        <h3>{item.label}</h3><p>{item.summary}</p><span className="site-card-link">Read the guide <ArrowUpRight size={17} /></span>
-      </Link>)}</div>
-    </section>
-  </>;
+  const topic = NEUROLOGY_TOPICS.find(item => item.slug === slug);
+  return topic ? <ServicePage content={neurologyServiceContent(topic)} key={topic.id} /> : <NotFoundPage />;
 }

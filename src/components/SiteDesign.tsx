@@ -21,6 +21,7 @@ import { HOSPITAL_PROFILE, BOOKING_URL, HOSPITAL_PHONE_HREF } from "../data/conf
 import { HOSPITAL_NAME } from "../data/identity";
 import { MimoGuide } from "./MimoGuide";
 import { CareNavigation } from "./CareNavigation";
+import { getServicePage } from "../data/servicePageContent";
 import type { MimoAction } from "./MimoMotion";
 import { HOMEPAGE_ADDRESS, HOMEPAGE_LOCATION } from '../data/homepageSeo';
 import { HOSPITAL_LOGO_ALT } from '../data/mediaDescriptions';
@@ -29,6 +30,7 @@ import { usePageMotion } from './usePageMotion';
 import { ResponsiveCareImage } from './ResponsiveCareImage';
 import type { CareImage } from '../data/serviceImages';
 import './SiteMotion.css';
+import './PageHeroBackground.css';
 
 const MotionContext = createContext({ paused: false });
 export const useSiteMotion = () => useContext(MotionContext);
@@ -253,15 +255,19 @@ export function Footer() {
   );
 }
 export function MobileActions() {
+  const { pathname } = useLocation();
+  const servicePage = getServicePage(pathname);
   return (
     <div className="mm-mobile-actions">
       <a href={hospitalPhone}>
         <Phone size={17} />
         Call hospital
       </a>
-      <Link className="site-mobile-book" to="/doctors">
+      {servicePage ? <a className="site-mobile-book" href={servicePage.actionHref}>
+        {servicePage.mobileActionLabel} <ArrowUpRight size={17} />
+      </a> : <Link className="site-mobile-book" to="/doctors">
         Book appointment <ArrowUpRight size={17} />
-      </Link>
+      </Link>}
     </div>
   );
 }
@@ -317,9 +323,13 @@ export function PageHero({
   message,
   children,
   image,
+  imageLayout = 'side',
   breadcrumbs,
+  imageCaption = "Illustration for general understanding.",
 }: {
   image?: CareImage;
+  imageLayout?: 'side' | 'background';
+  imageCaption?: string;
   breadcrumbs?: { label: string; to?: string }[];
   label: string;
   title: string;
@@ -331,8 +341,8 @@ export function PageHero({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="site-hero mm-wrap">
-      <div>
+    <section className={'site-hero' + (image && imageLayout === 'background' ? ' site-background-hero' : ' mm-wrap')}>
+      <div className={image && imageLayout === 'background' ? 'site-background-hero-content mm-wrap' : undefined}>
         <nav className="site-breadcrumb" aria-label="Breadcrumb">
           <Link to="/">Home</Link>
           {(breadcrumbs || [{ label }]).map((item, index) => <React.Fragment key={index}>
@@ -351,10 +361,16 @@ export function PageHero({
         <p className="site-lead">{description}</p>
         {children && <div className="site-hero-actions">{children}</div>}
       </div>
-      {image ? <figure className="site-service-feature">
+      {image && imageLayout === 'background' ? <>
+        <div className="site-background-hero-media">
+          <span className="site-background-hero-ambient" aria-hidden="true"><ResponsiveCareImage image={{ ...image, alt: '' }} hero sizes="100vw" /></span>
+          <ResponsiveCareImage image={image} hero sizes="100vw" />
+        </div>
+        <span className="site-background-hero-caption">{imageCaption}</span>
+      </> : image ? <figure className={'site-service-feature' + (image.src.includes('dr-noori') ? ' site-portrait-feature' : '')}>
         <ResponsiveCareImage image={image} hero />
         {pose && <MemoCharacter pose={pose} className="site-feature-memo" />}
-        <figcaption>Illustration for general understanding.</figcaption>
+        <figcaption>{imageCaption}</figcaption>
       </figure> : <GuideScene action={action} pose={pose} message={message} />}
     </section>
   );

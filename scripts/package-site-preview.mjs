@@ -1,5 +1,6 @@
 import fs from "node:fs";
 const assetFiles = [
+  ...fs.readdirSync("public/media/care-spaces").filter(file => file.endsWith(".webp") && (!/-(480|800)\.webp$/.test(file) || file === "dr-noori-800.webp")).map(file => "media/care-spaces/" + file),
   "media/mimo-original.png",
   "media/mimo-poses.png",
   "media/memo/memo-poses.webp",
@@ -27,7 +28,7 @@ let css = fs.readFileSync(
 let js = fs.readFileSync("site-preview-bundle.js", "utf8");
 // Keep videos outside the HTML so the Finder preview streams only the selected
 // service, just like the deployed site. Resolve these paths next to this file.
-for (const folder of ["services", "departments"]) {
+for (const folder of ["services", "departments", "explore-care"]) {
   for (const file of fs.readdirSync("public/media/" + folder)) {
     js = js.replaceAll(
       JSON.stringify("/media/" + folder + "/" + file),
@@ -64,6 +65,15 @@ const html =
   escapeScript(js) +
   "</script></body></html>";
 fs.writeFileSync("website-preview.html", html);
+// A focused review can open a page directly, while retaining navigation and media.
+// Usage after preview bundling: node scripts/package-site-preview.mjs /services/example
+const startPage = process.argv[2];
+if (startPage) {
+  if (!/^\/services\/[a-z0-9-]+$/.test(startPage)) throw new Error("Expected a static service path.");
+  const bootstrap = '<script>const previewUrl=new URL(window.location.href);if(!previewUrl.searchParams.has("page")){previewUrl.searchParams.set("page",' + JSON.stringify(startPage) + ');window.history.replaceState(null,"",previewUrl);}</script>';
+  fs.writeFileSync("kidney-stone-preview.html", html.replace('<script>', bootstrap + '<script>'));
+  console.log("Focused service preview: kidney-stone-preview.html → " + startPage);
+}
 console.log(
   "Full website preview: " +
     (Buffer.byteLength(html) / 1024 / 1024).toFixed(2) +
