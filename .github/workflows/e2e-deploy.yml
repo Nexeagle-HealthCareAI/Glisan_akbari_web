@@ -38,6 +38,9 @@ jobs:
         run: npm run build
 
       - name: Validate static routes and priority SEO
+        env:
+          VITE_SITE_URL: https://glisanhospitalpurnia.in
+          VITE_ALLOW_INDEXING: "true"
         run: npm run check:urls && npm run check:seo
 
       - name: Upload static site
