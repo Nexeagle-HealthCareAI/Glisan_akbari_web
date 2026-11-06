@@ -1,0 +1,276 @@
+/* Scoped pilot: preserve the presentation of all other hospital pages. */
+.kidney-page {
+  --kidney-green: #173e35;
+  --kidney-line: #d9e1d9;
+  color: #000;
+  background: #fffcf7;
+  padding-bottom: 40px;
+}
+.kidney-page *, .kidney-page *::before, .kidney-page *::after { box-sizing: border-box; }
+.kidney-page :is(section, aside, [id]) { scroll-margin-top: 120px; }
+.kidney-page :is(h1, h2, h3, p, figure, dl) { margin: 0; }
+.kidney-page :is(h1, h2, h3) { color: var(--kidney-green); font-weight: 500; text-wrap: pretty; }
+.kidney-page h2 { font-size: clamp(27px, 3.1vw, 39px); line-height: 1.2; letter-spacing: -.035em; }
+.kidney-page h3 { font-size: 23px; line-height: 1.3; letter-spacing: -.025em; }
+.kidney-page p { font-size: 15px; line-height: 1.85; }
+.kidney-page svg { flex-shrink: 0; }
+.kidney-page a { text-underline-offset: 4px; }
+.kidney-page :is(a, summary, video):focus-visible { outline: 3px solid #b5653c; outline-offset: 5px; border-radius: 5px; }
+.kidney-page .kidney-eyebrow { display: flex; align-items: center; gap: 9px; font-size: 10px; font-weight: 650; letter-spacing: .13em; line-height: 1.65; color: var(--kidney-green); }
+.kidney-eyebrow > span { width: 7px; height: 7px; border-radius: 50%; background: #56816a; }
+.kidney-breadcrumbs { padding-top: 24px; }
+.kidney-breadcrumbs .site-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 0; font-size: 11px; line-height: 1.7; }
+.kidney-breadcrumbs a:hover { text-decoration: underline; }
+.kidney-hero { display: grid; grid-template-columns: 1.06fr 1fr; align-items: center; gap: 52px; padding-top: 37px; padding-bottom: 46px; }
+.kidney-hero h1 { margin-top: 19px; max-width: 640px; font-size: clamp(38px, 4.8vw, 62px); line-height: 1.08; letter-spacing: -.055em; }
+.kidney-hero .kidney-hero-intro { margin-top: 23px; max-width: 540px; font-size: 16px; line-height: 1.8; }
+.kidney-hero-doctor { display: flex; align-items: center; gap: 13px; margin-top: 24px; }
+.kidney-doctor-avatar { width: 58px; height: 62px; border-radius: 50% 50% 14px 14px; background: #e2ebe1; overflow: hidden; flex-shrink: 0; }
+.kidney-doctor-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.service-page .kidney-doctor-avatar { display: grid; place-items: center; color: var(--kidney-green); }
+.service-page .service-information-note { background: #edf3e8; border-color: #c9d7c4; }
+.service-page .service-information-note > svg { color: var(--kidney-green); }
+.service-page .service-doctor-without-photo { min-height: 180px; height: 180px; align-items: center; }
+.service-doctor-initials { display: grid; place-items: center; width: 90px; height: 90px; border: 1px solid #9fb79e; border-radius: 50%; font-size: 29px; color: #173e35; background: #f7f8ed; }
+.kidney-doctor-details .service-specialist-note { font-size: 11px; padding: 12px; border-radius: 7px; background: #edf2e8; margin: 0 0 18px; }
+.kidney-hero-doctor p { font-size: 14px; font-weight: 650; line-height: 1.5; }
+.kidney-hero-doctor div > span { display: block; margin-top: 4px; font-size: 12px; line-height: 1.7; }
+.kidney-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 26px; }
+.kidney-page .kidney-button { display: inline-flex; align-items: center; justify-content: center; gap: 15px; min-height: 50px; padding: 14px 21px; border: 1px solid var(--kidney-green); border-radius: 8px; background: var(--kidney-green); color: #fff; font-size: 13px; line-height: 1.5; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s; }
+.kidney-page .kidney-button:hover { background: #28584a; transform: translateY(-2px); }
+.kidney-page .kidney-button-secondary { color: var(--kidney-green); background: transparent; }
+.kidney-page .kidney-button-secondary:hover { background: #dbe7d8; }
+.kidney-page :is(.kidney-call-link, .kidney-text-link) { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; font-size: 13px; line-height: 1.6; font-weight: 600; color: var(--kidney-green); }
+.kidney-page :is(.kidney-call-link, .kidney-text-link):hover { text-decoration: underline; }
+.kidney-hero .kidney-hero-note { display: flex; align-items: center; gap: 7px; margin-top: 15px; font-size: 11px; line-height: 1.65; }
+.kidney-hero-art { overflow: hidden; border: 1px solid #dce5e5; border-radius: 24px 24px 12px 12px; background: #edf4f6; box-shadow: 0 18px 48px -28px #173e3535; }
+.kidney-art-label { display: flex; align-items: center; gap: 9px; padding: 15px 21px; font-size: 10px; font-weight: 600; letter-spacing: .12em; color: var(--kidney-green); }
+.kidney-hero-art > img { display: block; width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; }
+.kidney-hero-art figcaption { display: flex; justify-content: space-between; gap: 15px; padding: 16px 21px; font-size: 10px; line-height: 1.6; }
+.kidney-hero-art figcaption > span:first-child { font-weight: 600; }
+.kidney-care-facts { display: grid; grid-template-columns: repeat(3, 1fr); padding: 24px 0; border-top: 1px solid var(--kidney-line); border-bottom: 1px solid var(--kidney-line); }
+.kidney-care-facts > div { display: flex; align-items: center; gap: 14px; padding: 0 24px; color: var(--kidney-green); }
+.kidney-care-facts > div:first-child { padding-left: 0; }
+.kidney-care-facts > div + div { border-left: 1px solid var(--kidney-line); }
+.kidney-care-facts p { font-size: 12px; line-height: 1.7; }
+.kidney-care-facts strong { display: block; font-weight: 600; }
+.kidney-care-facts p > span { display: block; color: #000; font-size: 11px; }
+.kidney-section-nav { display: flex; align-items: center; gap: 26px; padding-block: 20px; border-bottom: 1px solid var(--kidney-line); }
+.kidney-section-nav > span { font-size: 9px; font-weight: 600; letter-spacing: .1em; white-space: nowrap; }
+.kidney-section-nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: 12px; line-height: 1.6; font-weight: 550; white-space: nowrap; }
+.kidney-section-nav a:hover { color: var(--kidney-green); text-decoration: underline; }
+.kidney-page .kidney-urgent { display: flex; align-items: flex-start; gap: 13px; margin-top: 30px; padding: 17px 20px; border: 1px solid #e6c4b2; border-radius: 10px; background: #fff3e9; }
+.kidney-urgent > svg { color: #8c4421; margin-top: 3px; }
+.kidney-urgent p { font-size: 12px; line-height: 1.85; }
+.kidney-urgent strong { font-weight: 650; }
+.kidney-care-layout { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(290px, 1fr); gap: 76px; padding-top: 52px; padding-bottom: 58px; align-items: start; }
+.kidney-section + .kidney-section { margin-top: 40px; padding-top: 36px; border-top: 1px solid var(--kidney-line); }
+.kidney-section > .kidney-eyebrow { margin-bottom: 13px; }
+.kidney-section h2 + p { margin-top: 18px; }
+.kidney-section p + p { margin-top: 14px; }
+.kidney-symptoms { padding: 0; margin: 21px 0 0; list-style: none; }
+.kidney-symptoms li { display: flex; align-items: flex-start; gap: 17px; padding: 17px 0; border-top: 1px solid var(--kidney-line); }
+.kidney-symptoms li > span { display: grid; place-items: center; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: #e9f0e6; color: var(--kidney-green); font-size: 10px; font-weight: 600; }
+.kidney-symptoms p { font-size: 14px; line-height: 1.8; }
+.kidney-consultation-note { display: flex; align-items: flex-start; gap: 13px; padding: 20px; margin-top: 22px; background: #f0f3e9; border-radius: 10px; }
+.kidney-consultation-note svg { margin-top: 4px; color: var(--kidney-green); }
+.kidney-consultation-note p { font-size: 13px; line-height: 1.85; }
+.kidney-doctor-card { position: sticky; top: 112px; overflow: hidden; border: 1px solid var(--kidney-line); border-radius: 16px; background: #fffefa; }
+.kidney-doctor-portrait { position: relative; display: flex; justify-content: center; height: 270px; overflow: hidden; background: #e3ece2; }
+.kidney-doctor-portrait > .kidney-eyebrow { position: absolute; top: 19px; left: 21px; font-size: 9px; z-index: 1; }
+.kidney-doctor-portrait > img { display: block; height: 235px; width: auto; max-width: 90%; object-fit: contain; margin-top: 35px; }
+.kidney-experience { position: absolute; bottom: 13px; left: 15px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 10px; border-radius: 7px; background: #fffdf4; color: var(--kidney-green); font-size: 10px; font-weight: 600; }
+.kidney-doctor-details { padding: 25px; }
+.kidney-doctor-details h2 { font-size: 25px; line-height: 1.25; }
+.kidney-doctor-details .kidney-doctor-title { margin-top: 8px; font-size: 13px; line-height: 1.7; }
+.kidney-doctor-details .kidney-qualifications { margin-top: 9px; font-size: 11px; line-height: 1.7; }
+.kidney-doctor-details dl { margin: 20px 0 23px; border-top: 1px solid var(--kidney-line); }
+.kidney-doctor-details dl > div { padding-top: 14px; }
+.kidney-doctor-details dt { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: var(--kidney-green); }
+.kidney-doctor-details dd { margin: 5px 0 0; font-size: 12px; line-height: 1.75; }
+.kidney-doctor-details .kidney-button { width: 100%; }
+.kidney-doctor-details > .kidney-text-link { width: 100%; justify-content: center; margin-top: 7px; font-size: 12px; }
+.kidney-options { padding: 57px 0 34px; background: #edf2e9; border-top: 1px solid var(--kidney-line); border-bottom: 1px solid var(--kidney-line); }
+.kidney-section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; margin-bottom: 29px; }
+.kidney-section-heading .kidney-eyebrow { margin-bottom: 13px; }
+.kidney-section-heading > p { max-width: 340px; flex: 1; font-size: 14px; line-height: 1.85; }
+.kidney-option-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.kidney-option-card { display: flex; flex-direction: column; padding: 26px; border: 1px solid #d5dfd3; border-radius: 12px; background: #fffdf8; }
+.kidney-option-top { display: flex; align-items: center; justify-content: space-between; color: var(--kidney-green); margin-bottom: 29px; }
+.kidney-option-top > span { font-size: 12px; }
+.kidney-option-card .kidney-option-label { margin-bottom: 8px; font-size: 10px; font-weight: 600; color: var(--kidney-green); }
+.kidney-option-card h3 { margin-bottom: 15px; font-size: 25px; }
+.kidney-option-card > p { font-size: 13px; line-height: 1.9; }
+.kidney-option-card > p:not(.kidney-option-label) { margin-bottom: 23px; }
+.kidney-option-question { border-top: 1px solid var(--kidney-line); margin-top: auto; padding-top: 20px; }
+.kidney-option-question > span { font-size: 9px; font-weight: 600; letter-spacing: .09em; color: var(--kidney-green); }
+.kidney-option-question p { margin-top: 7px; font-size: 12px; line-height: 1.85; }
+.kidney-options .kidney-options-note { display: flex; align-items: flex-start; justify-content: center; gap: 9px; padding-top: 23px; font-size: 12px; line-height: 1.7; }
+.kidney-options-note svg { margin-top: 2px; }
+.kidney-aftercare { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; padding-block: 62px; }
+.kidney-recovery { padding: 29px; border-radius: 12px; background: #f0f3e9; }
+.kidney-recovery > svg { margin-bottom: 15px; color: var(--kidney-green); }
+.kidney-recovery h2 { font-size: 29px; }
+.kidney-recovery p { margin-top: 14px; font-size: 14px; }
+.kidney-recovery .kidney-button { margin-top: 20px; font-size: 12px; }
+.kidney-explainer { display: grid; grid-template-columns: .85fr 1fr; align-items: center; gap: 60px; padding-block: 37px; border-top: 1px solid var(--kidney-line); border-bottom: 1px solid var(--kidney-line); }
+.kidney-video-copy h2 { margin-top: 15px; }
+.kidney-video-copy > p:not(.kidney-eyebrow) { margin-top: 16px; }
+.kidney-video-copy > a { margin-top: 12px; }
+.kidney-explainer video { display: block; width: 100%; height: auto; aspect-ratio: 3/2; object-fit: contain; background: #e5e6dc; border: 1px solid var(--kidney-line); border-radius: 12px; }
+.kidney-visit { padding-top: 62px; padding-bottom: 55px; }
+.kidney-visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.kidney-visit-grid > div { padding: 29px; border: 1px solid var(--kidney-line); border-radius: 12px; }
+.kidney-visit-grid > div > svg { color: var(--kidney-green); margin-bottom: 17px; }
+.kidney-visit-grid h3 { margin-bottom: 18px; }
+.kidney-prepare-card ul { list-style: none; padding: 0; margin: 0; }
+.kidney-prepare-card li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.85; }
+.kidney-prepare-card li + li { margin-top: 13px; }
+.kidney-prepare-card li > svg { margin-top: 4px; color: var(--kidney-green); }
+.kidney-cost-card { background: #f7efe3; }
+.kidney-cost-card p { font-size: 13px; }
+.kidney-cost-card p + p { margin-top: 12px; }
+.kidney-cost-card > a { margin-top: 13px; }
+.kidney-faq { display: grid; grid-template-columns: .85fr 1.3fr; gap: 70px; padding-block: 48px 60px; border-top: 1px solid var(--kidney-line); }
+.kidney-faq h2 { margin-top: 13px; }
+.kidney-faq > div:first-child > p:not(.kidney-eyebrow) { margin-top: 18px; max-width: 310px; font-size: 14px; }
+.kidney-faq .kidney-call-link { margin-top: 12px; }
+.kidney-page .site-accordion summary { min-height: 64px; font-size: 15px; line-height: 1.7; gap: 15px; padding-block: 18px; color: var(--kidney-green); }
+.kidney-page .site-accordion details > div { font-size: 14px; line-height: 1.9; color: #000; }
+.kidney-page .kidney-booking { display: grid; grid-template-columns: 1.4fr 1fr; gap: 68px; padding: 44px; border-radius: 16px; background: #dce8d8; }
+.kidney-booking h2 { margin-top: 13px; font-size: clamp(30px, 3.5vw, 43px); }
+.kidney-booking h2 + p { max-width: 460px; margin-top: 19px; font-size: 14px; }
+.kidney-booking .kidney-booking-note { max-width: 440px; font-size: 11px; margin-top: 15px; }
+.kidney-address { align-self: center; border-left: 1px solid #b8cab7; padding-left: 36px; }
+.kidney-address > svg { color: var(--kidney-green); margin-bottom: 15px; }
+.kidney-address h3 { font-size: 22px; }
+.kidney-address address { font-size: 14px; font-style: normal; line-height: 1.9; margin-top: 12px; max-width: 260px; }
+.kidney-address > a { display: flex !important; width: fit-content; font-size: 12px !important; }
+.kidney-address address + a { margin-top: 14px; }
+.kidney-related { padding-block: 62px 40px; }
+.kidney-related .site-card-grid { margin-top: 0; }
+.kidney-related .site-image-card h3 { color: var(--kidney-green); font-size: 23px; }
+.kidney-related .site-image-card p { font-size: 13px; }
+.kidney-sources { border-top: 1px solid var(--kidney-line); padding-top: 25px; }
+.kidney-sources h2 { font-size: 15px; letter-spacing: -.01em; }
+.kidney-sources ul { list-style: none; margin: 8px 0; padding: 0; }
+.kidney-sources a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; font-size: 12px; text-decoration: underline; }
+.kidney-sources p { max-width: 760px; font-size: 11px; line-height: 1.85; }
+@media (min-width: 761px) and (max-height: 900px) {
+  .kidney-doctor-card { position: static; }
+}
+@media (max-width: 1100px) {
+  .kidney-hero { gap: 30px; }
+  .kidney-care-layout { gap: 36px; }
+  .kidney-section-nav { gap: 21px; }
+  .kidney-section-nav > span { display: none; }
+  .kidney-care-facts > div { padding-inline: 16px; }
+  .kidney-care-facts > div:last-child { padding-right: 0; }
+  .kidney-option-card { padding: 22px; }
+  .kidney-option-card h3 { font-size: 22px; }
+  .kidney-explainer { gap: 36px; }
+  .kidney-page .kidney-booking { gap: 35px; padding: 36px; }
+}
+@media (max-width: 760px) {
+  .kidney-page { padding-bottom: 30px; }
+  .kidney-page :is(section, aside, [id]) { scroll-margin-top: 105px; }
+  .kidney-breadcrumbs { padding-top: 18px; }
+  .kidney-breadcrumbs .site-breadcrumb { gap: 5px; font-size: 10px; }
+  .kidney-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 25px; padding-bottom: 28px; }
+  .kidney-hero h1 { margin-top: 15px; max-width: 550px; font-size: clamp(34px, 8.5vw, 49px); letter-spacing: -.045em; line-height: 1.12; }
+  .kidney-hero .kidney-hero-intro { margin-top: 18px; font-size: 14px; line-height: 1.85; }
+  .kidney-hero-doctor { margin-top: 20px; }
+  .kidney-hero-doctor p { font-size: 13px; }
+  .kidney-hero-doctor div > span { font-size: 11px; }
+  .kidney-hero .kidney-actions { gap: 10px 18px; margin-top: 20px; }
+  .kidney-page .kidney-button { min-height: 48px; font-size: 12px; padding-inline: 17px; gap: 12px; }
+  .kidney-page .kidney-call-link { font-size: 12px; gap: 7px; }
+  .kidney-hero .kidney-hero-note { font-size: 10px; margin-top: 9px; }
+  .kidney-hero-art { border-radius: 16px; }
+  .kidney-art-label { padding: 12px 16px; font-size: 9px; }
+  .kidney-hero-art figcaption { padding: 12px 16px; font-size: 9px; }
+  .kidney-care-facts { grid-template-columns: 1fr; padding: 5px 0; }
+  .kidney-care-facts > div { padding: 14px 0; gap: 14px; }
+  .kidney-care-facts > div + div { border-left: 0; border-top: 1px solid var(--kidney-line); }
+  .kidney-care-facts p { font-size: 12px; }
+  .kidney-section-nav { gap: 24px; padding-block: 9px; overflow-x: auto; scrollbar-width: thin; }
+  .kidney-section-nav a { font-size: 11px; }
+  .kidney-page .kidney-urgent { margin-top: 22px; padding: 15px; gap: 10px; }
+  .kidney-urgent p { font-size: 11px; }
+  .kidney-care-layout { grid-template-columns: 1fr; gap: 30px; padding-top: 32px; padding-bottom: 36px; }
+  .kidney-page h2 { font-size: 29px; }
+  .kidney-page p { font-size: 14px; }
+  .kidney-page .kidney-eyebrow { font-size: 9px; }
+  .kidney-section + .kidney-section { margin-top: 28px; padding-top: 27px; }
+  .kidney-symptoms p { font-size: 13px; }
+  .kidney-consultation-note { padding: 17px; }
+  .kidney-consultation-note p { font-size: 12px; }
+  .kidney-doctor-card { position: static; display: grid; grid-template-columns: .9fr 1.1fr; }
+  .kidney-doctor-portrait { height: 100%; min-height: 350px; align-items: flex-end; }
+  .kidney-doctor-portrait > .kidney-eyebrow { left: 14px; top: 17px; max-width: 150px; font-size: 8px; }
+  .kidney-doctor-portrait > img { max-width: 100%; width: 100%; height: auto; max-height: 310px; object-fit: contain; margin: 0; }
+  .kidney-experience { bottom: 10px; left: 8px; right: 8px; justify-content: center; font-size: 8px; padding: 8px 4px; gap: 4px; }
+  .kidney-doctor-details { padding: 20px; }
+  .kidney-doctor-details h2 { font-size: 22px; }
+  .kidney-doctor-details .kidney-doctor-title { font-size: 12px; }
+  .kidney-doctor-details .kidney-qualifications { font-size: 10px; }
+  .kidney-doctor-details dd { font-size: 11px; }
+  .kidney-doctor-details .kidney-button { padding-inline: 9px; font-size: 11px; gap: 7px; }
+  .kidney-doctor-details > .kidney-text-link { font-size: 11px; }
+  .kidney-options { padding-block: 36px 25px; }
+  .kidney-section-heading { display: block; margin-bottom: 24px; }
+  .kidney-section-heading > p { margin-top: 18px; max-width: 100%; font-size: 13px; }
+  .kidney-desktop-break { display: none; }
+  .kidney-option-grid { grid-template-columns: 1fr; gap: 15px; }
+  .kidney-option-card { padding: 24px; }
+  .kidney-option-top { margin-bottom: 20px; }
+  .kidney-option-card .kidney-option-label { font-size: 10px; }
+  .kidney-option-card h3 { font-size: 25px; }
+  .kidney-option-card > p { font-size: 13px; }
+  .kidney-option-question p { font-size: 12px; }
+  .kidney-options .kidney-options-note { font-size: 11px; }
+  .kidney-aftercare { grid-template-columns: 1fr; gap: 28px; padding-block: 36px; }
+  .kidney-recovery { padding: 25px; }
+  .kidney-recovery h2 { font-size: 27px; }
+  .kidney-recovery p { font-size: 13px; }
+  .kidney-explainer { grid-template-columns: 1fr; gap: 24px; padding-block: 30px; }
+  .kidney-video-copy > p:not(.kidney-eyebrow) { font-size: 13px; }
+  .kidney-visit { padding-block: 36px; }
+  .kidney-visit-grid { grid-template-columns: 1fr; gap: 16px; }
+  .kidney-visit-grid > div { padding: 25px; }
+  .kidney-cost-card p { font-size: 13px; }
+  .kidney-faq { grid-template-columns: 1fr; gap: 22px; padding-block: 34px 36px; }
+  .kidney-faq h2 br { display: none; }
+  .kidney-faq > div:first-child > p:not(.kidney-eyebrow) { max-width: 100%; font-size: 13px; }
+  .kidney-page .site-accordion summary { font-size: 14px; }
+  .kidney-page .site-accordion details > div { font-size: 13px; }
+  .kidney-page .kidney-booking { grid-template-columns: 1fr; padding: 27px 23px; gap: 26px; }
+  .kidney-booking h2 { font-size: 31px; }
+  .kidney-booking h2 + p { font-size: 13px; }
+  .kidney-booking .kidney-actions { align-items: flex-start; gap: 10px; margin-top: 20px; }
+  .kidney-booking .kidney-booking-note { font-size: 10px; }
+  .kidney-address { border-left: 0; border-top: 1px solid #b8cab7; padding: 24px 0 0; }
+  .kidney-address address { font-size: 13px; max-width: none; }
+  .kidney-related { padding-block: 36px 26px; }
+  .kidney-related .kidney-section-heading > a { margin-top: 10px; }
+  .kidney-related .site-card-grid { grid-template-columns: 1fr; }
+  .kidney-sources p { font-size: 11px; }
+  .kidney-sources h2 { font-size: 15px; }
+}
+@media (max-width: 440px) {
+  .kidney-doctor-card { display: block; }
+  .kidney-doctor-portrait { height: 255px; min-height: 0; }
+  .kidney-doctor-portrait > .kidney-eyebrow { left: 20px; max-width: none; font-size: 9px; }
+  .kidney-doctor-portrait > img { height: 225px; width: auto; }
+  .kidney-experience { left: 13px; right: auto; font-size: 10px; padding: 8px 10px; }
+  .kidney-doctor-details { padding: 23px; }
+  .kidney-doctor-details h2 { font-size: 27px; }
+  .kidney-doctor-details .kidney-doctor-title { font-size: 13px; }
+  .kidney-doctor-details .kidney-qualifications { font-size: 12px; }
+  .kidney-doctor-details dd { font-size: 12px; }
+  .kidney-doctor-details .kidney-button { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .kidney-page .kidney-button { transition: none; }
+  .kidney-page .kidney-button:hover { transform: none; }
+}

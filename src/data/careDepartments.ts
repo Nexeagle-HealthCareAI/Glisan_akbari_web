@@ -1,5 +1,6 @@
 import { DOCTORS, UROLOGY_SERVICES, type UrologyServiceItem } from './config';
 import { NEUROLOGY_TOPICS } from './neurology';
+import { ADDITIONAL_CARE_TOPICS } from './additionalCareTopics';
 
 export type CareService = Pick<UrologyServiceItem, 'id' | 'title' | 'description'> &
   Partial<Pick<UrologyServiceItem, 'slug' | 'symptoms' | 'explainerVideo'>>;
@@ -21,8 +22,7 @@ export const DEPARTMENT_VIDEOS: Record<string, { src: string; poster: string }> 
   neurology: { src: '/media/departments/neurology.mp4', poster: '/media/departments/neurology-poster.jpg' },
 };
 
-// These are educational topics proposed for review, not confirmed hospital services.
-// Keep Urology's original objects, copy and media untouched.
+// Hospital services confirmed by the user; preserve existing service IDs and URLs.
 export const CARE_DEPARTMENTS: CareDepartment[] = [
   { id: 'urology', label: 'Urology', doctorDepartment: 'Urology', services: UROLOGY_SERVICES },
   {
@@ -52,7 +52,7 @@ export const CARE_DEPARTMENTS: CareDepartment[] = [
       { id: 'anaesthesia-2', title: 'General & Regional Anaesthesia', description: 'General anaesthesia and regional anaesthesia work in different ways. The anaesthetist can explain which approach may suit your procedure and health.' },
       { id: 'anaesthesia-3', title: 'Labour & C-Section Anaesthesia', description: 'Discuss pain relief and anaesthesia questions with your maternity team. Suitable options depend on your health, the birth plan and the facilities available.' },
       { id: 'anaesthesia-4', title: 'Pain Management', description: 'Explain where pain occurs, how long it lasts and how it affects daily life. An assessment can guide a discussion about suitable pain management options.' },
-      { id: 'anaesthesia-5', title: 'Emergency & Critical Care Support', description: 'Anaesthesia teams may support breathing and monitoring during serious illness or emergency procedures. This topic does not confirm emergency or critical care facilities at this hospital.' },
+      { id: 'anaesthesia-5', title: 'Emergency & Critical Care Support', description: 'Anaesthesia teams may support breathing and monitoring during serious illness or emergency procedures.' },
     ],
   },
   {
@@ -63,6 +63,15 @@ export const CARE_DEPARTMENTS: CareDepartment[] = [
     })),
   },
 ];
+
+// Link department topics to their dedicated pages without changing established IDs.
+for (const department of CARE_DEPARTMENTS) {
+  department.proposed = false;
+  department.services = department.services.map(service => {
+    const topic = ADDITIONAL_CARE_TOPICS.find(item => item.id === service.id);
+    return topic ? { ...service, slug: `${topic.departmentId}/${topic.slug}` } : service;
+  });
+}
 
 export function getCareDepartment(pathname: string) {
   const path = pathname.replace(/\/+$/, '') || '/';

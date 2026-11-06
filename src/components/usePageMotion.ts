@@ -15,6 +15,12 @@ const revealSelectors = [
   '.mm-visit-copy', '.mm-visit-scene', '.mm-department-player', '.mm-topic-details',
   '.site-contact-card', '.site-location-card', '.site-accordion > details',
   '.site-legal-reading > section', '.site-sitemap-grid > section',
+  // The shared service layout uses these classes across all five departments.
+  '.kidney-hero-copy', '.kidney-hero-art', '.kidney-care-facts > div', '.kidney-urgent',
+  '.kidney-reading > section', '.kidney-doctor-portrait', '.kidney-doctor-details',
+  '.kidney-section-heading', '.kidney-option-grid > *', '.kidney-aftercare > section',
+  '.kidney-explainer > *', '.kidney-visit-grid > *', '.kidney-faq > div:first-child',
+  '.kidney-booking > *', '.kidney-sources',
 ].join(',');
 
 /** Progressive enhancement: prerendered content stays visible without JavaScript or motion. */
@@ -39,7 +45,7 @@ export function usePageMotion(root: RefObject<HTMLDivElement | null>, route: str
         if (paused || media.matches || document.hidden || typeof target.animate !== 'function') continue;
         const siblings = target.parentElement?.children;
         const index = siblings ? Array.from(siblings).indexOf(target) : 0;
-        const isArt = target.matches('.site-guide, .site-service-feature, .mm-visit-scene, .mm-doctor-video-slot');
+        const isArt = target.matches('.site-guide, .site-service-feature, .mm-visit-scene, .mm-doctor-video-slot, .kidney-hero-art');
         const animation = target.animate([
           { opacity: 0, transform: `translate3d(0, ${isArt ? 34 : 24}px, 0)${isArt ? ' scale(.96)' : ''}` },
           { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' },
@@ -69,6 +75,8 @@ export function usePageMotion(root: RefObject<HTMLDivElement | null>, route: str
       element.querySelectorAll<HTMLElement>(revealSelectors).forEach(target => {
         if (registered.has(target)) return;
         registered.add(target);
+        // Shared tab transitions already animate this content as one scene.
+        if (target.closest('.concern-panel-content, .mm-department-panel')) return;
         // Avoid doubling movement when a parent and its children enter together.
         if (target.parentElement?.closest('[data-reveal]')) return;
         target.dataset.reveal = 'ready';

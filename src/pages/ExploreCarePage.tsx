@@ -1,7 +1,11 @@
 import React from 'react';
 import { Activity, ArrowDown, ArrowUpRight, BedDouble, Clock3, HeartPulse, Navigation, Phone, Siren } from 'lucide-react';
-import { PageHero, hospitalPhone, hospitalMap, BulletList } from '../components/SiteDesign';
+import { hospitalPhone, hospitalMap, BulletList } from '../components/SiteDesign';
+import { ExploreCareHero } from '../components/ExploreCareHero';
 import { HOSPITAL_PROFILE } from '../data/config';
+import { FACILITY_IMAGES } from '../data/pageImages';
+import { CareCardBackdrop } from '../components/CareCard';
+import './FacilityCards.css';
 
 const choices = [
   { id: 'emergency', prefix: 'The patient has', need: 'A sudden illness, an accident or severe pain', label: '24×7 Emergency', icon: Siren },
@@ -24,18 +28,15 @@ const arrival = [
 
 export function ExploreCarePage() {
   return <div className="site-explore-care">
-    <PageHero label="Explore care" title="Here to help" accent="you plan your visit."
-      description="Find a starting point for emergency care, a monitored stay or a planned admission. Our doctors will assess the patient and explain the right next step."
-      action="visit" pose="explaining" message="Start with how the patient is feeling.">
-      <a className="mm-button" href="#choose-care">Find a starting point <ArrowDown size={17} /></a>
-      <a className="mm-text-link" href={hospitalPhone}><Phone size={17} /> {HOSPITAL_PROFILE.phone}</a>
-    </PageHero>
+    <ExploreCareHero />
 
     <section id="choose-care" className="site-section mm-wrap" aria-labelledby="choose-care-title">
       <p className="mm-kicker">A SIMPLE GUIDE TO YOUR NEXT STEP</p>
       <h2 id="choose-care-title">Which service do I need?</h2>
       <p className="site-directory-intro">Start with how the patient is feeling right now. Our doctors decide the final unit after they check the patient.</p>
-      <div className="site-care-choice-grid">{choices.map(({ id, prefix, need, label, icon: Icon }) => <a key={id} href={'#' + id} className="site-care-choice">
+      <div className="site-care-choice-grid">{choices.map(({ id, prefix, need, label, icon: Icon }) => <a key={id} href={'#' + id} className="site-care-choice facility-card">
+        <CareCardBackdrop image={FACILITY_IMAGES[id]} sizes="(max-width: 480px) calc(100vw - 40px), (max-width: 1050px) 45vw, 285px" />
+        <span className="facility-illustration-label">Illustration</span>
         <Icon size={25} strokeWidth={1.5} aria-hidden="true" />
         <span className="site-small-label">{prefix}</span>
         <h3>{need}</h3>
@@ -67,9 +68,9 @@ export function ExploreCarePage() {
       <h2 id="stay-title">Care matched to the patient.</h2>
       <p className="site-directory-intro">These descriptions explain the different units. They do not tell you which unit to choose yourself. The clinical team decides after assessment; ask the hospital about bed and room availability.</p>
       <div className="site-stay-grid">
-        <article id="icu"><HeartPulse size={26} aria-hidden="true" /><h3>ICU</h3><p className="site-small-label">INTENSIVE CARE UNIT</p><p>For a life-threatening condition that needs constant care. The clinical team explains the level of support the patient needs.</p><a href={hospitalPhone} className="mm-text-link">Talk to our team <ArrowUpRight size={16} /></a></article>
-        <article id="hdu"><Activity size={26} aria-hidden="true" /><h3>HDU</h3><p className="site-small-label">HIGH DEPENDENCY UNIT</p><p>For a serious illness when the patient is more stable but still needs close watching. The doctor decides whether this level of care is appropriate.</p><a href={hospitalPhone} className="mm-text-link">Ask about monitored care <ArrowUpRight size={16} /></a></article>
-        <article id="private-rooms"><BedDouble size={26} aria-hidden="true" /><h3>Private rooms</h3><p className="site-small-label">A PLANNED HOSPITAL STAY</p><p>For a planned stay, with family close by. Ask about room availability, charges and attendant arrangements before admission.</p><a href={hospitalPhone} className="mm-text-link">Plan an admission <ArrowUpRight size={16} /></a></article>
+        <article id="icu" className="facility-card"><CareCardBackdrop image={FACILITY_IMAGES['icu']} sizes="(max-width: 760px) calc(100vw - 40px), 390px" /><span className="facility-illustration-label">Illustration</span><HeartPulse size={26} aria-hidden="true" /><h3>ICU</h3><p className="site-small-label">INTENSIVE CARE UNIT</p><p>For a life-threatening condition that needs constant care. The clinical team explains the level of support the patient needs.</p><a href={hospitalPhone} className="mm-text-link">Talk to our team <ArrowUpRight size={16} /></a></article>
+        <article id="hdu" className="facility-card"><CareCardBackdrop image={FACILITY_IMAGES['hdu']} sizes="(max-width: 760px) calc(100vw - 40px), 390px" /><span className="facility-illustration-label">Illustration</span><Activity size={26} aria-hidden="true" /><h3>HDU</h3><p className="site-small-label">HIGH DEPENDENCY UNIT</p><p>For a serious illness when the patient is more stable but still needs close watching. The doctor decides whether this level of care is appropriate.</p><a href={hospitalPhone} className="mm-text-link">Ask about monitored care <ArrowUpRight size={16} /></a></article>
+        <article id="private-rooms" className="facility-card"><CareCardBackdrop image={FACILITY_IMAGES['private-rooms']} sizes="(max-width: 760px) calc(100vw - 40px), 390px" /><span className="facility-illustration-label">Illustration</span><BedDouble size={26} aria-hidden="true" /><h3>Private rooms</h3><p className="site-small-label">A PLANNED HOSPITAL STAY</p><p>For a planned stay, with family close by. Ask about room availability, charges and attendant arrangements before admission.</p><a href={hospitalPhone} className="mm-text-link">Plan an admission <ArrowUpRight size={16} /></a></article>
       </div>
     </section>
   </div>;

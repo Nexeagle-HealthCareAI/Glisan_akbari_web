@@ -2554,6 +2554,8 @@
 .site-google-rating small { font-size: 10px; line-height: 1.6; color: var(--muted); }
 .site-doctor-photo { width: 96px; height: 112px; object-fit: contain; object-position: center bottom; }
 .site-profile-photo { height: auto; aspect-ratio: 4 / 5; object-fit: contain; object-position: center bottom; padding: 0; }
+.site-doctor-photo > img, .site-profile-photo > img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.site-profile-photo { display: block; overflow: hidden; }
 .site-booking-photo { width: 72px; height: 88px; object-fit: contain; object-position: center bottom; border: 1px solid var(--line); border-radius: 14px; background: #e6eddd; }
 .mm-doctor-portrait { display: block; width: 100%; height: 155px; object-fit: contain; object-position: center bottom; border-radius: 10px; background: #e6eddd; margin-bottom: 12px; }
 .mm-doctor-id:has(.mm-doctor-portrait) { padding: 12px; top: 145px; width: 195px; }
@@ -2627,7 +2629,7 @@
 
 /* Light service-specific vector artwork sits behind each card's content. */
 .site-care-card, .site-app .mm-topic-list button { position: relative; isolation: isolate; overflow: hidden; }
-.site-care-card > :not(.care-artwork), .mm-topic-list button > :not(.care-artwork) { position: relative; z-index: 1; }
+.site-care-card > :not(.care-artwork):not(.site-card-backdrop), .mm-topic-list button > :not(.care-artwork):not(.site-card-backdrop) { position: relative; z-index: 1; }
 .care-artwork { position: absolute; pointer-events: none; z-index: 0; width: 190px; right: -22px; top: 2px; color: #4c8664; opacity: .28; }
 .care-artwork > svg { display: block; width: 100%; height: auto; overflow: visible; }
 .care-art-halo { fill: #dce8cb; }
@@ -2864,6 +2866,8 @@
 .site-service-feature { margin: 0; min-width: 0; align-self: center; }
 .site-service-feature img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 24px; }
 .site-service-feature figcaption { margin-top: 10px; color: var(--muted); font-size: 12px; text-align: center; }
+.site-portrait-feature > img { height: 450px; object-fit: contain; background: #e5eee0; padding-top: 20px; }
+@media (max-width: 760px) { .site-portrait-feature > img { height: 340px; } }
 .site-topic-feature { margin: 24px 0; min-width: 0; }
 .site-topic-feature img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 18px; }
 .site-topic-feature figcaption { margin-top: 8px; font-size: 11px; line-height: 1.5; text-align: center; }

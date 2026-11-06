@@ -1,5 +1,7 @@
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL, ALLOW_INDEXING } from './identity';
 import { UROLOGY_SERVICES } from './config';
+import { ADDITIONAL_CARE_TOPICS, additionalTopicPath } from './additionalCareTopics';
+import { SERVICE_IMAGES } from './serviceImages';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
@@ -170,6 +172,14 @@ UROLOGY_SERVICES.forEach((srv) => {
   };
 });
 
+// Neutral page metadata; the new topics' keyword research is intentionally deferred.
+ADDITIONAL_CARE_TOPICS.forEach(topic => {
+  const path = additionalTopicPath(topic);
+  ROUTES_SEO[path] = { path, title: `${topic.title} | Glisan Akbari`, description: topic.summary,
+    canonical: getFullUrl(path), url: getFullUrl(path),
+    imagePath: SERVICE_IMAGES[topic.id].social, imageAlt: SERVICE_IMAGES[topic.id].alt };
+});
+
 /**
  * Public pages for sitemap.xml (including all dedicated procedure pages, excluding /404)
  */
@@ -188,6 +198,7 @@ export const SITEMAP_ROUTES = [
     .map((department) => careDepartmentPath(department.id)),
   ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
   ...NEUROLOGY_TOPICS.map(neurologyTopicPath),
+  ...ADDITIONAL_CARE_TOPICS.map(additionalTopicPath),
   '/explore-care',
   '/blogs',
   ...PUBLISHED_BLOG_POSTS.map((post) => blogPath(post.slug)),

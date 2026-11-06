@@ -4,6 +4,7 @@ import { ArrowUpRight, FileCode2 } from 'lucide-react';
 import { PageHero } from '../components/SiteDesign';
 import { CARE_DEPARTMENTS, careDepartmentPath } from '../data/careDepartments';
 import { UROLOGY_SERVICES } from '../data/config';
+import { ADDITIONAL_CARE_TOPICS, additionalTopicPath } from '../data/additionalCareTopics';
 import { PUBLISHED_BLOG_POSTS, blogPath } from '../data/blogs';
 import { NEUROLOGY_TOPICS, neurologyTopicPath } from '../data/neurology';
 
@@ -17,6 +18,7 @@ const groups = [
     { to: careDepartmentPath(department.id), label: department.label + ' overview' },
     ...(department.id === 'urology' ? UROLOGY_SERVICES.map((service) => ({ to: '/services/' + service.slug, label: service.title })) : []),
     ...(department.id === 'neurology' ? NEUROLOGY_TOPICS.map((topic) => ({ to: neurologyTopicPath(topic), label: topic.title })) : []),
+    ...ADDITIONAL_CARE_TOPICS.filter(topic => topic.departmentId === department.id).map(topic => ({to: additionalTopicPath(topic), label: topic.title})),
   ] })),
   { title: 'Health journal', links: [{ to: '/blogs', label: 'Health blog' }, ...PUBLISHED_BLOG_POSTS.map((post) => ({ to: blogPath(post.slug), label: post.title }))] },
   { title: 'Website information', links: [

@@ -17,10 +17,10 @@ export const PRIORITY_UROLOGY: Record<string, UrologyServiceItem> = {
     procedures: [
       { name: 'Observation and symptom care', description: 'Selected small stones can be monitored with a clinician’s plan for pain relief and follow-up. Do not assume every stone will pass on its own.' },
       { name: 'RIRS surgery and ureteroscopy', description: 'A thin telescope can reach stones through the urinary passage. A laser may break them into smaller pieces. A temporary stent or another treatment session may be needed.' },
-      { name: 'PCNL and other options', description: 'PCNL uses a small opening through the back to access a kidney stone. It may be considered for larger stones. Your doctor will explain alternatives and confirm where a suitable procedure can be arranged.' },
+      { name: 'PCNL and other options', description: 'PCNL uses a small opening through the back to access a kidney stone. It may be considered for larger stones. Dr. Noori will explain the alternatives and plan a suitable procedure with you.' },
     ],
     risks: 'Possible procedure risks include bleeding, infection, injury and stent discomfort. Some stones need more than one session. Recovery and discharge timing vary; ask for advice based on your own scan and health.',
-    benefits: [], preparation: ['Bring ultrasound or CT images, urine reports and kidney function results you already have.', 'List current medicines, allergies, previous operations and any blood-thinning medicines. Do not stop prescribed medicines yourself.', 'Confirm consultation timing and procedure availability before travelling from Katihar, Araria or Kishanganj.'],
+    benefits: [], preparation: ['Bring ultrasound or CT images, urine reports and kidney function results you already have.', 'List current medicines, allergies, previous operations and any blood-thinning medicines. Do not stop prescribed medicines yourself.', 'Confirm consultation timing before travelling from Katihar, Araria or Kishanganj.'],
     faqs: [
       { question: 'Does every kidney stone need an operation?', answer: 'No. The decision depends on the stone, your symptoms, urine blockage, infection and kidney function. Discuss a follow-up plan even when observation is recommended.' },
       { question: 'Will a stent be needed?', answer: 'Some procedures need a temporary internal stent. Ask why it is needed, what discomfort to expect and when removal or review is due.' },

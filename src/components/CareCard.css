@@ -1,0 +1,34 @@
+/* Shared artwork treatment. The opaque reading area keeps the original copy legible. */
+.site-card-backdrop { position: absolute; inset: 0; pointer-events: none; overflow: hidden; border-radius: inherit; }
+.site-card-backdrop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .5s cubic-bezier(.22,1,.36,1); }
+.site-card-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40px, #fffdf7ed 115px, #fffdf7 155px); }
+.site-app .site-image-card { position: relative; isolation: isolate; overflow: hidden; padding: 0; border-radius: 18px; min-height: 0; background: #fffdf7; border-color: #c8d6cd; }
+.site-app .site-image-card > .site-card-media { display: block; flex: none; width: 100%; height: 152px; overflow: hidden; background: #edf3f3; }
+.site-card-media img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.site-card-copy { display: flex; flex: 1; flex-direction: column; align-items: flex-start; width: 100%; }
+.site-app .site-image-card .site-card-copy { position: relative; z-index: 1; padding: 16px 21px 18px; }
+.site-app .site-image-card :is(h2, h3) { font-size: clamp(20px, 1.7vw, 23px); font-weight: 500; letter-spacing: -.035em; line-height: 1.28; margin: 8px 0 10px; }
+.site-app .site-image-card p { color: #000; font-size: 14px; line-height: 1.7; margin: 0 0 12px; }
+.site-image-card .site-card-link { gap: 16px; line-height: 1.55; min-height: 44px; color: #000; }
+.site-image-card .site-card-link svg { flex-shrink: 0; }
+.site-image-card:focus-visible { outline: 3px solid #315f4c; outline-offset: 4px; }
+
+/* Compact artwork cards retain the existing service selector and reading order. */
+.site-app .site-condition-tabs .site-image-topic { position: relative; isolation: isolate; overflow: hidden; min-height: 104px; padding: 18px; border-radius: 19px; background: #fffdf7; }
+.site-image-topic .site-card-backdrop { display: block; z-index: -1; }
+.site-image-topic .site-card-backdrop img { width: 55%; margin-left: auto; object-fit: contain; object-position: right center; }
+.site-image-topic .site-card-backdrop::after { background: linear-gradient(90deg, #fffdf7 12%, #fffdf7f5 41%, #fffdf77a 78%); }
+.site-app .site-image-topic > .site-topic-title { display: block; position: relative; max-width: 78%; color: #000; font-size: 14px; font-weight: 500; }
+.site-app .site-condition-tabs .site-image-topic.is-active { border-color: #416b54; box-shadow: inset 0 -3px #416b54; }
+.site-image-topic.is-active .site-card-backdrop::after { background: linear-gradient(90deg, #e7efdf 12%, #e7efdff2 41%, #e7efdf80 78%); }
+@media (hover: hover) and (pointer: fine) {
+  .site-image-topic:hover .site-card-backdrop img { transform: scale(1.04); }
+}
+@media (max-width: 760px) {
+  .site-app .site-image-card .site-card-copy { padding: 15px 20px 17px; }
+  .site-app .site-care-browser .site-image-topic { flex-basis: min(246px, 78vw); min-height: 112px; padding: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-card-backdrop img { transition: none; }
+  .site-image-card:hover .site-card-backdrop img, .site-image-topic:hover .site-card-backdrop img { transform: none; }
+}

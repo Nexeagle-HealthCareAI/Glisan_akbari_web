@@ -6,6 +6,8 @@ import { HOMEPAGE_ADDRESS, HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
+import { ADDITIONAL_CARE_TOPICS, additionalTopicPath } from './additionalCareTopics';
+import { SERVICE_IMAGES } from './serviceImages';
 
 /**
  * Format phone number into clean E.164 international standard (+919234606330).
@@ -82,6 +84,29 @@ const BREADCRUMB_LABELS: Record<string, string> = {
  */
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
+  const additional = ADDITIONAL_CARE_TOPICS.find(topic => additionalTopicPath(topic) === normalizedPath);
+  const additionalDepartment = CARE_DEPARTMENTS.find(department => ['ent', 'general-medicine', 'anesthesiology'].includes(department.id)
+    && (additional?.departmentId === department.id || careDepartmentPath(department.id) === normalizedPath));
+  if (additionalDepartment) {
+    const pageUrl = getFullUrl(normalizedPath);
+    const departmentUrl = getFullUrl(careDepartmentPath(additionalDepartment.id));
+    const hospitalId = `${SITE_URL}/#hospital`;
+    return { '@context': 'https://schema.org', '@graph': [
+      { '@type': 'Hospital', '@id': hospitalId, name: HOSPITAL_NAME, url: getFullUrl('/'), telephone: formatInternationalPhone(HOSPITAL_PROFILE.phone) },
+      { '@type': 'MedicalWebPage', '@id': `${pageUrl}#webpage`, url: pageUrl,
+        name: additional?.title || additionalDepartment.label,
+        description: additional?.summary || `${additionalDepartment.label} care at ${HOSPITAL_NAME}`,
+        inLanguage: 'en-IN', publisher: { '@id': hospitalId },
+        ...(additional ? { image: getFullUrl(SERVICE_IMAGES[additional.id].social),
+          isPartOf: { '@id': `${departmentUrl}#webpage` }, citation: additional.references.map(reference => reference.url) } : {}) },
+      ...(!additional ? [{ '@type': 'ItemList', name: additionalDepartment.label + ' care topics',
+        itemListElement: ADDITIONAL_CARE_TOPICS.filter(topic => topic.departmentId === additionalDepartment.id).map((topic, index) => ({ '@type': 'ListItem', position: index + 1, name: topic.title, url: getFullUrl(additionalTopicPath(topic)) })) }] : []),
+      { '@type': 'BreadcrumbList', itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: getFullUrl('/') },
+        { '@type': 'ListItem', position: 2, name: additionalDepartment.label, item: departmentUrl },
+        ...(additional ? [{ '@type': 'ListItem', position: 3, name: additional.title, item: pageUrl }] : []) ] },
+    ] };
+  }
   const neurologyTopic = NEUROLOGY_TOPICS.find((topic) => neurologyTopicPath(topic) === normalizedPath);
   if (normalizedPath === NEUROLOGY_PATH || neurologyTopic) {
     const hospitalId = `${SITE_URL}/#hospital`;

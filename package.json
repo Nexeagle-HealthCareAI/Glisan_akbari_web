@@ -14,6 +14,7 @@
     "check:seo": "node --import tsx scripts/check-priority-seo.ts",
     "check:care": "node --import tsx scripts/check-care-updates.ts",
     "check:neurology": "node --import tsx scripts/check-neurology-seo.ts",
+    "check:services": "node --import tsx scripts/check-service-rollout.ts",
     "assets:neurology": "node --import tsx scripts/generate-neurology-artwork.ts",
     "assets:urology": "node --import tsx scripts/generate-urology-artwork.ts"
   },

@@ -21,6 +21,8 @@ import {
   hospitalMap,
 } from "../components/SiteDesign";
 
+import { DOCTORS_HERO_IMAGE, DOCTOR_PORTRAIT_IMAGE } from "../data/pageImages";
+import { ResponsiveCareImage } from "../components/ResponsiveCareImage";
 import { DoctorGoogleRating } from "../components/DoctorGoogleRating";
 
 export function DoctorsPage() {
@@ -28,6 +30,8 @@ export function DoctorsPage() {
     <>
       <PageHero
         label="Our doctors"
+        image={DOCTORS_HERO_IMAGE}
+        imageLayout="background"
         title="Real people."
         accent="Here for your questions."
         description="Meet the doctors at Glisan Akbari Super Speciality Hospital. Explore their areas of care and choose your consultation."
@@ -47,7 +51,7 @@ export function DoctorsPage() {
               <div className="site-doctor-card-top">
                 <span className="site-small-label">{d.department}</span>
                 {d.profileImage ? (
-                  <img className="site-avatar site-doctor-photo" src={d.profileImage} alt={`${d.name}, ${d.specialty}`} width="1122" height="1402" loading="lazy" />
+                  <span className="site-avatar site-doctor-photo"><ResponsiveCareImage image={{...DOCTOR_PORTRAIT_IMAGE, alt:`${d.name}, ${d.specialty}`}} sizes="80px" /></span>
                 ) : (
                   <span className="site-avatar" aria-hidden="true">{d.initials}</span>
                 )}
@@ -92,6 +96,8 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
     <>
       <PageHero
         label="Meet Dr. Noori"
+        image={DOCTOR_PORTRAIT_IMAGE}
+        imageCaption={DOCTOR_PROFILE.name}
         title="Meet your urologist."
         accent="Dr. Md Taquedis Noori."
         description={DOCTOR_PROFILE.professionalTitle}
@@ -107,7 +113,7 @@ export function DoctorProfilePage(_: { onOpenBooking?: () => void }) {
       <section className="site-section mm-wrap">
         <div className="site-profile-grid">
           <aside className="site-profile-card">
-            <img className="site-profile-emblem site-profile-photo" src={DOCTOR_PROFILE.profileImage} alt={`${DOCTOR_PROFILE.name}, ${DOCTOR_PROFILE.professionalTitle}`} width="1122" height="1402" loading="lazy" />
+            <span className="site-profile-emblem site-profile-photo"><ResponsiveCareImage image={DOCTOR_PORTRAIT_IMAGE} sizes="(max-width:760px) 220px, 300px" /></span>
             <p className="mm-kicker">YOUR CONSULTATION</p>
             <h2>{DOCTOR_PROFILE.name}</h2>
             <p>{DOCTOR_PROFILE.qualifications}</p>

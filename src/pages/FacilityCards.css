@@ -1,0 +1,15 @@
+.facility-card { position:relative; isolation:isolate; overflow:hidden; background:#f5f5ea; }
+.facility-card .site-card-backdrop { z-index:-1; bottom:auto; height:142px; border-radius:inherit; background:#edf3f3; }
+.facility-card .site-card-backdrop img { height:100%; width:100%; object-fit:contain; object-position:center; }
+.facility-card .site-card-backdrop::after { display:none; }
+.facility-card > :not(.site-card-backdrop) { position:relative; }
+.site-app .facility-card .facility-illustration-label { position:absolute; top:9px; right:9px; color:#173e35; background:#fffcf7e8; border:1px solid #d9e2d5; border-radius:5px; font-size:9px; padding:3px 7px; letter-spacing:.03em; }
+.site-app .site-care-choice.facility-card { gap:12px; padding:158px 20px 20px; }
+.site-app .site-stay-grid .facility-card { gap:13px; padding:158px 24px 24px; }
+.facility-card :is(h3,p,a,svg) { color:#000; }
+.facility-card h3 { color:#173e35; }
+.site-app .site-care-choice.facility-card h3 { font-size:19px; line-height:1.4; }
+@media(max-width:760px) {
+  .site-app .site-stay-grid .facility-card { padding:158px 21px 21px; }
+  .site-app .site-care-choice.facility-card { padding:158px 20px 20px; }
+}
