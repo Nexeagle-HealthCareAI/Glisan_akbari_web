@@ -20,7 +20,7 @@ function LegalLayout({ kind, title, intro, sections }: {
         <p className="mm-kicker">CLEAR INFORMATION. A LITTLE PEACE OF MIND.</p>
         <h1>{title}</h1>
         <p className="site-lead">{intro}</p>
-        <p className="site-legal-date">{kind === 'privacy' ? 'Website and enquiry information · Updated 16 November 2026' : 'Website information · Updated 19 October 2026'}</p>
+        <p className="site-legal-date">{kind === 'privacy' ? 'Website and enquiry information · Updated 16 November 2026' : 'Website information · Updated 16 November 2026'}</p>
       </header>
       <div className="site-legal-layout">
         <aside className="site-legal-nav">
@@ -69,11 +69,12 @@ export function PrivacyPolicyPage() {
 }
 
 export function TermsPage() {
-  return <LegalLayout kind="terms" title="Terms of use" intro="A clear guide to using this website, arranging a visit and understanding the role of our digital guide." sections={[
+  return <LegalLayout kind="terms" title="Terms of use" intro="A clear guide to using this website, messaging the hospital, arranging a visit and understanding the role of our digital guide." sections={[
     { id: 'website-purpose', title: 'About this website', content: <p>This website introduces {HOSPITAL_PROFILE.name}, its doctors and areas of care. It helps you explore services, contact the hospital and find the external appointment booking pages.</p> },
     { id: 'care-information', title: 'Information and your care', content: <><p>Service descriptions and illustrations provide general information. They do not diagnose a condition, recommend an individual treatment or replace a consultation with a qualified doctor.</p><p>Mimo is an illustrated digital guide, not a treating physician. Discuss your symptoms, reports and treatment choices with your doctor.</p></> },
     { id: 'appointment-details', title: 'Arranging an appointment', content: <><p>Choosing a doctor’s booking link takes you to Doctor Dekho. Review the provider’s appointment details and terms before confirming. Opening a booking link does not itself create or confirm an appointment.</p><p>Confirm doctor availability, timings, fees and any preparation with the booking provider or hospital before travelling. Contact them directly about changes, cancellations or payment questions.</p><Link className="mm-text-link" to="/doctors">Plan your appointment<ArrowUpRight size={17} /></Link></> },
-    { id: 'urgent-help', title: 'When you need urgent help', content: <p>This website is not monitored for emergency requests. If you need urgent medical attention, contact local emergency services or go to the nearest emergency department. Do not wait for an online appointment or website response.</p> },
+    { id: 'messages-and-enquiries', title: 'Messages and enquiry forms', content: <><p>You can also reach the hospital by WhatsApp, by a message to our Facebook Page or Instagram account, or through an enquiry form on one of our adverts. Hospital staff read and answer these during working hours, so a reply is not instant.</p><p>Sending a message or an enquiry form does not create or confirm an appointment. Your visit is arranged only when the hospital or the booking provider confirms it.</p><p>Our team can share general information by message, such as timings, directions and how to book. They cannot give a diagnosis or treatment advice by message. For that, please see a doctor.</p><Link className="mm-text-link" to="/privacy-policy">How we handle your messages<ArrowUpRight size={17} /></Link></> },
+    { id: 'urgent-help', title: 'When you need urgent help', content: <p>This website and our WhatsApp, Facebook and Instagram messages are not monitored for emergency requests. If you need urgent medical attention, contact local emergency services or go to the nearest emergency department. Do not wait for an online appointment, a website response or a reply to a message.</p> },
     { id: 'links-and-questions', title: 'Links, updates and questions', content: <><p>External booking and map services operate separately from this website. Their availability and terms may change. Hospital information can also change, so confirm details that matter to your visit with our team.</p><p>For questions about this website, call <a href={hospitalPhone}>{HOSPITAL_PROFILE.phone}</a> or visit our <Link to="/contact">contact page</Link>.</p></> },
   ]} />;
 }
