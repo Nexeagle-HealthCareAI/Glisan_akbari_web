@@ -100,7 +100,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
     path: '/privacy-policy',
     title: `Privacy Policy | ${DOCTOR_NAME} Urology Care`,
     description:
-      'Privacy policy and patient data confidentiality guidelines for website visitors and appointment booking.',
+      'How we handle information from this website and from WhatsApp, Facebook and Instagram messages and enquiry forms, and how to ask us to delete it.',
     canonical: getFullUrl('/privacy-policy'),
     url: getFullUrl('/privacy-policy'),
   },

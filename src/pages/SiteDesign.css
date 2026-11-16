@@ -2497,6 +2497,9 @@
 .site-legal-paper section > .site-small-label { display: block; margin-bottom: 10px; }
 .site-legal-paper h2 { font-size: 26px; }
 .site-legal-paper p + p { margin-top: 16px; }
+.site-legal-steps { list-style: decimal; margin: 16px 0; padding-left: 22px; display: grid; gap: 10px; }
+.site-legal-steps li { padding-left: 4px; }
+.site-legal-paper ol + p { margin-top: 16px; }
 .site-legal-paper a:not(.mm-text-link) { text-decoration: underline; text-underline-offset: 3px; }
 .site-legal-paper .mm-text-link { margin-top: 18px; font-size: 14px !important; }
 .site-legal-related { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 15px; font-size: 13px; }
