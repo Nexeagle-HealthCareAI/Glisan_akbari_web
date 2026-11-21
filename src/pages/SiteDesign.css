@@ -2658,9 +2658,6 @@
 @keyframes care-art-orbit { to { transform: rotate(360deg); } }
 @keyframes care-art-pulse { 0%, 100% { transform: scale(.9); opacity: .75; } 50% { transform: scale(1.1); opacity: 1; } }
 @keyframes care-art-drift { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
-@media (min-width: 1001px) {
-  .site-app .mm-doctor-video-slot { margin-top: 6px; height: 100%; min-height: 560px; }
-}
 @media (max-width: 1000px) {
   .site-app .site-header { flex-wrap: nowrap; height: 92px; min-height: 0; padding-block: 0; gap: 16px; }
   .site-app .site-nav { display: none; }
