@@ -1,0 +1,50 @@
+[
+  {
+    "id": "faq-1",
+    "category": "appointment",
+    "question": "How can I book an appointment with Dr. Md Taquedis Noori?",
+    "answer": "You can request an appointment through the online form on this website, call the hospital desk at 9234606330, or message via WhatsApp [PLACEHOLDER: INSERT WHATSAPP NUMBER]. Our team will connect with you to confirm your consultation slot."
+  },
+  {
+    "id": "faq-2",
+    "category": "hospital",
+    "question": "Where is Dr. Noori available for consultation?",
+    "answer": "Dr. Md Taquedis Noori consults at Glisan Akbari Super Speciality Hospital, situated on Dharamshala Road, Line Bazar, Purnia, Bihar 854301."
+  },
+  {
+    "id": "faq-3",
+    "category": "appointment",
+    "question": "What are the consultation timings?",
+    "answer": "[PLACEHOLDER: INSERT VERIFIED CONSULTATION DAYS AND TIMES]. Please call 9234606330 to confirm today’s available OPD schedule."
+  },
+  {
+    "id": "faq-4",
+    "category": "consultation",
+    "question": "What should I bring to my consultation?",
+    "answer": "Please bring your valid government identification, a notebook for doctor instructions, a list of current medications, and any past medical records or prescriptions."
+  },
+  {
+    "id": "faq-5",
+    "category": "consultation",
+    "question": "Do I need to carry previous medical reports and ultrasound scans?",
+    "answer": "Yes. Carrying prior lab tests, blood work, urine tests, ultrasound, CT scans, and discharge summaries helps the doctor assess your case thoroughly without repeating necessary tests."
+  },
+  {
+    "id": "faq-6",
+    "category": "hospital",
+    "question": "How can I reach Glisan Akbari Super Speciality Hospital in Purnia?",
+    "answer": "The hospital is centrally located in Line Bazar, Purnia, along Dharamshala Road. It is easily accessible by auto-rickshaw, taxi, or private vehicle from Purnia Junction and surrounding transit hubs."
+  },
+  {
+    "id": "faq-7",
+    "category": "medical",
+    "question": "What conditions does a urologist treat?",
+    "answer": "A urologist specializes in the medical and surgical management of conditions affecting the male and female urinary tract (kidneys, ureters, bladder, urethra) and the male reproductive system. [PLACEHOLDER: INSERT VERIFIED ANSWER for doctor-specific sub-specialties]."
+  },
+  {
+    "id": "faq-8",
+    "category": "appointment",
+    "question": "Does submitting the online appointment form guarantee my exact slot?",
+    "answer": "Submitting the form sends a priority booking request. Our hospital reception team will contact you promptly by phone to confirm the exact consultation time and ensure the doctor is available during your requested window."
+  }
+]
