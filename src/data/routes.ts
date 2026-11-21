@@ -1,4 +1,5 @@
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
+import { REDIRECT_CONTENT } from './content';
 
 export const ROUTE_REDIRECTS: Record<string, string> = {
   '/services': '/services/urologist-in-purnia',
@@ -11,7 +12,8 @@ export const ROUTE_REDIRECTS: Record<string, string> = {
   '/services/urinary-tract-infection-uti-hematuria-care': '/services/urine-infection-treatment-in-purnia',
   '/services/male-infertility-varicocele-repair': '/services/male-infertility-treatment-in-purnia',
   '/services/erectile-dysfunction-penile-implants': '/services/erectile-dysfunction-treatment-in-purnia',
-
+  // Pages moved from the CRM (content/redirects.json), for example an article whose web address changed.
+  ...Object.fromEntries(REDIRECT_CONTENT.map((r) => [r.from, r.to])),
 };
 
 // Resolve old links in one hop, retaining campaign parameters and anchors.

@@ -27,6 +27,10 @@ import { ContactPage } from "./pages/ContactPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
+import { CampsPage } from "./pages/CampsPage";
+import { PreviewPage } from "./pages/PreviewPage";
+import { NoticeBar } from "./components/SiteContentBlocks";
+import { UPCOMING_CAMPS } from "./data/content";
 import { ROUTE_REDIRECTS, getRouteRedirect } from "./data/routes";
 import { CARE_DEPARTMENTS, careDepartmentPath } from "./data/careDepartments";
 
@@ -79,6 +83,9 @@ export default function App() {
       {/* Dynamic SEO Title, Description, and Canonical URL synchronizer */}
       <PageMeta />
 
+      {/* Notices from the CRM (content/notices.json), only while current */}
+      {!location.pathname.startsWith("/preview") && <NoticeBar />}
+
       {/* Top Header */}
       <Header />
 
@@ -113,6 +120,8 @@ export default function App() {
           <Route path="/blogs" element={<BlogsPage />} />
           <Route path="/blogs/:slug" element={<BlogPostPage />} />
           <Route path="/faqs" element={<FaqPage />} />
+          {UPCOMING_CAMPS.length > 0 && <Route path="/health-camps" element={<CampsPage />} />}
+          <Route path="/preview" element={<PreviewPage />} />
           {Object.entries(ROUTE_REDIRECTS).map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate
               to={(getRouteRedirect(location.pathname, location.search) || to) + location.hash} replace />} />

@@ -7,6 +7,7 @@ import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
 import { ADDITIONAL_CARE_TOPICS, additionalTopicPath } from './additionalCareTopics';
+import { UPCOMING_CAMPS } from './content';
 import { SERVICE_IMAGES } from './serviceImages';
 
 /**
@@ -82,8 +83,21 @@ const BREADCRUMB_LABELS: Record<string, string> = {
  * Generates per-page Schema.org JSON-LD structured data with stable linked entities.
  * Includes Physician and Hospital on all pages, FAQPage on /faqs, and BreadcrumbList on all non-home pages.
  */
+/** Each upcoming health camp as an event, so search engines can show its date and place. */
+function campEvents() {
+  return { '@context': 'https://schema.org', '@graph': UPCOMING_CAMPS.map((c) => ({
+    '@type': 'Event', name: c.title, startDate: `${c.date}T${c.startTime}:00+05:30`, endDate: `${c.date}T${c.endTime}:00+05:30`,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode', eventStatus: 'https://schema.org/EventScheduled', description: c.description,
+    location: { '@type': 'Place', name: c.place, address: { '@type': 'PostalAddress', streetAddress: c.address || c.place, addressRegion: 'Bihar', addressCountry: 'IN' } },
+    organizer: { '@type': 'Hospital', name: HOSPITAL_NAME, url: getFullUrl('/'), telephone: formatInternationalPhone(HOSPITAL_PROFILE.phone) },
+    ...(c.free ? { isAccessibleForFree: true } : {}),
+    url: `${getFullUrl('/health-camps')}#${c.slug}`,
+  })) };
+}
+
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
+  if (normalizedPath === '/health-camps') return campEvents();
   const additional = ADDITIONAL_CARE_TOPICS.find(topic => additionalTopicPath(topic) === normalizedPath);
   const additionalDepartment = CARE_DEPARTMENTS.find(department => ['ent', 'general-medicine', 'anesthesiology'].includes(department.id)
     && (additional?.departmentId === department.id || careDepartmentPath(department.id) === normalizedPath));

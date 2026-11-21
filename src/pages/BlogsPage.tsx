@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight, BookOpen } from 'lucide-react';
-import { BLOG_CATEGORIES, BLOG_TOPICS, PUBLISHED_BLOG_POSTS, blogCategoryLabel, blogDate, blogReadingMinutes } from '../data/blogs';
+import { BLOG_CATEGORIES, BLOG_TOPICS, PUBLISHED_BLOG_POSTS, blogCategoryLabel, blogDate, blogReadingMinutes, type BlogPost } from '../data/blogs';
 import { careDepartmentPath } from '../data/careDepartments';
 import { BlogCard, BlogTopicCard } from '../components/BlogSection';
 import { NotFoundPage } from './NotFoundPage';
@@ -39,6 +39,11 @@ export function BlogPostPage() {
   const { slug } = useParams();
   const post = PUBLISHED_BLOG_POSTS.find((item) => item.slug === slug);
   if (!post) return <NotFoundPage />;
+  return <BlogArticle post={post} />;
+}
+
+/** One article, as the website shows it. Also used by the CRM's preview. */
+export function BlogArticle({ post }: { post: BlogPost }) {
   return (
     <article className="site-blog-article mm-wrap">
       <nav className="site-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><Link to="/blogs">Blogs</Link><span aria-hidden="true">/</span><span aria-current="page">Article</span></nav>

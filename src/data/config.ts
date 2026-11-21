@@ -1,7 +1,7 @@
 import { PRIORITY_UROLOGY } from './priorityUrology';
 import { SERVICE_IMAGES, type CareImage } from './serviceImages';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
-import { FAQ_CONTENT, SITE_CONTENT } from './content';
+import { DOCTOR_CONTENT, FAQ_CONTENT, SERVICE_OVERRIDES, SITE_CONTENT } from './content';
 
 /**
  * Centralized Business, Doctor, and Hospital Configuration
@@ -279,104 +279,14 @@ export interface DoctorListItem {
   practicesAtAddress?: string;
   initials?: string;
   avatarGradient?: string;
+  biography?: string;
 }
 
-export const DOCTORS: DoctorListItem[] = [
-  {
-    id: 'doc-1',
-    slug: 'dr-md-taquedis-noori',
-    name: DOCTOR_NAME,
-    label: `Google rating · ${DR_NOORI_GOOGLE_PROFILE.rating} ★`,
-    specialty: 'Urology',
-    department: 'Urology',
-    qualifications: 'MBBS, MS(Gen. Surgery), MCh Urology',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: DOCTOR_EXPERIENCE,
-    profileImagePlaceholder: 'Dr. Md Taquedis Noori, MBBS, MS, MCh',
-    profileImage: DOCTOR_PROFILE.profileImage,
-    consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
-    languages: 'English, Bengali, Urdu, Hindi',
-    isClickable: true,
-    bookingUrl: DR_NOORI_BOOKING_URL,
-    rating: DR_NOORI_GOOGLE_PROFILE.rating,
-    reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount,
-    isVerified: true,
-    focusAreas: [
-      'Andrologist',
-      'Consultant Urologist',
-      'Laproscopic and kidney Transplant Surgeon',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'MT',
-    avatarGradient: 'from-amber-500 to-orange-500',
-  },
-  {
-    id: 'doc-2',
-    name: 'Dr Aziz Ahmed',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'Anesthesiology',
-    department: 'Anesthesiology',
-    qualifications: 'MBBS, MD',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Aziz Ahmed, MBBS, MD',
-    consultationTimings: 'Mon - Sat: On Call & Pre-Operative Assessment',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_AZIZ_AHMED_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Intensive Critical Care',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AA',
-    avatarGradient: 'from-sky-500 to-blue-500',
-  },
-  {
-    id: 'doc-3',
-    name: 'Dr Asif Iqbal',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'Neurology',
-    department: 'Neurology',
-    qualifications: 'MBBS, MS(Gen. Surgeon), MCh',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Asif Iqbal, MBBS, MS, MCh (Neurology)',
-    consultationTimings: 'Mon - Sat: On Call & Prior Appointment via DoctorDekho',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_ASIF_IQBAL_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Consultant Neurosurgeon',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AI',
-    avatarGradient: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 'doc-4',
-    name: 'Dr Anwar Kabir',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'ENT',
-    department: 'ENT',
-    qualifications: 'MBBS, MS ENT',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Anwar Kabir, MBBS, MS ENT',
-    consultationTimings: 'Mon - Sat: On Call & Prior Appointment via DoctorDekho',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_ANWAR_KABIR_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Ear, Nose & Throat (ENT)',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AK',
-    avatarGradient: 'from-teal-500 to-emerald-500',
-  },
-];
+// The doctors live in content/doctors.json (edited from the CRM's Website page, or by hand).
+// Dr Noori's rating always follows his Google profile snapshot above.
+export const DOCTORS: DoctorListItem[] = DOCTOR_CONTENT.map((d) => d.slug === 'dr-md-taquedis-noori'
+  ? { ...d, label: `Google rating · ${DR_NOORI_GOOGLE_PROFILE.rating} ★`, rating: DR_NOORI_GOOGLE_PROFILE.rating, reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount }
+  : d);
 
 export const TRUST_STRIP_DATA: TrustStripData = {
   googleRating: String(DR_NOORI_GOOGLE_PROFILE.rating),
@@ -482,7 +392,8 @@ export const PATIENT_CONDITIONS: PatientConditionItem[] = [
   },
 ];
 
-export const UROLOGY_SERVICES: UrologyServiceItem[] = [
+/** The service pages as written in code; text changed from the CRM (content/services.json) is laid over them below. */
+export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
   PRIORITY_UROLOGY['srv-1'],
   PRIORITY_UROLOGY['srv-2'],
   PRIORITY_UROLOGY['srv-3'],
@@ -992,6 +903,8 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
     seoDescription: 'Pediatric pyeloplasty, hypospadias, and undescended testis surgery in Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Hospital.'
   }
 ];
+
+export const UROLOGY_SERVICES: UrologyServiceItem[] = BASE_UROLOGY_SERVICES.map((service) => ({ ...service, ...SERVICE_OVERRIDES[service.id] }));
 
 export const WHY_CHOOSE_REASONS: WhyChooseReason[] = [
   {

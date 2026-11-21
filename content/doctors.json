@@ -1,0 +1,96 @@
+[
+  {
+    "id": "doc-1",
+    "slug": "dr-md-taquedis-noori",
+    "name": "Dr. Md Taquedis Noori",
+    "label": "Google rating · 4.8 ★",
+    "specialty": "Urology",
+    "department": "Urology",
+    "qualifications": "MBBS, MS(Gen. Surgery), MCh Urology",
+    "medicalRegistration": "Verified Profile",
+    "yearsOfExperience": "10+ years of experience",
+    "profileImagePlaceholder": "Dr. Md Taquedis Noori, MBBS, MS, MCh",
+    "profileImage": "/media/dr-md-taquedis-noori.png",
+    "consultationTimings": "Mon - Sat: Prior Appointment via DoctorDekho",
+    "languages": "English, Bengali, Urdu, Hindi",
+    "isClickable": true,
+    "bookingUrl": "https://doctordekho.nexeagle.com/doctors/dr-md-taquedis-noori-urology-purnea--f7445125-df8b-45d9-9441-fc2a47208caa",
+    "rating": 4.8,
+    "reviewCount": 343,
+    "isVerified": true,
+    "focusAreas": [
+      "Andrologist",
+      "Consultant Urologist",
+      "Laproscopic and kidney Transplant Surgeon"
+    ],
+    "practicesAtAddress": "Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnia, Bihar 854301",
+    "initials": "MT",
+    "avatarGradient": "from-amber-500 to-orange-500"
+  },
+  {
+    "id": "doc-2",
+    "name": "Dr Aziz Ahmed",
+    "label": "Verified Doctor · 10 Yrs Exp",
+    "specialty": "Anesthesiology",
+    "department": "Anesthesiology",
+    "qualifications": "MBBS, MD",
+    "medicalRegistration": "Verified Profile",
+    "yearsOfExperience": "10 years experience",
+    "profileImagePlaceholder": "Dr Aziz Ahmed, MBBS, MD",
+    "consultationTimings": "Mon - Sat: On Call & Pre-Operative Assessment",
+    "languages": "English, Hindi, Urdu",
+    "isClickable": false,
+    "bookingUrl": "https://doctordekho.nexeagle.com/doctors/dr-aziz-ahmed-anesthesiology-purnea--4069bdb7-8822-4ee1-838f-28c164a4af2b",
+    "isVerified": true,
+    "focusAreas": [
+      "Intensive Critical Care"
+    ],
+    "practicesAtAddress": "Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnia, Bihar 854301",
+    "initials": "AA",
+    "avatarGradient": "from-sky-500 to-blue-500"
+  },
+  {
+    "id": "doc-3",
+    "name": "Dr Asif Iqbal",
+    "label": "Verified Doctor · 10 Yrs Exp",
+    "specialty": "Neurology",
+    "department": "Neurology",
+    "qualifications": "MBBS, MS(Gen. Surgeon), MCh",
+    "medicalRegistration": "Verified Profile",
+    "yearsOfExperience": "10 years experience",
+    "profileImagePlaceholder": "Dr Asif Iqbal, MBBS, MS, MCh (Neurology)",
+    "consultationTimings": "Mon - Sat: On Call & Prior Appointment via DoctorDekho",
+    "languages": "English, Hindi, Urdu",
+    "isClickable": false,
+    "bookingUrl": "https://doctordekho.nexeagle.com/doctors/dr-asif-iqbal-neurology-purnea--9b82c587-060b-4f96-9c19-c6fcb282cd65",
+    "isVerified": true,
+    "focusAreas": [
+      "Consultant Neurosurgeon"
+    ],
+    "practicesAtAddress": "Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnia, Bihar 854301",
+    "initials": "AI",
+    "avatarGradient": "from-purple-500 to-indigo-600"
+  },
+  {
+    "id": "doc-4",
+    "name": "Dr Anwar Kabir",
+    "label": "Verified Doctor · 10 Yrs Exp",
+    "specialty": "ENT",
+    "department": "ENT",
+    "qualifications": "MBBS, MS ENT",
+    "medicalRegistration": "Verified Profile",
+    "yearsOfExperience": "10 years experience",
+    "profileImagePlaceholder": "Dr Anwar Kabir, MBBS, MS ENT",
+    "consultationTimings": "Mon - Sat: On Call & Prior Appointment via DoctorDekho",
+    "languages": "English, Hindi, Urdu",
+    "isClickable": false,
+    "bookingUrl": "https://doctordekho.nexeagle.com/doctors/dr-anwar-kabir-ent-purnea--2c9b0613-120d-4edd-883c-d8f56dd51e48",
+    "isVerified": true,
+    "focusAreas": [
+      "Ear, Nose & Throat (ENT)"
+    ],
+    "practicesAtAddress": "Glisan Akbari Super Speciality Hospital, Dharamshala Road, Line Bazar, Purnia, Bihar 854301",
+    "initials": "AK",
+    "avatarGradient": "from-teal-500 to-emerald-500"
+  }
+]
