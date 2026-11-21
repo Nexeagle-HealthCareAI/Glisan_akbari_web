@@ -2,7 +2,7 @@ import { useEffect, type RefObject } from 'react';
 
 const revealSelectors = [
   '.site-hero > div:first-child', '.site-hero > .site-guide', '.site-service-feature',
-  '.mm-hero-copy', '.mm-doctor-video-slot', '.mm-hero-details',
+  '.mm-hero-copy', '.mm-hero-details',
   '.mm-welcome-inner > div', '.mm-section-heading', '.site-section-heading',
   '.site-section > h2', '.site-directory-intro', '.site-blog-intro',
   '.site-card-grid > *', '.site-doctor-grid > *', '.site-blog-grid > *',
@@ -45,7 +45,7 @@ export function usePageMotion(root: RefObject<HTMLDivElement | null>, route: str
         if (paused || media.matches || document.hidden || typeof target.animate !== 'function') continue;
         const siblings = target.parentElement?.children;
         const index = siblings ? Array.from(siblings).indexOf(target) : 0;
-        const isArt = target.matches('.site-guide, .site-service-feature, .mm-visit-scene, .mm-doctor-video-slot, .kidney-hero-art');
+        const isArt = target.matches('.site-guide, .site-service-feature, .mm-visit-scene, .kidney-hero-art');
         const animation = target.animate([
           { opacity: 0, transform: `translate3d(0, ${isArt ? 34 : 24}px, 0)${isArt ? ' scale(.96)' : ''}` },
           { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' },

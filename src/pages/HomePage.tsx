@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight, Phone, MapPin, MessageCircle, Navigation, Video } from 'lucide-react';
+import { ArrowUpRight, ArrowRight, Phone, MapPin, MessageCircle, Navigation } from 'lucide-react';
 import { DOCTOR_PROFILE, HOSPITAL_PROFILE } from '../data/config';
 import { MimoGuide } from '../components/MimoGuide';
 import { useSiteMotion, hospitalMap, hospitalPhone } from '../components/SiteDesign';
 import { HospitalFeedback } from '../components/HospitalFeedback';
 import { HomeCareSection } from '../components/HomeCareSection';
+import { HomeHeroBackground } from '../components/HomeHeroBackground';
 import { BlogSection } from '../components/BlogSection';
 import { HOMEPAGE_LOCATION } from '../data/homepageSeo';
 import './HomePage.css';
@@ -17,30 +18,28 @@ export const HomePage: React.FC<HomePageProps> = ({ onOpenBooking }) => {
   const map = hospitalMap;
   return <div className="mm-home" data-motion={paused ? 'paused' : 'playing'}>
     <div id="home-content">
-      <section className="mm-hero mm-wrap" aria-labelledby="hero-title">
-        <div className="mm-hero-copy">
-          <div className="mm-kicker"><span aria-hidden="true" /> CARE THAT CONNECTS</div>
-          <h1 id="hero-title" className="mm-home-heading">Super Speciality Hospital in <span className="mm-highlight">Purnea<svg viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true"><path d="M5 15Q180-4 392 12" /></svg></span></h1>
-          <p>Glisan Akbari is a multispeciality hospital in Purnea, Bihar, on Dharamshala Road, Line Bazar. Meet our doctors and explore care for your next visit.</p>
-        </div>
-        <div className="mm-doctor-video-slot" role="group" aria-label="Placeholder reserved for a future real doctor introduction video">
-          <div className="mm-video-slot-top"><span><i /> THE HUMAN SIDE OF CARE</span><Video size={19} /></div>
-          <div className="mm-video-empty"><span className="mm-placeholder-ring"><Video size={36} strokeWidth={1.1} /></span><span>Doctor introduction video</span><small>Coming here soon</small></div>
-          <div className="mm-video-slot-bottom"><span>A conversation with your doctor.</span><span>01 / INTRODUCTION</span></div>
-        </div>
-        <div className="mm-hero-details">
-          <div className="mm-hero-doctor">
-            <span className="mm-kicker">YOUR CONSULTATION</span>
-            <h2>{DOCTOR_PROFILE.name}</h2>
-            <p>{DOCTOR_PROFILE.professionalTitle}</p>
-            <p className="mm-hero-credentials">{DOCTOR_PROFILE.qualifications}</p>
-            <p className="mm-hero-experience">{DOCTOR_PROFILE.yearsOfExperience}</p>
-            <p className="mm-hero-languages">Hindi · English · Bengali · Urdu</p>
-            <div className="mm-hero-doctor-links"><Link to="/doctors/dr-md-taquedis-noori" className="mm-text-link">Meet Dr. Noori <ArrowUpRight size={16} /></Link><Link to="/doctors" className="mm-text-link">All doctors <ArrowRight size={16} /></Link></div>
+      <section className="mm-home-hero" aria-labelledby="hero-title">
+        <div className="mm-hero mm-wrap">
+          <div className="mm-hero-copy">
+            <div className="mm-kicker"><span aria-hidden="true" /> CARE THAT CONNECTS</div>
+            <h1 id="hero-title" className="mm-home-heading">Super Speciality Hospital in <span className="mm-highlight">Purnea<svg viewBox="0 0 400 22" preserveAspectRatio="none" aria-hidden="true"><path d="M5 15Q180-4 392 12" /></svg></span></h1>
+            <p>Glisan Akbari is a multispeciality hospital in Purnea, Bihar, on Dharamshala Road, Line Bazar. Meet our doctors and explore care for your next visit.</p>
           </div>
-          <HospitalFeedback />
-          <div className="mm-hero-ctas"><button className="mm-button" onClick={onOpenBooking}>Book appointment <ArrowUpRight size={18} /></button><a href={phone} className="mm-text-link"><Phone size={17} /> Talk to our team</a></div>
-          <a className="mm-scroll-cue" href="#meet-mimo"><span>↓</span> A friend to guide you along the way</a>
+          <HomeHeroBackground />
+          <div className="mm-hero-details">
+            <div className="mm-hero-doctor">
+              <span className="mm-kicker">YOUR CONSULTATION</span>
+              <h2>{DOCTOR_PROFILE.name}</h2>
+              <p>{DOCTOR_PROFILE.professionalTitle}</p>
+              <p className="mm-hero-credentials">{DOCTOR_PROFILE.qualifications}</p>
+              <p className="mm-hero-experience">{DOCTOR_PROFILE.yearsOfExperience}</p>
+              <p className="mm-hero-languages">Hindi · English · Bengali · Urdu</p>
+              <div className="mm-hero-doctor-links"><Link to="/doctors/dr-md-taquedis-noori" className="mm-text-link">Meet Dr. Noori <ArrowUpRight size={16} /></Link><Link to="/doctors" className="mm-text-link">All doctors <ArrowRight size={16} /></Link></div>
+            </div>
+            <HospitalFeedback />
+            <div className="mm-hero-ctas"><button className="mm-button" onClick={onOpenBooking}>Book appointment <ArrowUpRight size={18} /></button><a href={phone} className="mm-text-link"><Phone size={17} /> Talk to our team</a></div>
+            <a className="mm-scroll-cue" href="#meet-mimo"><span>↓</span> A friend to guide you along the way</a>
+          </div>
         </div>
       </section>
 
