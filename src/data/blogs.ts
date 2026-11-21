@@ -1,19 +1,7 @@
 import { CARE_DEPARTMENTS } from './careDepartments';
-import { BLOG_CONTENT } from './content';
+import { BLOG_CONTENT, type BlogContent } from './content';
 
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  departmentId: string;
-  status: 'draft' | 'published';
-  publishedAt: string; // YYYY-MM-DD; shown as the actual publication date.
-  author: string;
-  reviewedBy?: string;
-  image?: { src: string; alt: string };
-  sections: { heading: string; paragraphs: string[]; points?: string[] }[];
-  references?: { label: string; url: string }[];
-};
+export type BlogPost = BlogContent;
 
 export const BLOG_CATEGORIES = CARE_DEPARTMENTS.map(({ id, label }) => ({
   id,

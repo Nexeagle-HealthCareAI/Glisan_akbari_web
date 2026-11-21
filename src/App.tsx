@@ -28,9 +28,10 @@ import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsPage } from "./pages/TermsPage";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { CampsPage } from "./pages/CampsPage";
+import { AreasPage, AreaPage } from "./pages/AreasPage";
 import { PreviewPage } from "./pages/PreviewPage";
 import { NoticeBar } from "./components/SiteContentBlocks";
-import { UPCOMING_CAMPS } from "./data/content";
+import { LOCATION_CONTENT, UPCOMING_CAMPS } from "./data/content";
 import { ROUTE_REDIRECTS, getRouteRedirect } from "./data/routes";
 import { CARE_DEPARTMENTS, careDepartmentPath } from "./data/careDepartments";
 
@@ -122,6 +123,8 @@ export default function App() {
           <Route path="/faqs" element={<FaqPage />} />
           {UPCOMING_CAMPS.length > 0 && <Route path="/health-camps" element={<CampsPage />} />}
           <Route path="/preview" element={<PreviewPage />} />
+          {LOCATION_CONTENT.length > 0 && <Route path="/areas" element={<AreasPage />} />}
+          {LOCATION_CONTENT.length > 0 && <Route path="/areas/:slug" element={<AreaPage />} />}
           {Object.entries(ROUTE_REDIRECTS).map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate
               to={(getRouteRedirect(location.pathname, location.search) || to) + location.hash} replace />} />

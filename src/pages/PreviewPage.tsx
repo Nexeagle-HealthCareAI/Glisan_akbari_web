@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { BlogArticle } from './BlogsPage';
+import { AreaArticle } from './AreasPage';
 import { ServicePage } from './ServicePage';
 import { urologyServiceContent } from '../data/servicePageContent';
 import { BASE_UROLOGY_SERVICES } from '../data/config';
 import { CampCard, NoticeBar, TestimonialCard } from '../components/SiteContentBlocks';
-import type { BlogContent, CampContent, NoticeContent, ServiceOverride, TestimonialContent, DoctorContent, FaqContent } from '../data/content';
+import type { BlogContent, CampContent, NoticeContent, ServiceOverride, TestimonialContent, DoctorContent, FaqContent, LocationContent } from '../data/content';
 
 /** Where the CRM serves previews. Only this address is ever asked, whatever the link says. */
 const PREVIEW_API = (import.meta.env?.VITE_PREVIEW_API as string | undefined) || 'https://nexmarket-api.nexeagle.com';
@@ -16,7 +17,8 @@ type Preview =
   | { type: 'notice'; title: string; data: NoticeContent }
   | { type: 'testimonial'; title: string; data: TestimonialContent }
   | { type: 'doctor'; title: string; data: DoctorContent }
-  | { type: 'faq'; title: string; data: FaqContent };
+  | { type: 'faq'; title: string; data: FaqContent }
+  | { type: 'location'; title: string; data: LocationContent };
 
 /**
  * Shows a page from the CRM that is not published yet, in the website's real design. The link carries a short-lived
@@ -47,6 +49,7 @@ export function PreviewPage() {
       {state.status === 'loading' && <p className="mm-wrap site-section site-lead">Loading the preview…</p>}
       {state.status === 'error' && <div className="mm-wrap site-section"><h1>Preview</h1><p className="site-lead">{state.message}</p></div>}
       {p?.type === 'article' && <BlogArticle post={p.data} />}
+      {p?.type === 'location' && <AreaArticle area={p.data} />}
       {p?.type === 'service' && <ServicePreview data={p.data} />}
       {p?.type === 'notice' && <><NoticeBar notices={[p.data]} preview /><div className="mm-wrap site-section"><h1>Notice</h1><p className="site-lead">The notice shows like this at the top of every page while it is current.</p></div></>}
       {p?.type === 'camp' && <div className="mm-wrap site-section"><h1>Health camps</h1><div className="site-camp-grid"><CampCard camp={p.data} /></div></div>}

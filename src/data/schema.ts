@@ -7,7 +7,7 @@ import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
 import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
 import { ADDITIONAL_CARE_TOPICS, additionalTopicPath } from './additionalCareTopics';
-import { UPCOMING_CAMPS } from './content';
+import { LOCATION_CONTENT, UPCOMING_CAMPS } from './content';
 import { SERVICE_IMAGES } from './serviceImages';
 
 /**
@@ -98,6 +98,8 @@ function campEvents() {
 export function generatePageSchema(path: string) {
   const normalizedPath = path === '/' ? '/' : path.replace(/\/+$/, '');
   if (normalizedPath === '/health-camps') return campEvents();
+  const area = normalizedPath.startsWith('/areas/') ? LOCATION_CONTENT.find((l) => `/areas/${l.slug}` === normalizedPath) : undefined;
+  if (area?.faqs?.length) return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: area.faqs.map((f) => ({ '@type': 'Question', name: f.question, acceptedAnswer: { '@type': 'Answer', text: f.answer } })) };
   const additional = ADDITIONAL_CARE_TOPICS.find(topic => additionalTopicPath(topic) === normalizedPath);
   const additionalDepartment = CARE_DEPARTMENTS.find(department => ['ent', 'general-medicine', 'anesthesiology'].includes(department.id)
     && (additional?.departmentId === department.id || careDepartmentPath(department.id) === normalizedPath));

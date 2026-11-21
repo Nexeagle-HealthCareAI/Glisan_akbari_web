@@ -14,6 +14,7 @@ import noticesJson from '../../content/notices.json';
 import testimonialsJson from '../../content/testimonials.json';
 import servicesJson from '../../content/services.json';
 import redirectsJson from '../../content/redirects.json';
+import locationsJson from '../../content/locations.json';
 
 export type SiteContent = {
   phone: string;
@@ -42,9 +43,28 @@ export type BlogContent = {
   publishedAt: string;
   author: string;
   reviewedBy?: string;
+  /** The day the reviewer last approved it (YYYY-MM-DD). */
+  reviewedOn?: string;
+  /** "hi" or "bn" for a Hindi or Bengali version; English when absent. */
+  language?: 'hi' | 'bn';
+  /** The address of the English article this translates. */
+  translationOf?: string;
   image?: { src: string; alt: string };
   sections: { heading: string; paragraphs: string[]; points?: string[] }[];
   references?: { label: string; url: string }[];
+  related?: { label: string; href: string }[];
+};
+
+/** A page for a town or area the hospital serves, at /areas/<slug>. */
+export type LocationContent = {
+  slug: string;
+  town: string;
+  district?: string;
+  intro: string;
+  howToReach: string;
+  distance?: string;
+  services?: string[];
+  faqs?: { question: string; answer: string }[];
 };
 
 export type DoctorContent = {
@@ -173,6 +193,9 @@ function checkBlog(raw: unknown): BlogContent[] {
     if (p.status !== 'draft' && p.status !== 'published') fail('blog.json', `${where} needs "status" to be "draft" or "published".`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(String(p.publishedAt)) || Number.isNaN(Date.parse(`${p.publishedAt}T00:00:00Z`))) fail('blog.json', `${where} needs "publishedAt" as a real date, YYYY-MM-DD.`);
     if (p.reviewedBy !== undefined && !text(p.reviewedBy)) fail('blog.json', `${where} has an empty "reviewedBy"; remove it or name the reviewer.`);
+    if (p.reviewedOn !== undefined && !/^\d{4}-\d{2}-\d{2}$/.test(String(p.reviewedOn))) fail('blog.json', `${where}: "reviewedOn" must be YYYY-MM-DD.`);
+    if (p.language !== undefined && p.language !== 'hi' && p.language !== 'bn') fail('blog.json', `${where}: "language" must be "hi" or "bn" (leave it out for English).`);
+    if (p.related !== undefined && !(list(p.related) && p.related.every((r) => text((r as Record<string, unknown>)?.label) && /^\/[a-z0-9\-/#]*$/.test(String((r as Record<string, unknown>)?.href))))) fail('blog.json', `${where}: each related link needs a "label" and an "href" on this site, like "/blogs/kidney-stones".`);
     if (p.image !== undefined) {
       const img = (p.image ?? {}) as Record<string, unknown>;
       if (!text(img.src) || !String(img.src).startsWith('/')) fail('blog.json', `${where}: the image "src" must be a path on this site starting with "/".`);
@@ -312,6 +335,22 @@ function checkRedirects(raw: unknown): RedirectContent[] {
   return raw as RedirectContent[];
 }
 
+function checkLocations(raw: unknown): LocationContent[] {
+  if (!list(raw)) return fail('locations.json', 'must be a list of areas.');
+  const seen = new Set<string>();
+  raw.forEach((item, i) => {
+    const l = (item ?? {}) as Record<string, unknown>;
+    const where = text(l.town) ? `area "${l.town}"` : `area ${i + 1}`;
+    if (!text(l.slug) || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(String(l.slug))) fail('locations.json', `${where} needs a "slug" in lowercase letters, numbers and hyphens.`);
+    if (seen.has(String(l.slug))) fail('locations.json', `two areas share the slug "${l.slug}".`);
+    seen.add(String(l.slug));
+    (['town', 'intro', 'howToReach'] as const).forEach((k) => { if (!text(l[k])) fail('locations.json', `${where} has no "${k}".`); });
+    if (l.services !== undefined && !texts(l.services)) fail('locations.json', `${where}: "services" must be a list of text.`);
+    if (l.faqs !== undefined && !(list(l.faqs) && l.faqs.every((f) => text((f as Record<string, unknown>)?.question) && text((f as Record<string, unknown>)?.answer)))) fail('locations.json', `${where}: each question needs a "question" and an "answer".`);
+  });
+  return raw as LocationContent[];
+}
+
 export const SITE_CONTENT = checkSite(siteJson);
 export const FAQ_CONTENT = checkFaqs(faqsJson);
 export const BLOG_CONTENT = checkBlog(blogJson);
@@ -321,6 +360,7 @@ export const NOTICE_CONTENT = checkNotices(noticesJson);
 export const TESTIMONIAL_CONTENT = checkTestimonials(testimonialsJson);
 export const SERVICE_OVERRIDES = checkServices(servicesJson);
 export const REDIRECT_CONTENT = checkRedirects(redirectsJson);
+export const LOCATION_CONTENT = checkLocations(locationsJson);
 
 /** The site is built ahead of time, so "today" is the day of the build (India time); pages also re-check in the browser. */
 export const BUILD_DAY = new Date(Date.now() + 5.5 * 3600 * 1000).toISOString().slice(0, 10);

@@ -45,17 +45,19 @@ export function BlogPostPage() {
 /** One article, as the website shows it. Also used by the CRM's preview. */
 export function BlogArticle({ post }: { post: BlogPost }) {
   return (
-    <article className="site-blog-article mm-wrap">
+    <article className="site-blog-article mm-wrap" lang={post.language ?? undefined}>
       <nav className="site-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><Link to="/blogs">Blogs</Link><span aria-hidden="true">/</span><span aria-current="page">Article</span></nav>
       <header>
         <p className="mm-kicker">{blogCategoryLabel(post.departmentId).toUpperCase()}</p>
         <h1>{post.title}</h1><p className="site-lead">{post.excerpt}</p>
         <div className="site-blog-meta"><span>By {post.author}</span><time dateTime={post.publishedAt}>{blogDate(post.publishedAt)}</time><span>{blogReadingMinutes(post)} min read</span></div>
-        {post.reviewedBy && <p className="site-blog-reviewer">Medically reviewed by {post.reviewedBy}</p>}
+        {post.reviewedBy && <p className="site-blog-reviewer">Medically reviewed by {post.reviewedBy}{post.reviewedOn && <> on <time dateTime={post.reviewedOn}>{blogDate(post.reviewedOn)}</time></>}</p>}
+        {post.translationOf && <p className="site-blog-reviewer" lang="en"><Link to={`/blogs/${post.translationOf}`}>Read this in English</Link></p>}
         {post.image && <img className="site-blog-article-cover" src={post.image.src} alt={post.image.alt} width="1080" height="720" />}
       </header>
       <div className="site-blog-body">
         {post.sections.map((section, index) => <section key={index}><h2>{section.heading}</h2>{section.paragraphs.map((paragraph, i) => <p key={i}>{paragraph}</p>)}{section.points && <ul>{section.points.map((point, i) => <li key={i}>{point}</li>)}</ul>}</section>)}
+        {post.related && post.related.length > 0 && <section lang="en"><h2>Related reading</h2><ul>{post.related.map((r) => <li key={r.href}><Link to={r.href}>{r.label}</Link></li>)}</ul></section>}
         {post.references && post.references.length > 0 && <section><h2>Sources & further reading</h2><ul>{post.references.map((source) => <li key={source.url}><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul></section>}
       </div>
       <div className="site-blog-article-footer"><Link to="/blogs" className="mm-text-link"><ArrowLeft size={17} /> All articles</Link><Link to={careDepartmentPath(post.departmentId)} className="mm-text-link">Explore {blogCategoryLabel(post.departmentId)} <ArrowUpRight size={17} /></Link></div>
