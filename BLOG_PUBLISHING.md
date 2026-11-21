@@ -1,33 +1,34 @@
 # Publishing a blog article
 
-The homepage journal, `/blogs` filters and individual article pages share `src/data/blogs.ts`.
-This is a code-managed blog. There is no admin login or CMS in this change.
+The homepage journal, `/blogs` filters and individual article pages share the articles in `content/blog.json`.
+Articles are data, not code. The NexMarket CRM's Website page writes this file when an article is published there; it can also be edited by hand. `content/README.md` lists the rules the build checks.
 No articles have been published yet; topic cards are explicitly marked “Coming soon”.
 
 ## Add an article
 
-Add a `BlogPost` object to `BLOG_POSTS` in `src/data/blogs.ts`. Use a unique lowercase, hyphen-separated `slug` (no slashes, spaces, query strings or hashes). The URL will be `/blogs/your-slug`.
+Add an article to the list in `content/blog.json`. Use a unique lowercase, hyphen-separated `slug` (no slashes, spaces, query strings or hashes). The URL will be `/blogs/your-slug`.
 
-```ts
+```json
 {
-  slug: 'your-article-slug',
-  title: 'Your approved article title',
-  excerpt: 'A short, accurate summary for the card and search description.',
-  departmentId: 'urology',
-  status: 'draft',
-  publishedAt: '2026-10-27', // Replace with the actual publication date.
-  author: 'Actual author name',
-  // reviewedBy: 'Actual clinician who reviewed this article',
-  // image: { src: '/media/blogs/your-image.jpg', alt: 'Describe the image' },
-  sections: [
-    { heading: 'Section heading', paragraphs: ['Approved paragraph text.'] },
-    { heading: 'Questions for your doctor', paragraphs: [], points: ['Approved question.'] },
+  "slug": "your-article-slug",
+  "title": "Your approved article title",
+  "excerpt": "A short, accurate summary for the card and search description.",
+  "departmentId": "urology",
+  "status": "draft",
+  "publishedAt": "2026-10-27",
+  "author": "Actual author name",
+  "reviewedBy": "Actual clinician who reviewed this article",
+  "image": { "src": "/media/blogs/your-image.jpg", "alt": "Describe the image" },
+  "sections": [
+    { "heading": "Section heading", "paragraphs": ["Approved paragraph text."] },
+    { "heading": "Questions for your doctor", "paragraphs": [], "points": ["Approved question."] }
   ],
-  // references: [{ label: 'Source title', url: 'https://authoritative-source-url' }],
+  "references": [{ "label": "Source title", "url": "https://authoritative-source-url" }]
 }
 ```
 
 Department IDs: `urology`, `ent`, `general-medicine`, `anesthesiology`, `neurology`.
+`reviewedBy`, `image` and `references` are optional: leave a key out when it does not apply.
 `author` and `reviewedBy` are separate: only include a reviewer when the review actually happened.
 Add sources for medical claims and obtain the hospital's review before publishing.
 

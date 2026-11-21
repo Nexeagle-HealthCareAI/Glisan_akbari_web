@@ -8,6 +8,7 @@ import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS } fro
 import { HOMEPAGE_SEO } from '../src/data/homepageSeo';
 import { SHARED_SOCIAL_IMAGE_ALT } from '../src/data/mediaDescriptions';
 import { CARE_DEPARTMENTS, careDepartmentPath } from '../src/data/careDepartments';
+import { UROLOGY_SERVICES } from '../src/data/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -85,9 +86,14 @@ async function prerender() {
       pageHtml = pageHtml.replace(/<meta\s+name="robots"\s+content="noindex,\s*nofollow"\s*\/?>\n?/gi, '');
     }
 
-    // 5. Canonical URL
+    // 5. Canonical URL (a page without one, like the CRM preview shell, gets none)
+    if (!seo.canonical) {
+      pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>\n?/i, '');
+    }
     const canonicalTag = `<link rel="canonical" href="${seo.canonical}" />`;
-    if (pageHtml.includes('rel="canonical"')) {
+    if (!seo.canonical) {
+      // no canonical
+    } else if (pageHtml.includes('rel="canonical"')) {
       pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, canonicalTag);
     } else {
       pageHtml = pageHtml.replace('</head>', `  ${canonicalTag}\n</head>`);
@@ -189,6 +195,19 @@ async function prerender() {
     fs.writeFileSync(targetFilePath, pageHtml, 'utf-8');
     console.log(`[SSG] Generated: ${path.relative(rootDir, targetFilePath)} (route: ${route})`);
   }
+
+  // A redirect from the CRM must never replace a real page.
+  for (const from of Object.keys(ROUTE_REDIRECTS)) {
+    if (ROUTES_SEO[from]) throw new Error(`content/redirects.json: "${from}" is a page on this site, so it can't be redirected. Remove that redirect.`);
+  }
+
+  // The service pages' current text, for the CRM's Website page to bring in (public text only).
+  fs.mkdirSync(path.join(distDir, '_content'), { recursive: true });
+  fs.writeFileSync(path.join(distDir, '_content', 'services.json'), JSON.stringify(UROLOGY_SERVICES.map((s) => ({
+    id: s.id, slug: s.slug, title: s.title, tagline: s.tagline, description: s.description, overview: s.overview, symptoms: s.symptoms,
+    procedures: s.procedures, benefits: s.benefits, preparation: s.preparation, faqs: s.faqs, risks: s.risks, references: s.references,
+    seoTitle: s.seoTitle, seoDescription: s.seoDescription,
+  })), null, 2) + '\n');
 
   // Portable fallback for static hosts without Netlify redirect support.
   // Retired URLs redirect instead of serving duplicate or removed pages.

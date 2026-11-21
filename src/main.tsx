@@ -3,6 +3,9 @@ import { hydrateRoot, createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import './index.css';
+import { startClickCounting } from './lib/track';
+
+startClickCounting();
 
 const rootElement = document.getElementById('root')!;
 

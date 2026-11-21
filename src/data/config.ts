@@ -1,6 +1,7 @@
 import { PRIORITY_UROLOGY } from './priorityUrology';
 import { SERVICE_IMAGES, type CareImage } from './serviceImages';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
+import { DOCTOR_CONTENT, FAQ_CONTENT, SERVICE_OVERRIDES, SITE_CONTENT } from './content';
 
 /**
  * Centralized Business, Doctor, and Hospital Configuration
@@ -8,7 +9,8 @@ import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE
  * Any client updates can be made directly in this single file.
  */
 
-export const HOSPITAL_PHONE = '9234606330';
+// Phone, WhatsApp, email, timings, emergency note, description and disclaimer live in content/site.json.
+export const HOSPITAL_PHONE = SITE_CONTENT.phone;
 export const HOSPITAL_PHONE_HREF = 'tel:+91' + HOSPITAL_PHONE;
 export const DOCTOR_EXPERIENCE = '10+ years of experience';
 
@@ -222,18 +224,18 @@ export const HOSPITAL_PROFILE: HospitalProfile = {
   address: HOSPITAL_ADDRESS,
   phone: HOSPITAL_PHONE,
   officialAppointmentPhone: HOSPITAL_PHONE,
-  whatsappNumber: '[PLACEHOLDER: INSERT WHATSAPP NUMBER]',
-  email: '[PLACEHOLDER: INSERT OFFICIAL EMAIL]',
-  website: '[PLACEHOLDER: INSERT OFFICIAL HOSPITAL WEBSITE]',
+  whatsappNumber: SITE_CONTENT.whatsappNumber,
+  email: SITE_CONTENT.email,
+  website: SITE_CONTENT.website,
   googleBusinessProfileUrl: HOSPITAL_GOOGLE_PROFILE.url,
   googleMapsUrl: DR_NOORI_GOOGLE_PROFILE.directionsUrl,
-  consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
-  emergencyInfo: '[PLACEHOLDER: INSERT EMERGENCY INFORMATION IF APPLICABLE]',
+  consultationTimings: SITE_CONTENT.consultationTimings,
+  emergencyInfo: SITE_CONTENT.emergencyInfo,
   hospitalExteriorPlaceholder: '[PLACEHOLDER: INSERT HOSPITAL EXTERIOR]',
   hospitalInteriorPlaceholder: '[PLACEHOLDER: INSERT HOSPITAL INTERIOR]',
   hospitalLogoPlaceholder: '[PLACEHOLDER: INSERT LOGO]',
   approvedHospitalImagesPlaceholder: '[PLACEHOLDER: INSERT APPROVED HOSPITAL IMAGES]',
-  description: 'Glisan Akbari Super Speciality Hospital provides advanced urological, nephrological, and surgical medical care located on Dharamshala Road, Line Bazar, Purnia.',
+  description: SITE_CONTENT.description,
   facilities: [
     'Advanced Endourology & Laser Surgery Suite',
     'Laparoscopic & Keyhole Surgery Unit',
@@ -277,104 +279,14 @@ export interface DoctorListItem {
   practicesAtAddress?: string;
   initials?: string;
   avatarGradient?: string;
+  biography?: string;
 }
 
-export const DOCTORS: DoctorListItem[] = [
-  {
-    id: 'doc-1',
-    slug: 'dr-md-taquedis-noori',
-    name: DOCTOR_NAME,
-    label: `Google rating · ${DR_NOORI_GOOGLE_PROFILE.rating} ★`,
-    specialty: 'Urology',
-    department: 'Urology',
-    qualifications: 'MBBS, MS(Gen. Surgery), MCh Urology',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: DOCTOR_EXPERIENCE,
-    profileImagePlaceholder: 'Dr. Md Taquedis Noori, MBBS, MS, MCh',
-    profileImage: DOCTOR_PROFILE.profileImage,
-    consultationTimings: 'Mon - Sat: Prior Appointment via DoctorDekho',
-    languages: 'English, Bengali, Urdu, Hindi',
-    isClickable: true,
-    bookingUrl: DR_NOORI_BOOKING_URL,
-    rating: DR_NOORI_GOOGLE_PROFILE.rating,
-    reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount,
-    isVerified: true,
-    focusAreas: [
-      'Andrologist',
-      'Consultant Urologist',
-      'Laproscopic and kidney Transplant Surgeon',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'MT',
-    avatarGradient: 'from-amber-500 to-orange-500',
-  },
-  {
-    id: 'doc-2',
-    name: 'Dr Aziz Ahmed',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'Anesthesiology',
-    department: 'Anesthesiology',
-    qualifications: 'MBBS, MD',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Aziz Ahmed, MBBS, MD',
-    consultationTimings: 'Mon - Sat: On Call & Pre-Operative Assessment',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_AZIZ_AHMED_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Intensive Critical Care',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AA',
-    avatarGradient: 'from-sky-500 to-blue-500',
-  },
-  {
-    id: 'doc-3',
-    name: 'Dr Asif Iqbal',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'Neurology',
-    department: 'Neurology',
-    qualifications: 'MBBS, MS(Gen. Surgeon), MCh',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Asif Iqbal, MBBS, MS, MCh (Neurology)',
-    consultationTimings: 'Mon - Sat: On Call & Prior Appointment via DoctorDekho',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_ASIF_IQBAL_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Consultant Neurosurgeon',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AI',
-    avatarGradient: 'from-purple-500 to-indigo-600',
-  },
-  {
-    id: 'doc-4',
-    name: 'Dr Anwar Kabir',
-    label: 'Verified Doctor · 10 Yrs Exp',
-    specialty: 'ENT',
-    department: 'ENT',
-    qualifications: 'MBBS, MS ENT',
-    medicalRegistration: 'Verified Profile',
-    yearsOfExperience: '10 years experience',
-    profileImagePlaceholder: 'Dr Anwar Kabir, MBBS, MS ENT',
-    consultationTimings: 'Mon - Sat: On Call & Prior Appointment via DoctorDekho',
-    languages: 'English, Hindi, Urdu',
-    isClickable: false,
-    bookingUrl: DR_ANWAR_KABIR_BOOKING_URL,
-    isVerified: true,
-    focusAreas: [
-      'Ear, Nose & Throat (ENT)',
-    ],
-    practicesAtAddress: HOSPITAL_ADDRESS.fullFormatted,
-    initials: 'AK',
-    avatarGradient: 'from-teal-500 to-emerald-500',
-  },
-];
+// The doctors live in content/doctors.json (edited from the CRM's Website page, or by hand).
+// Dr Noori's rating always follows his Google profile snapshot above.
+export const DOCTORS: DoctorListItem[] = DOCTOR_CONTENT.map((d) => d.slug === 'dr-md-taquedis-noori'
+  ? { ...d, label: `Google rating · ${DR_NOORI_GOOGLE_PROFILE.rating} ★`, rating: DR_NOORI_GOOGLE_PROFILE.rating, reviewCount: DR_NOORI_GOOGLE_PROFILE.reviewCount }
+  : d);
 
 export const TRUST_STRIP_DATA: TrustStripData = {
   googleRating: String(DR_NOORI_GOOGLE_PROFILE.rating),
@@ -480,7 +392,8 @@ export const PATIENT_CONDITIONS: PatientConditionItem[] = [
   },
 ];
 
-export const UROLOGY_SERVICES: UrologyServiceItem[] = [
+/** The service pages as written in code; text changed from the CRM (content/services.json) is laid over them below. */
+export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
   PRIORITY_UROLOGY['srv-1'],
   PRIORITY_UROLOGY['srv-2'],
   PRIORITY_UROLOGY['srv-3'],
@@ -991,6 +904,8 @@ export const UROLOGY_SERVICES: UrologyServiceItem[] = [
   }
 ];
 
+export const UROLOGY_SERVICES: UrologyServiceItem[] = BASE_UROLOGY_SERVICES.map((service) => ({ ...service, ...SERVICE_OVERRIDES[service.id] }));
+
 export const WHY_CHOOSE_REASONS: WhyChooseReason[] = [
   {
     id: 'rc-1',
@@ -1055,63 +970,15 @@ export const TESTIMONIALS: TestimonialItem[] = [
 
 export const GOOGLE_REVIEWS_URL_PLACEHOLDER = '[PLACEHOLDER: GOOGLE REVIEWS URL]';
 
-export const FAQS: FAQItem[] = [
-  {
-    id: 'faq-1',
-    category: 'appointment',
-    question: `How can I book an appointment with ${DOCTOR_NAME}?`,
-    answer: 'You can request an appointment through the online form on this website, call the hospital desk at 9234606330, or message via WhatsApp [PLACEHOLDER: INSERT WHATSAPP NUMBER]. Our team will connect with you to confirm your consultation slot.',
-  },
-  {
-    id: 'faq-2',
-    category: 'hospital',
-    question: 'Where is Dr. Noori available for consultation?',
-    answer: `${DOCTOR_NAME} consults at ${HOSPITAL_NAME}, situated on Dharamshala Road, ${HOSPITAL_SHORT_ADDRESS}, Bihar 854301.`,
-  },
-  {
-    id: 'faq-3',
-    category: 'appointment',
-    question: 'What are the consultation timings?',
-    answer: '[PLACEHOLDER: INSERT VERIFIED CONSULTATION DAYS AND TIMES]. Please call 9234606330 to confirm today’s available OPD schedule.',
-  },
-  {
-    id: 'faq-4',
-    category: 'consultation',
-    question: 'What should I bring to my consultation?',
-    answer: 'Please bring your valid government identification, a notebook for doctor instructions, a list of current medications, and any past medical records or prescriptions.',
-  },
-  {
-    id: 'faq-5',
-    category: 'consultation',
-    question: 'Do I need to carry previous medical reports and ultrasound scans?',
-    answer: 'Yes. Carrying prior lab tests, blood work, urine tests, ultrasound, CT scans, and discharge summaries helps the doctor assess your case thoroughly without repeating necessary tests.',
-  },
-  {
-    id: 'faq-6',
-    category: 'hospital',
-    question: `How can I reach ${HOSPITAL_NAME} in ${HOSPITAL_CITY}?`,
-    answer: `The hospital is centrally located in ${HOSPITAL_SHORT_ADDRESS}, along Dharamshala Road. It is easily accessible by auto-rickshaw, taxi, or private vehicle from ${HOSPITAL_CITY} Junction and surrounding transit hubs.`,
-  },
-  {
-    id: 'faq-7',
-    category: 'medical',
-    question: 'What conditions does a urologist treat?',
-    answer: 'A urologist specializes in the medical and surgical management of conditions affecting the male and female urinary tract (kidneys, ureters, bladder, urethra) and the male reproductive system. [PLACEHOLDER: INSERT VERIFIED ANSWER for doctor-specific sub-specialties].',
-  },
-  {
-    id: 'faq-8',
-    category: 'appointment',
-    question: 'Does submitting the online appointment form guarantee my exact slot?',
-    answer: 'Submitting the form sends a priority booking request. Our hospital reception team will contact you promptly by phone to confirm the exact consultation time and ensure the doctor is available during your requested window.',
-  },
-];
+// The questions and answers live in content/faqs.json (edited from the CRM's Website page, or by hand).
+export const FAQS: FAQItem[] = FAQ_CONTENT;
 
 export const FINAL_CTA_COPY = {
   heading: 'Need a Urology Consultation?',
   supportingText: '[PLACEHOLDER: INSERT APPROVED CTA SUPPORTING COPY]',
 };
 
-export const MEDICAL_DISCLAIMER = '[PLACEHOLDER: INSERT CLIENT-APPROVED MEDICAL DISCLAIMER]';
+export const MEDICAL_DISCLAIMER = SITE_CONTENT.medicalDisclaimer;
 
 export const BRAND_COLORS = {
   primary: '[PLACEHOLDER: INSERT BRAND PRIMARY COLOR]',

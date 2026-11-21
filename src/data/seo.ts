@@ -5,6 +5,7 @@ import { SERVICE_IMAGES } from './serviceImages';
 import { HOMEPAGE_SEO, HOMEPAGE_URL } from './homepageSeo';
 import { CARE_DEPARTMENTS, careDepartmentPath } from './careDepartments';
 import { PUBLISHED_BLOG_POSTS, blogPath } from './blogs';
+import { LOCATION_CONTENT, UPCOMING_CAMPS } from './content';
 import { NEUROLOGY_PATH, NEUROLOGY_SEO, NEUROLOGY_TOPICS, neurologyTopicImage, neurologyTopicPath } from './neurology';
 
 export { SITE_URL, ALLOW_INDEXING };
@@ -189,6 +190,27 @@ PUBLISHED_BLOG_POSTS.forEach((post) => {
     canonical: getFullUrl(path), url: getFullUrl(path) };
 });
 
+if (UPCOMING_CAMPS.length > 0) {
+  ROUTES_SEO['/health-camps'] = { path: '/health-camps', title: `Free Health Camps near ${HOSPITAL_CITY} | Glisan Akbari`,
+    description: `Upcoming health camps by ${HOSPITAL_NAME}: dates, places, doctors and what is checked. Walk in or call to book.`,
+    canonical: getFullUrl('/health-camps'), url: getFullUrl('/health-camps') };
+}
+
+if (LOCATION_CONTENT.length > 0) {
+  ROUTES_SEO['/areas'] = { path: '/areas', title: `Areas We Serve around ${HOSPITAL_CITY} | Glisan Akbari`,
+    description: `Towns and villages whose families come to ${HOSPITAL_NAME}, with how to reach the hospital from each.`, canonical: getFullUrl('/areas'), url: getFullUrl('/areas') };
+  for (const l of LOCATION_CONTENT) {
+    const path = `/areas/${l.slug}`;
+    ROUTES_SEO[path] = { path, title: `Hospital near ${l.town}${l.district ? `, ${l.district}` : ''} | Glisan Akbari`,
+      description: `${HOSPITAL_NAME} for patients from ${l.town}: ${l.distance ? l.distance + '. ' : ''}How to reach us and the care families from here come for.`.slice(0, 160),
+      canonical: getFullUrl(path), url: getFullUrl(path) };
+  }
+}
+
+// Shell for the CRM's preview links: never indexed, never in the sitemap.
+ROUTES_SEO['/preview'] = { path: '/preview', title: 'Preview | Glisan Akbari', description: 'A preview of a page that is not published yet.',
+  canonical: '', url: '', noindex: true };
+
 export const SITEMAP_ROUTES = [
   '/',
   '/doctors',
@@ -202,6 +224,8 @@ export const SITEMAP_ROUTES = [
   '/explore-care',
   '/blogs',
   ...PUBLISHED_BLOG_POSTS.map((post) => blogPath(post.slug)),
+  ...(UPCOMING_CAMPS.length > 0 ? ['/health-camps'] : []),
+  ...(LOCATION_CONTENT.length > 0 ? ['/areas', ...LOCATION_CONTENT.map((l) => `/areas/${l.slug}`)] : []),
   '/faqs',
   '/contact',
   '/privacy-policy',

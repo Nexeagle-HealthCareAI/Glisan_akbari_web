@@ -5,6 +5,7 @@ import { HOSPITAL_PROFILE, DOCTOR_PROFILE, APPOINTMENT_AFTER_SUBMISSION_NOTE, DO
 import { DOCTOR_NAME, HOSPITAL_SHORT_ADDRESS } from '../data/identity';
 import { PlaceholderSlot } from './PlaceholderSlot';
 import { submitAppointmentToSupabase, generateReferenceId } from '../lib/supabase';
+import { countClick, sendLead } from '../lib/track';
 
 interface AppointmentFormProps {
   onSuccess?: (bookingDetails: BookingRecord) => void;
@@ -161,6 +162,9 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
       }
       return;
     }
+    // When switched on for this site: count the enquiry for its page, and put it in the CRM's Leads inbox with the page.
+    countClick('enquiry');
+    sendLead({ name: formData.fullName.trim(), phone: cleanPhone, department: formData.doctor || undefined, message: formData.reason || undefined });
     try { localStorage.setItem(SUBMISSION_STORAGE_KEY, Date.now().toString()); } catch {}
     const record: BookingRecord = {
       referenceId: refId, fullName: formData.fullName.trim(), phone: cleanPhone, age: formData.age.trim(),

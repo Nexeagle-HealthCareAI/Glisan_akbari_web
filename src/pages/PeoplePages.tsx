@@ -50,8 +50,10 @@ export function DoctorsPage() {
             <article className={"site-doctor-card site-doctor-" + i} key={d.id}>
               <div className="site-doctor-card-top">
                 <span className="site-small-label">{d.department}</span>
-                {d.profileImage ? (
+                {d.profileImage && d.profileImage === DOCTOR_PROFILE.profileImage ? (
                   <span className="site-avatar site-doctor-photo"><ResponsiveCareImage image={{...DOCTOR_PORTRAIT_IMAGE, alt:`${d.name}, ${d.specialty}`}} sizes="80px" /></span>
+                ) : d.profileImage ? (
+                  <span className="site-avatar site-doctor-photo"><img className="site-doctor-photo-plain" src={d.profileImage} alt={`${d.name}, ${d.specialty}`} width="80" height="80" loading="lazy" /></span>
                 ) : (
                   <span className="site-avatar" aria-hidden="true">{d.initials}</span>
                 )}
@@ -67,6 +69,7 @@ export function DoctorsPage() {
                   <span key={f}>{f}</span>
                 ))}
               </div>
+              {d.biography && <p className="site-doctor-bio">{d.biography}</p>}
               <p className="site-doctor-language">
                 <Globe size={15} />
                 {d.languages}

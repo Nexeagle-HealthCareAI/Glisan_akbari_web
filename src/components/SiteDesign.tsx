@@ -30,6 +30,7 @@ import { usePageMotion } from './usePageMotion';
 import { ResponsiveCareImage } from './ResponsiveCareImage';
 import type { CareImage } from '../data/serviceImages';
 import './SiteMotion.css';
+import { LOCATION_CONTENT, UPCOMING_CAMPS } from '../data/content';
 import './PageHeroBackground.css';
 
 const MotionContext = createContext({ paused: false });
@@ -214,6 +215,8 @@ export function Footer() {
                 {label}
               </Link>
             ))}
+            {UPCOMING_CAMPS.length > 0 && <Link to="/health-camps">Health camps</Link>}
+            {LOCATION_CONTENT.length > 0 && <Link to="/areas">Areas we serve</Link>}
             <Link to="/doctors">Book appointment</Link>
           </div>
           <div>

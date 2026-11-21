@@ -1,27 +1,16 @@
 import { CARE_DEPARTMENTS } from './careDepartments';
+import { BLOG_CONTENT, type BlogContent } from './content';
 
-export type BlogPost = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  departmentId: string;
-  status: 'draft' | 'published';
-  publishedAt: string; // YYYY-MM-DD; shown as the actual publication date.
-  author: string;
-  reviewedBy?: string;
-  image?: { src: string; alt: string };
-  sections: { heading: string; paragraphs: string[]; points?: string[] }[];
-  references?: { label: string; url: string }[];
-};
+export type BlogPost = BlogContent;
 
 export const BLOG_CATEGORIES = CARE_DEPARTMENTS.map(({ id, label }) => ({
   id,
   label: id === 'ent' ? 'ENT' : label,
 }));
 
-// Add hospital-approved articles here. Drafts have no public page or sitemap entry.
-// See BLOG_PUBLISHING.md for the complete publishing example.
-export const BLOG_POSTS: BlogPost[] = [];
+// Articles live in content/blog.json (written by the CRM's Website page, or by hand).
+// Drafts have no public page or sitemap entry. See BLOG_PUBLISHING.md.
+export const BLOG_POSTS: BlogPost[] = BLOG_CONTENT;
 
 export const PUBLISHED_BLOG_POSTS = BLOG_POSTS
   .filter((post) => post.status === 'published')
