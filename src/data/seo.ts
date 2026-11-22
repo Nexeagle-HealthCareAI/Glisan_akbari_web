@@ -32,7 +32,7 @@ export interface RouteSeo {
  */
 export function getFullUrl(path: string): string {
   const pathname = path.split(/[?#]/, 1)[0] || '/';
-  const cleanPath = pathname === '/' ? '' : pathname.replace(/\/+$/, '');
+  const cleanPath = pathname.replace(/\/+$/, '') || '/';
   return `${SITE_URL}${cleanPath}`;
 }
 
@@ -68,9 +68,9 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/explore-care': {
     path: '/explore-care',
-    title: `Explore Care | ${HOSPITAL_NAME}`,
+    title: `Hospital Facilities & Care in ${HOSPITAL_CITY} | Glisan Akbari`,
     description:
-      `Contact ${HOSPITAL_NAME} for information about hospital facilities and help planning your visit.`,
+      `Explore hospital facilities in ${HOSPITAL_CITY}, including emergency care, ICU, HDU and private rooms. Get help planning your visit or a hospital stay.`,
     canonical: getFullUrl('/explore-care'),
     url: getFullUrl('/explore-care'),
   },
@@ -84,6 +84,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/blogs': {
     path: '/blogs',
+    noindex: PUBLISHED_BLOG_POSTS.length === 0,
     title: 'Health Blog | Glisan Akbari Hospital, Purnea',
     description: 'Explore the Glisan Akbari Hospital health blog for articles about urology, ENT, general medicine, anaesthesia and neurology, explained in simple words.',
     canonical: getFullUrl('/blogs'),
@@ -91,7 +92,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/contact': {
     path: '/contact',
-    title: `Visit Us | ${HOSPITAL_NAME}`,
+    title: `Contact & Directions | Glisan Akbari Hospital, ${HOSPITAL_CITY}`,
     description:
       `Reach ${HOSPITAL_NAME} in ${HOSPITAL_SHORT_ADDRESS}. OPD contact numbers, address, and consultation directions.`,
     canonical: getFullUrl('/contact'),
@@ -99,6 +100,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/privacy-policy': {
     path: '/privacy-policy',
+    noindex: true,
     title: `Privacy Policy | ${DOCTOR_NAME} Urology Care`,
     description:
       'How we handle information from this website and from WhatsApp, Facebook and Instagram messages and enquiry forms, and how to ask us to delete it.',
@@ -107,6 +109,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/terms': {
     path: '/terms',
+    noindex: true,
     title: `Terms & Conditions | ${DOCTOR_NAME} Urology Care`,
     description:
       `Terms and conditions of use and medical website disclaimer for ${DOCTOR_NAME}.`,
@@ -124,6 +127,7 @@ export const ROUTES_SEO: Record<string, RouteSeo> = {
   },
   '/sitemap': {
     path: '/sitemap',
+    noindex: true,
     title: `Sitemap | ${HOSPITAL_NAME}`,
     description: 'Find hospital departments, urology services, doctors, emergency care information and practical details for your visit in one clear sitemap.',
     canonical: getFullUrl('/sitemap'),
@@ -136,8 +140,8 @@ CARE_DEPARTMENTS.filter((department) => department.id !== 'urology').forEach((de
   const path = careDepartmentPath(department.id);
   ROUTES_SEO[path] = {
     path,
-    title: `${department.label} Care Topics | ${HOSPITAL_CITY}`,
-    description: `Explore ${department.label.toLowerCase()} care topics and questions to discuss with your doctor. Contact ${HOSPITAL_NAME} to confirm availability.`,
+    title: `${department.label} Care in ${HOSPITAL_CITY} | Glisan Akbari`,
+    description: `Explore ${department.label} care in ${HOSPITAL_CITY}. See common concerns, what to discuss at a consultation and how to check appointment availability.`,
     canonical: getFullUrl(path),
     url: getFullUrl(path),
   };
@@ -176,14 +180,11 @@ UROLOGY_SERVICES.forEach((srv) => {
 // Neutral page metadata; the new topics' keyword research is intentionally deferred.
 ADDITIONAL_CARE_TOPICS.forEach(topic => {
   const path = additionalTopicPath(topic);
-  ROUTES_SEO[path] = { path, title: `${topic.title} | Glisan Akbari`, description: topic.summary,
+  ROUTES_SEO[path] = { path, title: `${topic.title} | Glisan Akbari`, description: topic.seoDescription ?? topic.summary,
     canonical: getFullUrl(path), url: getFullUrl(path),
     imagePath: SERVICE_IMAGES[topic.id].social, imageAlt: SERVICE_IMAGES[topic.id].alt };
 });
 
-/**
- * Public pages for sitemap.xml (including all dedicated procedure pages, excluding /404)
- */
 PUBLISHED_BLOG_POSTS.forEach((post) => {
   const path = blogPath(post.slug);
   ROUTES_SEO[path] = { path, title: `${post.title} | Glisan Akbari`, description: post.excerpt,
@@ -211,43 +212,14 @@ if (LOCATION_CONTENT.length > 0) {
 ROUTES_SEO['/preview'] = { path: '/preview', title: 'Preview | Glisan Akbari', description: 'A preview of a page that is not published yet.',
   canonical: '', url: '', noindex: true };
 
-export const SITEMAP_ROUTES = [
-  '/',
-  '/doctors',
-  '/doctors/dr-md-taquedis-noori',
-  '/services/urologist-in-purnia',
-  ...CARE_DEPARTMENTS.filter((department) => department.id !== 'urology')
-    .map((department) => careDepartmentPath(department.id)),
-  ...UROLOGY_SERVICES.map((srv) => `/services/${srv.slug}`),
-  ...NEUROLOGY_TOPICS.map(neurologyTopicPath),
-  ...ADDITIONAL_CARE_TOPICS.map(additionalTopicPath),
-  '/explore-care',
-  '/blogs',
-  ...PUBLISHED_BLOG_POSTS.map((post) => blogPath(post.slug)),
-  ...(UPCOMING_CAMPS.length > 0 ? ['/health-camps'] : []),
-  ...(LOCATION_CONTENT.length > 0 ? ['/areas', ...LOCATION_CONTENT.map((l) => `/areas/${l.slug}`)] : []),
-  '/faqs',
-  '/contact',
-  '/privacy-policy',
-  '/terms',
-  '/sitemap',
-];
-
 export const PRERENDER_ROUTES = Object.keys(ROUTES_SEO);
+export const SITEMAP_ROUTES = PRERENDER_ROUTES.filter((route) => !ROUTES_SEO[route].noindex);
 
 export function getSeoForPath(path: string): RouteSeo {
   // Normalize path by stripping trailing slash (except root '/')
   const normalized = path === '/' ? '/' : path.replace(/\/+$/, '');
-  const url = getFullUrl(normalized);
   const base = ROUTES_SEO[normalized];
-  if (normalized === '/') return { ...base };
-  if (base) {
-    return {
-      ...base,
-      canonical: url,
-      url,
-    };
-  }
+  if (base) return { ...base };
 
   return {
     ...ROUTES_SEO['/404'],

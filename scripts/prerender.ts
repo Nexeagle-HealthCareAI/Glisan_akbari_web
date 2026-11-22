@@ -87,23 +87,18 @@ async function prerender() {
     }
 
     // 5. Canonical URL (a page without one, like the CRM preview shell, gets none)
-    if (!seo.canonical) {
-      pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>\n?/i, '');
-    }
     const canonicalTag = `<link rel="canonical" href="${seo.canonical}" />`;
-    if (!seo.canonical) {
-      // no canonical
-    } else if (pageHtml.includes('rel="canonical"')) {
-      pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, canonicalTag);
-    } else {
+    if (pageHtml.includes('rel="canonical"')) {
+      pageHtml = pageHtml.replace(/<link\s+rel="canonical"\s+href="[^"]*"\s*\/?>/i, seo.canonical ? canonicalTag : '');
+    } else if (seo.canonical) {
       pageHtml = pageHtml.replace('</head>', `  ${canonicalTag}\n</head>`);
     }
 
     // 6. OpenGraph tags
     const ogUrlTag = `<meta property="og:url" content="${seo.url}" />`;
     if (pageHtml.includes('property="og:url"')) {
-      pageHtml = pageHtml.replace(/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, ogUrlTag);
-    } else {
+      pageHtml = pageHtml.replace(/<meta\s+property="og:url"\s+content="[^"]*"\s*\/?>/i, seo.url ? ogUrlTag : '');
+    } else if (seo.url) {
       pageHtml = pageHtml.replace('</head>', `  ${ogUrlTag}\n</head>`);
     }
 

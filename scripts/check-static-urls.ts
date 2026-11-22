@@ -5,16 +5,35 @@ import path from 'node:path';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { CARE_DEPARTMENTS, careDepartmentPath } from '../src/data/careDepartments';
+import { PUBLISHED_BLOG_POSTS } from '../src/data/blogs';
 import { getRouteRedirect, ROUTE_REDIRECTS } from '../src/data/routes';
-import { ROUTES_SEO, SITEMAP_ROUTES, getFullUrl } from '../src/data/seo';
+import { ALLOW_INDEXING, PRERENDER_ROUTES, ROUTES_SEO, SITEMAP_ROUTES, SITE_URL, getFullUrl, getSeoForPath } from '../src/data/seo';
 import viteConfig from '../vite.config';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8');
-const htmlFor = (route: string) => read(`dist${route === '/' ? '' : route}/index.html`);
+const htmlFor = (route: string) => read(route === '/404' ? 'dist/404.html' : `dist${route === '/' ? '' : route}/index.html`);
 const sitemap = read('dist/sitemap.xml');
 const links = new Set<string>();
 const pageLinks = new Map<string, Set<string>>();
+
+assert.equal(read('dist/robots.txt'), ALLOW_INDEXING
+  ? `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+  : 'User-agent: *\nDisallow: /\n');
+for (const route of ['/privacy-policy', '/terms', '/sitemap', '/preview', '/404']) {
+  assert.equal(getSeoForPath(route).noindex, true, `${route}: utility indexing policy`);
+}
+assert.equal(getSeoForPath('/blogs').noindex, PUBLISHED_BLOG_POSTS.length === 0, 'Index the blog only when it has published articles');
+assert.equal(getSeoForPath('/preview').canonical, '');
+assert.equal(getSeoForPath('/preview').url, '');
+assert.doesNotMatch(htmlFor('/preview'), /rel="canonical"|property="og:url"/, 'Preview HTML must have no canonical or social URL');
+for (const route of PRERENDER_ROUTES) {
+  const seo = getSeoForPath(route);
+  const directives = [...htmlFor(route).matchAll(/<meta name="robots" content="([^"]+)"/g)].map(([, value]) => value);
+  const expected = !ALLOW_INDEXING ? ['noindex, nofollow'] : seo.noindex ? ['noindex, follow'] : [];
+  assert.deepEqual(directives, expected, `${route}: robots meta`);
+  assert.equal(SITEMAP_ROUTES.includes(route), !seo.noindex, `${route}: XML sitemap inclusion`);
+}
 
 assert.equal(new Set(SITEMAP_ROUTES).size, SITEMAP_ROUTES.length);
 assert.equal((sitemap.match(/<loc>/g) || []).length, SITEMAP_ROUTES.length);
@@ -125,4 +144,4 @@ assert.equal(getRouteRedirect('/doctors/index.html', '?utm_source=instagram'), '
 assert.equal(getRouteRedirect('/book-appointment', '?utm_source=instagram'), '/doctors?utm_source=instagram');
 assert.equal(getFullUrl('/services/ent/?utm_source=instagram#care-topics'), ROUTES_SEO['/services/ent'].canonical);
 
-console.log(`Passed: ${SITEMAP_ROUTES.length} static pages, internal links, department HTML, canonicals, sitemap, ${redirectsChecked} redirect cases, preview routing and portable redirect fallbacks.`);
+console.log(`Passed: ${SITEMAP_ROUTES.length} sitemap pages, ${PRERENDER_ROUTES.length} indexing rules, robots.txt, links, canonicals and ${redirectsChecked} redirect cases.`);

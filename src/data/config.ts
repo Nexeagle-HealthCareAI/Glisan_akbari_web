@@ -457,7 +457,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'A temporary DJ stent is left inside the ureter for 4 to 6 weeks to ensure optimal healing of the reconstructed joint, after which it is painlessly removed during a quick day-care cystoscopy.'
       }
     ],
-    seoTitle: 'Laparoscopic Urology Surgery in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Laparoscopic Urology Surgery in Purnia | Dr. Noori',
     seoDescription: 'Minimally invasive laparoscopic pyeloplasty and nephrectomy by Dr. Md Taquedis Noori at Glisan Akbari Super Speciality Hospital, Line Bazar, Purnia.'
   },
   {
@@ -520,7 +520,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'Intravesical Botox typically provides 6 to 9 months of bladder calmness and symptom relief, after which the procedure can be safely repeated.'
       }
     ],
-    seoTitle: 'Urinary Incontinence & Overactive Bladder Treatment in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Urinary Incontinence & Overactive Bladder in Purnia',
     seoDescription: 'Specialized female and functional urology care for urine leakage and overactive bladder in Purnia. TOT sling and Botox therapy by Dr. Md Taquedis Noori.'
   },
   PRIORITY_UROLOGY['srv-7'],
@@ -584,8 +584,8 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'The new kidney needs a healthy, low-pressure bladder reservoir. Detecting and treating bladder outflow obstruction or small capacity before transplant prevents graft damage.'
       }
     ],
-    seoTitle: 'Kidney Transplant Urological Care in Purnia | Dr. Md Taquedis Noori',
-    seoDescription: 'Expert pre-transplant urological workup and post-transplant graft urological care in Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Super Speciality Hospital.'
+    seoTitle: 'Kidney Transplant Urology Care in Purnia | Dr. Noori',
+    seoDescription: 'Discuss urological assessment before a kidney transplant and follow-up afterwards with Dr. Md Taquedis Noori at Glisan Akbari Hospital in Purnia.'
   },
   {
     id: 'srv-9',
@@ -647,7 +647,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'Place your fingertips gently over the fistula site daily; you should feel a continuous buzzing vibration called a "thrill". If the thrill feels weak or disappears, contact the clinic immediately.'
       }
     ],
-    seoTitle: 'AV Fistula Surgery in Purnia (Dialysis Access) | Dr. Md Taquedis Noori',
+    seoTitle: 'AV Fistula Surgery in Purnia | Dr. Noori',
     seoDescription: 'Reliable AV fistula creation for hemodialysis by Dr. Md Taquedis Noori at Glisan Akbari Hospital, Line Bazar, Purnia. Long-lasting vascular access solutions.'
   },
   {
@@ -710,7 +710,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'Nerve-sparing techniques preserve the fine neurovascular bundles alongside the prostate, significantly speeding the recovery of urinary continence and improving erectile recovery.'
       }
     ],
-    seoTitle: 'Prostate Cancer Screening & Surgery in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Prostate Cancer Screening & Surgery in Purnia | Dr. Noori',
     seoDescription: 'Uro-oncology care for prostate cancer screening, TRUS biopsy, and radical prostatectomy in Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Hospital.'
   },
   {
@@ -773,7 +773,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'Partial nephrectomy is the gold standard for tumors under 4 to 7 cm located favorably on the kidney periphery, giving identical cancer cure rates while protecting kidney longevity.'
       }
     ],
-    seoTitle: 'Kidney Cancer Surgery (Nephrectomy) in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Kidney Cancer Surgery in Purnia | Dr. Noori',
     seoDescription: 'Partial and radical nephrectomy for kidney tumors in Line Bazar, Purnia by senior urologist Dr. Md Taquedis Noori at Glisan Akbari Super Speciality Hospital.'
   },
   {
@@ -836,7 +836,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'Removal of one testicle does not typically affect erectile function or testosterone levels, as the remaining testicle compensates. Sperm banking can also be arranged prior to surgery if desired.'
       }
     ],
-    seoTitle: 'Bladder & Testicular Cancer Care in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Bladder & Testicular Cancer Care in Purnia | Dr. Noori',
     seoDescription: 'TURBT, intravesical BCG, and testicular cancer surgery in Line Bazar, Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Super Speciality Hospital.'
   },
   {
@@ -899,7 +899,7 @@ export const BASE_UROLOGY_SERVICES: UrologyServiceItem[] = [
         answer: 'No. Many cases of antenatal hydronephrosis resolve naturally as the child grows. Dr. Noori conducts careful serial monitoring with ultrasound and nuclear scans to identify which children truly require surgery.'
       }
     ],
-    seoTitle: 'Pediatric Urology & Hypospadias Repair in Purnia | Dr. Md Taquedis Noori',
+    seoTitle: 'Pediatric Urology & Hypospadias Repair in Purnia | Dr. Noori',
     seoDescription: 'Pediatric pyeloplasty, hypospadias, and undescended testis surgery in Purnia, Bihar by Dr. Md Taquedis Noori at Glisan Akbari Hospital.'
   }
 ];
