@@ -17,7 +17,7 @@ export function BlogsPage() {
       <section className="site-blog-hero mm-wrap" aria-labelledby="blog-title">
         <nav className="site-breadcrumb" aria-label="Breadcrumb"><Link to="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Blogs</span></nav>
         <div className="site-blog-hero-inner">
-          <div><p className="mm-kicker">THE HEALTH JOURNAL</p><h1 id="blog-title">A little knowledge.<br /><em>A clearer next step.</em></h1><p className="site-lead">Explore articles about our departments, services and everyday health, written to help you ask better questions about your care.</p></div>
+          <div><p className="mm-kicker">THE HEALTH JOURNAL</p><h1 id="blog-title">A little knowledge.{' '}<br /><em>A clearer next step.</em></h1><p className="site-lead">Explore articles about our departments, services and everyday health, written to help you ask better questions about your care.</p></div>
           <div className="site-blog-hero-note site-blog-memo-note"><MemoCharacter pose="thinking" /><span>READ. UNDERSTAND. ASK.</span><p>Good questions make<br />a better conversation.</p></div>
         </div>
       </section>

@@ -29,8 +29,8 @@ export function ContactPage() {
     <div className="site-visit-page">
       <PageHero
         label="Visit us"
-        title="Your next step"
-        accent="starts here."
+        title="Visit our hospital"
+        accent="in Line Bazar, Purnia"
         description="Find Glisan Akbari Super Speciality Hospital in Line Bazar, Purnia. Call our team for help with your visit."
         action="visit"
         message="Mulaaqaat hogi. Khayaal rakhiye!"
@@ -135,8 +135,8 @@ export function FaqPage() {
     <>
       <PageHero
         label="FAQs"
-        title="A few questions."
-        accent="A little reassurance."
+        title="Frequently asked"
+        accent="questions"
         description="Find answers about booking, preparing for your consultation and reaching the hospital."
         action="faq"
         message="Chhota sawaal? Bada sawaal? Poochhiye."

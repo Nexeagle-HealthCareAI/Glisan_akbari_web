@@ -9,6 +9,7 @@ export type AdditionalCareTopic = {
   slug: string;
   title: string;
   summary: string;
+  seoDescription?: string;
   concern: string;
   overview: string[];
   assessment: string[];
@@ -160,6 +161,7 @@ export const ADDITIONAL_CARE_TOPICS: AdditionalCareTopic[] = [
     id: 'ent-5', departmentId: 'ent', slug: 'mouth-ulcers-throat-assessment',
     title: 'Mouth Ulcers & Throat Cancer Screening',
     summary: 'Discuss persistent mouth ulcers, white patches, voice changes or swallowing problems, including any tobacco use. A clinician can advise whether further examination is needed.',
+    seoDescription: 'Discuss persistent mouth ulcers, voice changes or trouble swallowing with an ENT doctor. Learn what an examination or screening may involve.',
     concern: 'Has an ulcer, patch or voice change failed to settle?',
     overview: [
       'Mouth ulcers and throat symptoms have many possible causes. A persistent change should be examined rather than assumed to be harmless or diagnosed from a photograph.',
@@ -260,6 +262,7 @@ export const ADDITIONAL_CARE_TOPICS: AdditionalCareTopic[] = [
     id: 'medicine-3', departmentId: 'general-medicine', slug: 'diarrhoea-gastrointestinal-infections',
     title: 'Diarrhoea & Gastrointestinal Infections',
     summary: 'Discuss loose stools, vomiting or stomach discomfort, including how long they have lasted and whether you can drink fluids. Assessment can help identify the cause.',
+    seoDescription: 'Discuss diarrhoea, vomiting or stomach discomfort with a doctor. Learn which symptoms to note and what an assessment may involve.',
     concern: 'Are loose stools or vomiting making it hard to drink?',
     overview: [
       'Stomach infections can cause diarrhoea and vomiting, but medicines and other conditions may cause similar symptoms. The assessment considers both the cause and hydration.',
@@ -356,6 +359,7 @@ export const ADDITIONAL_CARE_TOPICS: AdditionalCareTopic[] = [
     id: 'anaesthesia-1', departmentId: 'anesthesiology', slug: 'pre-anaesthesia-assessment',
     title: 'Pre-Anaesthesia Assessment',
     summary: 'Before a procedure, discuss your health history, medicines, allergies and any past experience with anaesthesia. This helps the care team plan for your individual needs.',
+    seoDescription: 'Prepare for your pre-anaesthesia assessment. Learn which health details, allergies and medicine lists to bring before a procedure.',
     concern: 'Preparing for a procedure and have questions about anaesthesia?',
     overview: [
       'A pre-anaesthesia assessment helps the team understand your health before an operation or procedure. It is a chance to discuss questions and plan the appropriate approach.',
@@ -474,7 +478,7 @@ export const ADDITIONAL_CARE_TOPICS: AdditionalCareTopic[] = [
     followUp: 'Agree on a review date and realistic goals, including how the plan affects daily function as well as pain.',
     references: [
       { label: 'NHS: getting help for pain', url: 'https://www.nhs.uk/live-well/pain/how-to-get-nhs-help-for-your-pain/' },
-      { label: 'NICE: chronic pain assessment and management', url: 'https://www.nice.org.uk/guidance/ng193/chapter/recommendations' },
+      { label: 'NICE chronic pain assessment and management guideline (PDF)', url: 'https://www.nice.org.uk/guidance/ng193/resources/chronic-pain-primary-and-secondary-in-over-16s-assessment-of-all-chronic-pain-and-management-of-chronic-primary-pain-pdf-66142080468421' },
     ],
   },
   {

@@ -357,7 +357,7 @@ export function PageHero({
           <span /> {label.toUpperCase()}
         </p>
         <h1>
-          {title}
+          {`${title} `}
           <br />
           <em>{accent}</em>
         </h1>

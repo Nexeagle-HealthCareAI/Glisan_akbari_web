@@ -89,7 +89,7 @@ export function ExploreCareHero() {
             <Link to="/">Home</Link><span aria-hidden="true">/</span><span aria-current="page">Explore care</span>
           </nav>
           <p className="mm-kicker"><span aria-hidden="true" /> EXPLORE CARE</p>
-          <h1 id="explore-care-title">Here to help<em>you plan your visit.</em></h1>
+          <h1 id="explore-care-title">Explore hospital care{" "}<em>and plan your visit.</em></h1>
           <p className="site-explore-hero-lead">Find a starting point for emergency care, a monitored stay or a planned admission. Our doctors will assess the patient and explain the right next step.</p>
           <div className="site-explore-hero-actions">
             <a className="mm-button" href="#choose-care">Find a starting point <ArrowDown size={17} aria-hidden="true" /></a>
