@@ -1,0 +1,55 @@
+name: CRM staging — website checks
+
+on:
+  pull_request:
+    branches: [crm-staging]
+  push:
+    branches: [crm-staging]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Validate CRM staging
+    runs-on: ubuntu-latest
+    env:
+      VITE_SITE_URL: https://glisanhospitalpurnia.in
+      VITE_ALLOW_INDEXING: "false"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Check CRM changes stay in content and media
+        if: github.event_name == 'pull_request' && startsWith(github.head_ref, 'crm/publish-')
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git diff --name-only --no-renames -z "$BASE_SHA...$HEAD_SHA" | python3 -c '
+          import re, sys
+          allowed = re.compile(r"content/(blog|camps|doctors|faqs|locations|notices|redirects|services|site|testimonials)\.json|public/media/(blogs|library)/[a-z0-9-]+\.(jpe?g|png|webp)")
+          changed = sys.stdin.read().split("\0")
+          unexpected = [path for path in changed if path and not allowed.fullmatch(path)]
+          if unexpected:
+              sys.exit("Unexpected paths in CRM update: " + ", ".join(repr(path) for path in unexpected))
+          '
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run check:urls && npm run check:seo
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: crm-staging-site
+          path: dist/
+          if-no-files-found: error
+          retention-days: 3
