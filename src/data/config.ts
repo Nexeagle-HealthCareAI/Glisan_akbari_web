@@ -1,7 +1,7 @@
 import { PRIORITY_UROLOGY } from './priorityUrology';
 import { SERVICE_IMAGES, type CareImage } from './serviceImages';
 import { HOSPITAL_NAME, DOCTOR_NAME, HOSPITAL_CITY, HOSPITAL_SHORT_ADDRESS, SITE_URL } from './identity';
-import { DOCTOR_CONTENT, FAQ_CONTENT, SERVICE_OVERRIDES, SITE_CONTENT } from './content';
+import { DOCTOR_CONTENT, FAQ_CONTENT, SERVICE_OVERRIDES, SITE_CONTENT, type SiteContent } from './content';
 
 /**
  * Centralized Business, Doctor, and Hospital Configuration
@@ -10,8 +10,10 @@ import { DOCTOR_CONTENT, FAQ_CONTENT, SERVICE_OVERRIDES, SITE_CONTENT } from './
  */
 
 // Phone, WhatsApp, email, timings, emergency note, description and disclaimer live in content/site.json.
-export const HOSPITAL_PHONE = SITE_CONTENT.phone;
-export const HOSPITAL_PHONE_HREF = 'tel:+91' + HOSPITAL_PHONE;
+// `let`, not `const`, only so the CRM's /preview page can show draft hospital details in the real header and footer
+// (see previewSiteDetails at the end of this file). Nothing else changes them.
+export let HOSPITAL_PHONE = SITE_CONTENT.phone;
+export let HOSPITAL_PHONE_HREF = 'tel:+91' + HOSPITAL_PHONE;
 export const DOCTOR_EXPERIENCE = '10+ years of experience';
 
 export const BOOKING_URL = 'https://doctordekho.nexeagle.com/';
@@ -978,7 +980,22 @@ export const FINAL_CTA_COPY = {
   supportingText: '[PLACEHOLDER: INSERT APPROVED CTA SUPPORTING COPY]',
 };
 
-export const MEDICAL_DISCLAIMER = SITE_CONTENT.medicalDisclaimer;
+export let MEDICAL_DISCLAIMER = SITE_CONTENT.medicalDisclaimer;
+
+/**
+ * The /preview page only: puts draft hospital details (from the CRM) in place of the published ones for this browser tab,
+ * so the header, footer, contact page and mobile bar show them. Never called while building the site.
+ */
+export function previewSiteDetails(s: SiteContent) {
+  HOSPITAL_PHONE = s.phone;
+  HOSPITAL_PHONE_HREF = 'tel:+91' + s.phone;
+  MEDICAL_DISCLAIMER = s.medicalDisclaimer;
+  Object.assign(HOSPITAL_PROFILE, {
+    phone: s.phone, officialAppointmentPhone: s.phone, whatsappNumber: s.whatsappNumber, email: s.email, website: s.website,
+    consultationTimings: s.consultationTimings, emergencyInfo: s.emergencyInfo, description: s.description,
+  });
+  if (typeof window !== 'undefined') window.dispatchEvent(new Event('site-preview'));
+}
 
 export const BRAND_COLORS = {
   primary: '[PLACEHOLDER: INSERT BRAND PRIMARY COLOR]',
