@@ -79,6 +79,13 @@ export default function App() {
     }
   }, [navigate]);
 
+  // The CRM's /preview page can show draft hospital details: draw everything again when it does.
+  const [, redraw] = React.useReducer((n: number) => n + 1, 0);
+  React.useEffect(() => {
+    window.addEventListener('site-preview', redraw);
+    return () => window.removeEventListener('site-preview', redraw);
+  }, []);
+
   return (
     <SiteMotionProvider>
       {/* Dynamic SEO Title, Description, and Canonical URL synchronizer */}
